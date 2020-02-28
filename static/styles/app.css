@@ -1,0 +1,28 @@
+.h-text-center {
+  text-align: center !important;
+}
+
+.h-text-right {
+  text-align: right !important;
+}
+
+.h-display-none {
+  display: none !important;
+}
+
+.h-display-inline-block {
+  display: inline-block !important;
+}
+
+.h-display-block {
+  display: block !important;
+}
+
+.h-relative {
+  position: relative !important;
+}
+
+html, body {
+  font-family: "Lato", helvetica;
+}
+/*# sourceMappingURL=app.css.map */
