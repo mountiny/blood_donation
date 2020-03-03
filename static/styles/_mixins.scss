@@ -204,12 +204,3 @@
 
     align-self: $value;
 }
-
-@mixin flexbox {
-    display: flex;
-    flex-direction: column;
-    @include justify-content(center);
-    display: -ms-flexbox;
-    -ms-flex-direction: column;
-    -ms-flex-pack: center;
-}

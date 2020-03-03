@@ -21,3 +21,51 @@
 .h-relative {
     position: relative !important;
 }
+
+.h-width {
+    width: 90%;
+    max-width: $app-width;
+    margin: 0 auto;
+}
+
+.h-primary {
+    color: $primary;
+}
+.h-uppercase {
+    text-transform: uppercase;
+}
+.h-300 {
+    font-weight: 300;
+}
+.h-400 {
+    font-weight: 400;
+}
+.h-700 {
+    font-weight: 700;
+}
+.h-900 {
+    font-weight: 900;
+}
+
+.h-link-effect {
+   
+    &:after {
+        position: absolute;
+        content: "";
+        width: 0px;
+        height: 8px;
+        left: -7px;
+        bottom: 28px;
+        z-index: -1;
+        background-color: $primary;
+        @include prefix(transition, width 0.3s $curve);
+    }
+
+    &:hover {
+        &:after {
+            width: 100%;
+
+        }
+    
+}
+}

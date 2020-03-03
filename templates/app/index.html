@@ -3,6 +3,32 @@
 
 {% block body_block %}
 
-<h1>Donate blood</h1>
+<div class="main-container">
+    <nav class="navbar-top h-width">
+        <div class="logo-wrapper">
+            <a class="logo-link" href="{% url 'app:index' %}">
+                <img class="logo" src="{% static 'images/logo.svg' %}" alt="Blood Donation">
+            </a>
+        </div>
+        <ul class="menu-wrapper">
+            <li class="menu-item">
+                <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+                    log in
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="intro-container h-width">
+
+        <h1 class="main-heading h-900 h-uppercase">Donate <span class="h-primary">blood</span></h1>
+
+        <h2 class="main-subheading h-900">a few minutes of your time <br />
+        can save someone's <span class="h-primary">life</span>.</h2>
+
+
+    </div>
+</div>
+
 
 {% endblock %}

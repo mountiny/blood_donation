@@ -6,4 +6,21 @@ $black: #000000;
 
 $base-font-family: 'Lato', helvetica;
 
+$navbar-height: 80px;
+
+$app-width: 1000px;
+
 $curve: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+h1 {
+    font-size: 5em !important;
+}
+h2 {
+    font-size: 3.4em !important;
+}
+h3 {
+    font-size: 1.6em !important;
+}
+h4 {
+    font-size: 1.4em !important;
+}
