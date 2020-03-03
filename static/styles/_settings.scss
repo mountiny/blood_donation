@@ -2,7 +2,9 @@
 
 $base: #ffffff;
 $primary: #e74c3c;
+$primary-dark: #c23616;
 $black: #000000;
+$red-light: #F7D9D4;
 
 $base-font-family: 'Lato', helvetica;
 
@@ -10,17 +12,24 @@ $navbar-height: 80px;
 
 $app-width: 1000px;
 
+$border-radius: 30px;
+
 $curve: cubic-bezier(0.22, 0.61, 0.36, 1);
 
+$h1: 5em;
+$h2: 3.4em;
+$h3: 1.6em;
+$h4: 1.4em;
+
 h1 {
-    font-size: 5em !important;
+    font-size: $h1 !important;
 }
 h2 {
-    font-size: 3.4em !important;
+    font-size: $h2 !important;
 }
 h3 {
-    font-size: 1.6em !important;
+    font-size: $h3 !important;
 }
 h4 {
-    font-size: 1.4em !important;
+    font-size: $h4 !important;
 }

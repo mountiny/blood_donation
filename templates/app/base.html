@@ -7,18 +7,80 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap&subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'styles/app.css' %}">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'images/favicon/safari-pinned-tab.svg' %}" color="#v">
+    <meta name="msapplication-TileColor" content="#e74c3c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicon end -->
 </head>
 <body>
+    <div class="page-container">
+        <nav class="navbar-top h-width">
+            <div class="logo-wrapper">
+                <a class="logo-link" href="{% url 'app:index' %}">
+                    <img class="logo" src="{% static 'images/logo.svg' %}" alt="Blood Donation">
+                </a>
+            </div>
+            <ul class="menu-wrapper">
+                    {% block menu_items_block %}
+                    {% endblock %}
+                
+            </ul>
+        </nav>
 
-    <div>
-        {% block body_block %}
-        {% endblock %}
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+
+        <img class="footer-delimiter" src="{% static 'images/footer_delimiter.svg' %}" alt="Donate blood">
     </div>
+        <!-- Footer content -->
+        <footer>
+            <div class="footer-content h-width">
+                    <div class="footer-heading__container">
 
-    <!-- Footer content -->
-    <footer>
-        
-    </footer>
+                        <svg class="footer-heading__drop" width="22px" height="36px" viewBox="0 0 22 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-opacity="0">
+                                <g id="drop" fill="#c23616" stroke="#c23616" stroke-width="0.5">
+                                    <path d="M10.8773262,0.00170572999 C10.8773262,0.00170572999 8.26404488,5.25819698 5.0027958,11.7615769 C-0.188503196,22.1153579 -5.09328581,35.6156422 10.8760667,36 L10.875437,36 C26.8592728,35.6133679 22.4085085,22.2705793 17.1957995,11.8940552 C13.9698139,5.47198181 10.8760667,0 10.8760667,0" id="Path"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        <h1 class="footer-heading h-900 h-uppercase">Donate <span class="h-primary-dark">blood</span></h1>
+                    </div>
+                    <div class="footer-text">
+                        <div class="footer-text__column">
+                            <h3 class="h-700 h-uppercase">
+                                what now?
+                            </h3>
+                            <ul class="footer-list__app">
+                                <li>Contact</li>
+                                <li>Log in</li>
+                                <li>Sign up</li>
+                                <li>Site map</li>
+                            </ul>
+                        </div>
+                        <div class="footer-text__social">
+                                <h3 class="h-700 h-uppercase">
+                                    what now?
+                                </h3>
+                                <ul class="footer-list__app">
+                                    <li>Contact</li>
+                                    <li>Log in</li>
+                                    <li>Sign up</li>
+                                    <li>Site map</li>
+                                </ul>
+                            </div>
+                        
+                    </div>
+            </div>
+        </footer>
 
 </body>
 </html>

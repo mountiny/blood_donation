@@ -1,0 +1,85 @@
+.form-container {
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+}
+
+.form-heading {
+    padding-top: 4vh;
+}
+
+.form-wrapper {
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+    padding-top: 6vh;
+}
+.form-element {
+    margin: 30px auto;
+}
+input {
+    position: relative;
+    height: 40px;
+    border: none;
+    text-transform: none;
+    font-weight: 500;
+    color: $black;
+    text-align: left;
+    text-decoration: none;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 10px auto;
+    z-index: 101;
+    line-height: normal;
+    max-width: 90vw;
+    min-width: 260px;
+    &.h-btn {
+       padding: 0px 20px 0px 20px;
+       
+    }
+
+    &[type="text"], &[type="password"]  {
+        border-bottom: 3px solid $primary;
+    }
+    // &[type="submit"] {
+    //     margin: 20px auto;
+    //     font-size: 1.3rem;
+    //     height: 50px;
+    //     text-transform: uppercase;
+    //     line-height: 50px;
+    //     background-color: $primary;
+    //     color: white;
+    //     @include prefix(transition, background-color 0.3s $curve);
+    //     &:hover {
+    //         background-color: lighten($color: $primary, $amount: 20%);
+    //         // color: black;
+    //     }
+        
+    // }
+
+    &::-webkit-input-placeholder {
+        /* Edge */
+        color: $black;
+    }
+
+    &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: $black;
+    }
+
+    &::placeholder {
+        color: $black;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: $red-light;
+    }
+}

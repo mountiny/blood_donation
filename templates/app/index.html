@@ -1,23 +1,19 @@
 {% extends 'app/base.html' %}
 {% load staticfiles %}
 
+{% block menu_items_block %}
+
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+            log in
+        </a>
+    </li>
+
+{% endblock %}
+
 {% block body_block %}
 
 <div class="main-container">
-    <nav class="navbar-top h-width">
-        <div class="logo-wrapper">
-            <a class="logo-link" href="{% url 'app:index' %}">
-                <img class="logo" src="{% static 'images/logo.svg' %}" alt="Blood Donation">
-            </a>
-        </div>
-        <ul class="menu-wrapper">
-            <li class="menu-item">
-                <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
-                    log in
-                </a>
-            </li>
-        </ul>
-    </nav>
 
     <div class="intro-container h-width">
 
@@ -26,8 +22,56 @@
         <h2 class="main-subheading h-900">a few minutes of your time <br />
         can save someone's <span class="h-primary">life</span>.</h2>
 
+        <div class="block-container">
+            <div class="block-unit h-border-radius">
+                <a class="block-unit__link" href="#how-to-donate">
+                    <span class="block-unit__text h-700">How does donation work?</span>
+                    <img src="{% static 'images/box_wave_1.svg' %}" alt="" class="block-wave">
+                </a>
+            </div>
+            <div class="block-unit h-border-radius">
+                <a class="block-unit__link" href="#where-to-donate">
+                    <span class="block-unit__text h-700">Where can I donate?</span>
+                    <img src="{% static 'images/box_wave_2.svg' %}" alt="" class="block-wave">
+                </a>
+            </div>
+            <div class="block-unit h-border-radius">
+                <a class="block-unit__link" href="#how-is-it-used">
+                    <span class="block-unit__text h-700">What is the blood used for?</span>
+                    <img src="{% static 'images/box_wave_3.svg' %}" alt="" class="block-wave">
+                </a>
+            </div>
+            <div class="block-unit h-border-radius gradient-bg">
+                <a class="block-unit__link register-link" href="{% url 'app:signup' %}">
+                    <span class="block-unit__register h-900">Register now</span>
+                    
+                    <svg class="block-unit__drop" width="22px" height="36px" viewBox="0 0 22 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-opacity="0">
+                            <g id="drop" fill="#fff" stroke="#fff" stroke-width="0.5">
+                                <path d="M10.8773262,0.00170572999 C10.8773262,0.00170572999 8.26404488,5.25819698 5.0027958,11.7615769 C-0.188503196,22.1153579 -5.09328581,35.6156422 10.8760667,36 L10.875437,36 C26.8592728,35.6133679 22.4085085,22.2705793 17.1957995,11.8940552 C13.9698139,5.47198181 10.8760667,0 10.8760667,0" id="Path"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+        <div class="status-container h-700">
+            <div class="status-text">
+                    Join over 1200 donors here and<br />
+                    choose from over 40 hospitals!
+            </div>
+            <div class="hospital-text h-text-right">
+                <a href="{% url 'app:signup' %}">Representing a hospital? Click here!</a>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <img class="scroll-down__icon" src="{% static 'images/drop.svg' %}" alt="Scroll down">
+        </div>
+
 
     </div>
+    
 </div>
 
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="430px" height="68px" viewBox="0 0 430 68" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Path 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFBDB1" offset="0%"></stop>
+            <stop stop-color="#E74C3C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-251.000000, -534.000000)" fill="url(#linearGradient-1)">
+            <g id="Group-3" transform="translate(251.000000, 467.000000)">
+                <g id="Path-2">
+                    <path d="M0,67.6532159 C6.55518338,72.1990428 13.3293482,76.7316167 20.3224945,81.2509373 C32.5456975,89.1501821 58.6917538,98.0120196 77.6995894,102.745654 C88.6589669,105.474933 97.0215325,106.207645 102.623708,105.474933 C153.782021,98.7839062 146.72292,81.2509373 200.506392,81.2509373 C243.918021,81.2509373 283.793715,102.827403 322.803845,102.827403 C348.810598,102.827403 384.54265,93.7731817 430,75.6647389 L430,147.653216 L0,147.653216 L0,67.6532159 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

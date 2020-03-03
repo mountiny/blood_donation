@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block menu_items_block %}
+
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:signup' %}">
+            sign up
+        </a>
+    </li>
+
+{% endblock %}
+
+{% block body_block %}
+
+<div class="main-container">
+
+    <div class="form-container h-width">
+
+        <h1 class="form-heading h-900 h-text-center">Log in</h1>
+
+        <form class="form-wrapper" action="">
+
+            <input type="text" name="email" id="email_field" placeholder="Email">
+            <input type="password" name="password" id="password_field" placeholder="Password">
+            <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Log in">
+
+        </form>
+<!-- 
+        <div class="form-element h-btn h-text-center" id="forgotten_password">Forgotten password</div>
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                $("#forgotten_password").click( function(){
+                    console.log('Forgotten Password');
+                })
+            })
+
+        </script> -->
+
+        <div class="form-element form-note h-text-center">You do not have an account yet?</div>
+        <div class="form-element h-btn h-text-center">
+            <a href="{% url 'app:signup' %}">
+                Create an account
+            </a>
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}
