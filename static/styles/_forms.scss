@@ -6,10 +6,6 @@
     @include align-content(center);
 }
 
-.form-heading {
-    padding-top: 4vh;
-}
-
 .form-wrapper {
     @include display_flexbox();
     @include flex_direction(column);

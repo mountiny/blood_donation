@@ -17,6 +17,23 @@
     <meta name="msapplication-TileColor" content="#e74c3c">
     <meta name="theme-color" content="#ffffff">
     <!-- Favicon end -->
+
+    <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+              t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          
+            t._e = [];
+            t.ready = function(f) {
+              t._e.push(f);
+            };
+          
+            return t;
+          }(document, "script", "twitter-wjs"));</script>
 </head>
 <body>
     <div class="page-container">
@@ -55,26 +72,35 @@
                         <h1 class="footer-heading h-900 h-uppercase">Donate <span class="h-primary-dark">blood</span></h1>
                     </div>
                     <div class="footer-text">
-                        <div class="footer-text__column">
+                        <div class="footer-text__column column-text">
                             <h3 class="h-700 h-uppercase">
                                 what now?
                             </h3>
                             <ul class="footer-list__app">
-                                <li>Contact</li>
-                                <li>Log in</li>
-                                <li>Sign up</li>
-                                <li>Site map</li>
+                                <li>
+                                    <a class="footer-link" href="{% url 'app:contact' %}">Contact</a>
+                                </li>
+                                <li>
+                                    <a class="footer-link" href="{% url 'app:login' %}">Log in</a>
+                                </li>
+                                <li>
+                                    <a class="footer-link" href="{% url 'app:signup' %}">Sign up</a>
+                                </li>
+                                <li>
+                                    <a class="footer-link" href="{% url 'app:sitemap' %}">Site map</a>
+                                </li>
                             </ul>
                         </div>
-                        <div class="footer-text__social">
+                        <div class="footer-text__column column-social">
                                 <h3 class="h-700 h-uppercase">
-                                    what now?
+                                   Spread the word!
                                 </h3>
-                                <ul class="footer-list__app">
-                                    <li>Contact</li>
-                                    <li>Log in</li>
-                                    <li>Sign up</li>
-                                    <li>Site map</li>
+                                <ul class="footer-list__social">
+                                    <li>
+                                        <a class="twitter-share-button" aria-size="large"
+                                    href="https://twitter.com/intent/tweet?text=Donate%20blood!">
+                                    Tweet</a>
+                                    </li>
                                 </ul>
                             </div>
                         

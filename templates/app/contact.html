@@ -1,0 +1,43 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block menu_items_block %}
+
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+            log in
+        </a>
+    </li>
+
+{% endblock %}
+
+{% block body_block %}
+
+<div class="main-container">
+
+    <div class="contact-container h-width">
+
+        <h1 class="page-heading h-900">Contact</h1>
+
+       <div class="contact-block__wrapper">
+           <div class="contact-block">
+               <h3 class="h-700">Who are we?</h3>
+               <p>We are a group of students, classmates and friends who are saddened by how little governments do to promote and inform public about importance and other aspects of blood donation. We aim to raise awareness, bring more (not only young) people to donate regularly, so our hospitals and doctors can focus on their job without a stress of lacking this essecntial medical help</p>
+                <h3 class="h-700">Team</h3>
+                <h4>Emma Poliakova</h4>
+                <h4>Lenka Vincenova</h4>
+                <h4>Jaroslav Paska</h4>
+                <h4>Vit Horacek</h4>
+            </div>
+            <div class="contact-block">
+                    <h3 class="h-700">What is our background?</h3>
+                    <p>We are students of University of Glasgow, while we all come from what our American classmates call 'Czechoslovakia' while ignoring 30 years of political and societal development. </p>
+            </div>
+       </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

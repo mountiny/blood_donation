@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block menu_items_block %}
+
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+            log in
+        </a>
+    </li>
+
+{% endblock %}
+
+{% block body_block %}
+
+<div class="main-container">
+
+    <div class="contact-container h-width">
+
+        <h1 class="page-heading h-900">Site map</h1>
+
+       <div class="contact-block__wrapper">
+           <div class="contact-block">
+                <h3 class="h-700">Discover our website!</h3>
+                <ul class="site-map">
+                        <li>
+                            <a href="{% url 'app:index' %}">Home</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'app:login' %}">Log in</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'app:signup' %}">Sign up</a>
+                        </li>
+                        <li class="h-primary">
+                            <a href="{% url 'app:login' %}">Dashboard</a>
+                        </li>
+                        <li class="h-primary">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'app:login' %}">Profile</a>
+                                </li>
+                                <li>
+                                    <ul>   
+                                        <li>
+                                            <a href="{% url 'app:login' %}">Edit your profile</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{% url 'app:login' %}">Map of Donation centres</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="{% url 'app:contact' %}">Contact</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'app:sitemap' %}">Site map</a>
+                        </li>
+                    </ul>
+                
+            </div>
+           
+       </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

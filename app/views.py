@@ -57,6 +57,36 @@ def signup(request):
     # Return a rendered response to send to the client.
     return response
 
+def contact(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/contact.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+
+def sitemap(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/site-map.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+
 def app(request):
     # category_list = Category.objects.order_by('-likes')[:5]
     # pages_list = Page.objects.order_by('-views')[:5]

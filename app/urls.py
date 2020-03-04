@@ -9,4 +9,6 @@ urlpatterns = [
     path('app/', views.app, name='app'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
+    path('contact/', views.contact, name='contact'),
+    path('site-map/', views.sitemap, name='sitemap'),
 ]
