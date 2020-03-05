@@ -23,25 +23,26 @@
         can save someone's <span class="h-primary">life</span>.</h2>
 
         <div class="block-container">
-            <div class="block-unit h-border-radius">
+            <div class="block-unit h-border-radius h-shadow">
                 <a class="block-unit__link" href="#how-to-donate">
                     <span class="block-unit__text h-700">How does donation work?</span>
                     <img src="{% static 'images/box_wave_1.svg' %}" alt="" class="block-wave">
                 </a>
             </div>
-            <div class="block-unit h-border-radius">
+            <div class="block-unit h-border-radius h-shadow">
+                    <a class="block-unit__link" href="#how-is-it-used">
+                        <span class="block-unit__text h-700">How is the blood used?</span>
+                        <img src="{% static 'images/box_wave_3.svg' %}" alt="" class="block-wave">
+                    </a>
+                </div>
+            <div class="block-unit h-border-radius h-shadow">
                 <a class="block-unit__link" href="#where-to-donate">
                     <span class="block-unit__text h-700">Where can I donate?</span>
                     <img src="{% static 'images/box_wave_2.svg' %}" alt="" class="block-wave">
                 </a>
             </div>
-            <div class="block-unit h-border-radius">
-                <a class="block-unit__link" href="#how-is-it-used">
-                    <span class="block-unit__text h-700">How is the blood used?</span>
-                    <img src="{% static 'images/box_wave_3.svg' %}" alt="" class="block-wave">
-                </a>
-            </div>
-            <div class="block-unit h-border-radius gradient-bg">
+            
+            <div class="block-unit h-border-radius h-shadow gradient-bg">
                 <a class="block-unit__link register-link" href="{% url 'app:signup' %}">
                     <span class="block-unit__register h-900">Register now</span>
                     
@@ -70,7 +71,253 @@
         </div>
 
 
+        <section id="how-to-donate" class="landing-section">
+            <span class="section-heading h-900">Donating blood is easy!</span>
+
+            <div class="section-content__container how-to-section">
+                <div class="section-block h-border-radius h-shadow h-pointer block-eligibility">
+                    <div class="section-block__number">1</div>
+                    <div class="section-block__text">
+                        Check if you are eligible to donate blood. We go you covered - click here!</div>
+                    </div>
+                <div class="section-block h-border-radius h-shadow h-pointer block-map">
+                    <div class="section-block__number">2</div>
+                    <div class="section-block__text">
+                            Book an appointment with a&nbsp;donation centre close by. We have a&nbsp;map for registered users!</div>
+                    </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">3</div>
+                    <div class="section-block__text">
+                            Before donation, drink plenty of water, eat regular meals and avoid vigurous exercise.</div>
+                    </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">4</div>
+                    <div class="section-block__text">
+                            Once you arrive, a&nbsp;nurse will do a&nbsp;quick health screening to make sure you are safe to donate blood.</div>
+                    </div>
+                    
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">5</div>
+                    <div class="section-block__text">
+                            You will be seated and a&nbsp;nurse will begin the procedure which should take between 5&nbsp;and 10&nbsp;minutes.</div>
+                    </div>
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">6</div>
+                    <div class="section-block__text">
+                            After the donation, you are encouraged to take a&nbsp;moment to relax, drink plenty and you can go home.</div>
+                    </div>
+            </div>
+
+        </section>
+        <section id="can-i-donate" class="landing-section">
+            <span class="section-heading h-900">Can I donate? Yes, if:</span>
+
+            <div class="section-content__container can-i-section">
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">1</div>
+                    <div class="section-block__text">
+                        You are fit and healthy?<br />
+                        You had no infection in last 2&nbsp;weeks.
+                    </div>
+                </div>
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">2</div>
+                    <div class="section-block__text">
+                        You weight between 50 and 158 kilograms.<br />
+                        You are between 17 and 70 years old.
+                    </div>
+                </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">3</div>
+                    <div class="section-block__text">
+                        No holiday outside UK in last 4&nbsp;months.<br />
+                        No dental treatment in last 7&nbsp;days.
+                    </div>
+                </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">4</div>
+                    <div class="section-block__text">
+                        If you have been pregnant, you cannot give blood until 6 months after giving a birth.<br />
+                        You have not got any piercing or tattoo in last 4 months.
+                    </div>
+                </div>
+                    
+            </div>
+
+        </section>
+        <section id="how-is-it-used" class="landing-section">
+            <span class="section-heading h-900">Why to donate?</span>
+            <h3 class="h-700">The blood is used in many ways. Here is just few of them.</h3>
+            <div class="section-content__container used-section">
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">1</div>
+                    <div class="section-block__text">
+                        <span class="block-text__title h-700">To treat medical conditions</span><br />
+                        This includes anaemia, various types of cancer or blood disorders.
+                    </div>
+                </div>
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">2</div>
+                    <div class="section-block__text">
+                            <span class="block-text__title h-700">Surgeries</span><br />
+                            The cardiac surgeries, emergencies as for example after a car crash.
+                        </div>
+                </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">3</div>
+                    <div class="section-block__text">
+                            <span class="block-text__title h-700">Childbrith</span><br />
+                            It is used to treat a blood loss.
+                        </div>
+                </div>
+                    
+            </div>
+        </section>
+        <section id="why-to-join" class="landing-section">
+            <span class="section-heading h-900">Why to join this platform?</span>
+            <h3 class="h-700">We offer guidance through this entire process. Check out the features we have worked on to perfect for you!</h3>
+            <div class="section-content__container join-section">
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">1</div>
+                    <div class="section-block__text">
+                        <span class="block-text__title h-700">Appointments made easy</span><br />
+                        At our app, you can easily book an appointment at the donation centre, manage it and cancel if you need to.
+                    </div>
+                </div>
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">2</div>
+                    <div class="section-block__text">
+                            <span class="block-text__title h-700">Map of donation centres</span><br />
+                            We try to gather as many centres as possible and you can see all of them on a map so you can find the one most suitable for your future donation! 
+                        </div>
+                </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">3</div>
+                    <div class="section-block__text">
+                            <span class="block-text__title h-700">Often scary process explained</span><br />
+                            People are scared of unknown. We try to raise awareness about blood donation by explaining everything important related to the entire process.
+                        </div>
+                </div>
+                <div class="section-block h-border-radius h-shadow">
+                        <div class="section-block__number">4</div>
+                        <div class="section-block__text">
+                                <span class="block-text__title h-700">Unsure about the importance of donation?</span><br />
+                                We have plenty of stories of people, who would not be amongst us, or they lives are much better thanks to blood which has been donated.
+                            </div>
+                    </div>
+                    
+            </div>
+        </section>
+        <section id="where-to-donate" class="landing-section">
+            <span class="section-heading h-900">Where to donate?</span>
+            <div class="section-content__container map-section">
+                    <div class="section-block h-border-radius h-shadow map-section__block">
+                        <div class="section-block__number map-title">MAP</div>
+                        <div class="section-block__text">
+                            <span class="block-text__title h-700">See the closest donation centres on a map</span><br />
+                            It was never easier to find the most convenient place for donating blood. close to your work, university, or your parents home.<br />
+                            Do you want to donate while with friends in different city? We got you covered!<br />
+                            Sign up to discover it!
+                        </div>
+                    </div>
+                    
+                </div>
+        </section>
+
+        <div class="register-btn__container">
+            <div class="h-btn register-btn h-text-center h-uppercase">
+                <a href="{% url 'app:signup' %}">
+                    I want to donate!
+                </a>
+            </div>
+        </div>
+
+        <section id="hospital" class="landing-section">
+            <div class="section-heading h-900">Do you represent a <span class="h-primary">hospital</span>?</div>
+            <div class="section-subheading">"It is a long time since we started to look for a way to quickly reach people keen to donate in cases when our hospital faces an emergency." <span>- every hospital manager.</span>
+                </div>
+            <div class="section-heading h-900 h-text-right">Search no <span class="h-primary">more</span>!</div>
+            <div class="section-content__container hospital-section">
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">1</div>
+                    <div class="section-block__text">
+                        <span class="block-text__title h-700">Appointments management</span><br />
+                        Manage appointments with donors using our user-friendly interface which anyone from you staff will quickly learn to use.
+                    </div>
+                </div>
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">2</div>
+                    <div class="section-block__text">
+                            <span class="block-text__title h-700">Community of people willing to donate</span><br />
+                            We gather over 1000 users all arounf the country, who are interested in helping out and they can come to donate in times of need.
+                        </div>
+                </div>
+
+                <div class="section-block h-border-radius h-shadow">
+                    <div class="section-block__number">3</div>
+                    <div class="section-block__text">
+                            <span class="block-text__title h-700">Send notifications</span><br />
+                            Did some emergency happen and you are running low on some blood type? Push notifications to those who have this type to let them know their blood type is demanded.
+                        </div>
+                </div>
+                <div class="section-block h-border-radius h-shadow">
+                        <div class="section-block__number">4</div>
+                        <div class="section-block__text">
+                                <span class="block-text__title h-700">Motivate people</span><br />
+                                Do you have happy stories people should know about? You can share them on our platform to let people know how important it is to have enough people actively donating.
+                            </div>
+                    </div>
+                    
+            </div>
+        </section>
+
+       <div class="register-btn__container">
+            <div class="h-btn register-btn h-text-center">
+                <a href="{% url 'app:signup' %}">
+                    Our hospital wants to join!
+                </a>
+            </div>
+        </div>
+
+
     </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+        $(".scroll-down__icon").click(function (e) {
+            e.preventDefault();
+            smoothScroll($("#how-to-donate"));
+        });
+        $(".block-unit__link:not(.register-link)").click(function (e) {
+            e.preventDefault();
+            smoothScroll($($(this).attr("href")));
+        });
+
+        $(".block-eligibility").click(function (e) {
+            e.preventDefault();
+            smoothScroll($("#can-i-donate"));
+        });
+
+        $(".block-map").click(function (e) {
+            e.preventDefault();
+            smoothScroll($("#where-to-donate"));
+        });
+
+    });
+
+    function smoothScroll(target) {
+        $("body,html").animate(
+        	{'scrollTop':target.offset().top - ($(window).height()/12)},
+        	600
+        );
+	}
+    </script>
     
 </div>
 

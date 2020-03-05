@@ -75,6 +75,8 @@ a {
         .menu-item__link {
             display: block;
             height: 100%;
+            position: relative;
+            z-index: 10;
         }
     }
 
@@ -108,7 +110,6 @@ a {
     overflow: hidden;
     background-color: $primary;
     cursor: pointer;
-    box-shadow: 0 4px 20px 0px rgba(25,25,25,.18);
     @include prefix(transition,(transform 0.7s $curve, box-shadow 0.3s $curve, opacity 0.3s $curve));
     opacity: 1;
     @include prefix(transform, (translateY(0px)));
@@ -205,13 +206,144 @@ a {
     @include prefix(transition,(transform 0.4s $curve, opacity 0.4s $curve));
     @include prefix(transform, translateY(0px));
     animation-name: floatScroll;
-    animation-duration: 0.8s;
+    animation-duration: 1.3s;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
     &:hover {
             @include prefix(transform, (translateY(8px)));
     }
 }
+.landing-section {
+    position: relative;
+    width: 100%;
+    padding: 40px 0px;
+    h3 {
+        padding-bottom: 30px;
+        line-height: $h3;
+    }
+}
+.section-heading {
+    font-size: 3.3em;
+    padding-bottom: 50px; 
+    display: block;
+}
+.section-subheading {
+    padding-bottom: 30px;
+    font-style: italic;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    span {
+        font-style: normal;
+    }
+}
+.section-content__container {
+    position: relative;
+    width: 100%;
+    display: grid;
+    &.how-to-section {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 2em 2em;
+    }
+    &.can-i-section {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 2em 2em;
+    }
+    &.used-section {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 2em 2em;
+    }
+    &.join-section {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 2em 2em;
+    }
+    &.map-section {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-gap: 2em 2em;
+    }
+    &.hospital-section {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 2em 2em;
+    }
+}
+.section-block {
+    position: relative;
+    // width: 100%;
+    padding: 20px 20px;
+    overflow: hidden;
+    z-index: 100;
+    background: $primary-dark; /* fallback for old browsers */
+    background-image: -webkit-radial-gradient( circle farthest-corner at 10% 20%,  $gradient-light 0%, $gradient-dark 90% ); 
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  $gradient-light 0%, $gradient-dark 90% );
+    @include prefix(transition,(box-shadow 0.3s $curve));
+    &:hover{
+        box-shadow: 0 8px 50px 4px rgba(25,25,25,.32);
+    }
+    &.map-section__block {
+        background-image: linear-gradient( 109.6deg,  #55BABE 11.2%, #BEFCFE 91.1% );
+        .section-block__text {
+            color: black;
+        }
+        .section-block__number {
+            color: #55BABE;
+        }
+        
+    }
+
+}
+.section-block__text {
+    z-index: 110;
+    color: white;
+    font-size: 1.3em;
+    line-height: 1.4em;
+    font-weight: 700;
+    position: relative;
+    margin-bottom: 50px;
+    br {
+        display: block;
+        content: '';
+        margin: 10px;
+    }
+
+}
+.block-text__title {
+    font-size: 1.5em;
+    line-height: 1.5em;
+
+}
+.section-block__number {
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+    font-size: 7em;
+    font-weight: 900;
+    color: $primary;
+    z-index: 105;
+    &.map-title {
+        left: auto;
+        right: -5px;
+        font-size: 8em;
+        bottom: -26px;
+    }
+}
+
+.register-btn__container {
+    position: relative;
+    width: 100%;
+    padding: 40px 0px;
+    @include display_flexbox();
+    @include justify_content(center);
+    @include align-items(center);
+    @include align-content(center);
+
+}
+
+
 
 .contact-block__wrapper {
     position: relative;
@@ -254,14 +386,24 @@ a {
 
 .footer-delimiter {
     width: 104%;
-    position: relative;
-    top: 5px;
+    position: relative; 
+
 }
 footer {
     position: relative;
     display: block;
     min-height: 300px;
     color: white;
+    &:before {
+        width: 100%;
+        content: '';
+        height: 5px;
+        background-color: $primary;
+        position: absolute;
+        top: -5px;
+        left: 0px;
+        right: 0px;
+    }
 
 }
 .footer-heading__container {
@@ -326,10 +468,6 @@ footer {
         $border-radius: 30px;
         position: relative;
         height: 160px;
-        overflow: hidden;
-        cursor: pointer;
-        border-radius: $border-radius;
-        box-shadow: 0 4px 20px 0px rgba(25,25,25,.18);
         @include prefix(transition,(transform 0.7s $curve, box-shadow 0.3s $curve, opacity 0.3s $curve));
         opacity: 1;
         @include prefix(transform, (translateY(0px)));
@@ -394,6 +532,40 @@ footer {
         line-height: 1.2em;
     
     }
+
+    .section-content__container {
+        position: relative;
+        width: 100%;
+        display: grid;
+        &.how-to-section {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 2em 2em;
+        }
+        &.can-i-section {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-gap: 2em 2em;
+        }
+        &.used-section {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 2em 2em;
+        }
+        &.join-section {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 2em 2em;
+        }
+
+        &.hospital-section {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 2em 2em;
+        }
+    }
+
+
     .footer-heading__drop {
         margin-bottom: 16px;
         margin-right: 0px;
@@ -423,6 +595,25 @@ footer {
     .contact-block {
         width: 100%;
         padding-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .section-content__container {
+        position: relative;
+        width: 100%;
+        display: grid;
+        &.how-to-section {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            grid-gap: 2em 2em;
+        }
+        &.can-i-section {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 2em 2em;
+        }
+
+       
     }
 }
 
