@@ -19,10 +19,31 @@
 
         <h1 class="page-heading h-900 h-text-center">Sign up</h1>
 
-        <form class="form-wrapper" action="">
+        <div class="selection-container">
+                <div data-form="donor-form" class="selection-block h-border-radius h-shadow h-pointer selected">
+                    <div class="selection-block__text">
+                        Donor
+                    </div>
+                </div>
+                <div data-form="hospital-form" class="selection-block h-border-radius h-shadow h-pointer">
+                    <div class="selection-block__text">
+                        Hospital
+                    </div>
+                </div>
+        </div>
+
+        <form class="form-wrapper donor-form selected-form" action="">
             {% csrf_token %}
 
             <input type="text" name="email" id="email_field" placeholder="Email">
+            <input type="password" name="password" id="password_field" placeholder="Password">
+            <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Sign up">
+
+        </form>
+        <form class="form-wrapper hospital-form" action="">
+            {% csrf_token %}
+
+            <input type="text" name="email" id="email_field" placeholder="Hospital">
             <input type="password" name="password" id="password_field" placeholder="Password">
             <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Sign up">
 
@@ -34,7 +55,24 @@
                 Yes, log in!
             </a>
         </div>
+        <script type="text/javascript">
+        $(document).ready(function(){
 
+            $(".selection-block").click(function () {
+                if($(this).hasClass("selected")) {
+                    return;
+                }
+                var form = $(this).data("form");
+
+                $(".selected").toggleClass("selected");
+                $(this).toggleClass("selected");
+
+                $(".selected-form").toggleClass("selected-form");
+                $("."+form).toggleClass("selected-form");
+            });
+    
+        });
+        </script>
 
     </div>
 </div>

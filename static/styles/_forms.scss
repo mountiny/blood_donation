@@ -13,6 +13,21 @@
     @include align-items(center);
     @include align-content(center);
     padding-top: 6vh;
+    &.donor-form {
+        display: none;
+
+    }
+    &.hospital-form {
+        display: none;
+        
+    }
+    &.selected-form {
+        @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+    }
 }
 .form-element {
     margin: 30px auto;

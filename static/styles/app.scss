@@ -332,6 +332,61 @@ a {
     }
 }
 
+.selection-container {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 2em 2em;
+  margin-top: 40px;
+}
+.selection-block {
+    position: relative;
+    padding: 20px 20px;
+    overflow: hidden;
+    z-index: 100;
+    width: 70%;
+    height: 80px;
+    opacity: 0.5;
+    background: $primary-dark; /* fallback for old browsers */
+    background-image: -webkit-radial-gradient( circle farthest-corner at 10% 20%,  $gradient-light 0%, $gradient-dark 90% ); 
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  $gradient-light 0%, $gradient-dark 90% );
+    @include prefix(transition,(box-shadow 0.3s $curve, opacity 0.3s $curve));
+    &:hover{
+        box-shadow: 0 8px 50px 4px rgba(25,25,25,.32);
+        opacity: 1;
+    }
+    &.selected {
+        opacity: 1;
+    }
+    &:first-of-type {
+        justify-self: end;
+    }
+    &:nth-of-type(2) {
+        justify-self: start;
+    }
+
+}
+.selection-block__text {
+    height: 100%;
+    z-index: 110;
+    color: white;
+    font-size: 4em;
+    line-height: 80px;
+    font-weight: 700;
+    text-align: center;
+
+    position: relative;
+    margin-bottom: 50px;
+    br {
+        display: block;
+        content: '';
+        margin: 10px;
+    }
+
+}
+
 .register-btn__container {
     position: relative;
     width: 100%;

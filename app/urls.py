@@ -7,6 +7,11 @@ app_name = 'app'
 urlpatterns = [
     path('', views.index, name='index'),
     path('app/', views.app, name='app'),
+    path('app/map/', views.hospital_map, name='map'),
+    path('app/profile/', views.profile, name='profile'),
+    path('app/profile/edit/', views.profile_edit, name='profile_edit'),
+    path('app/hospital/<slug:hospital_slug>/',
+         views.hospital, name='hospital'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('contact/', views.contact, name='contact'),
