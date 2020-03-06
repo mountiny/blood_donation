@@ -55,27 +55,33 @@
                 Yes, log in!
             </a>
         </div>
-        <script type="text/javascript">
-        $(document).ready(function(){
-
-            $(".selection-block").click(function () {
-                if($(this).hasClass("selected")) {
-                    return;
-                }
-                var form = $(this).data("form");
-
-                $(".selected").toggleClass("selected");
-                $(this).toggleClass("selected");
-
-                $(".selected-form").toggleClass("selected-form");
-                $("."+form).toggleClass("selected-form");
-            });
-    
-        });
-        </script>
+        
 
     </div>
 </div>
 
+
+{% endblock %}
+
+{% block javascript_block %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $(".selection-block").click(function () {
+            if($(this).hasClass("selected")) {
+                return;
+            }
+            var form = $(this).data("form");
+
+            $(".selected").toggleClass("selected");
+            $(this).toggleClass("selected");
+
+            $(".selected-form").toggleClass("selected-form");
+            $("."+form).toggleClass("selected-form");
+        });
+
+    });
+</script>
 
 {% endblock %}
