@@ -619,49 +619,49 @@ a {
 .section-content__container.how-to-section {
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
+  -ms-grid-rows: (1fr)[1];
+      grid-template-rows: repeat(1, 1fr);
   grid-gap: 2em 2em;
 }
 
 .section-content__container.can-i-section {
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
   grid-gap: 2em 2em;
 }
 
 .section-content__container.used-section {
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
   grid-gap: 2em 2em;
 }
 
 .section-content__container.join-section {
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
   grid-gap: 2em 2em;
 }
 
 .section-content__container.map-section {
   -ms-grid-columns: (1fr)[1];
       grid-template-columns: repeat(1, 1fr);
-  -ms-grid-rows: (1fr)[1];
-      grid-template-rows: repeat(1, 1fr);
   grid-gap: 2em 2em;
 }
 
 .section-content__container.hospital-section {
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
   grid-gap: 2em 2em;
+}
+
+.show-more {
+  position: relative;
+  width: 100%;
+  text-align: right;
+  font-size: 1.2em;
+  color: #e74c3c;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
 .section-block {
@@ -684,7 +684,7 @@ a {
 }
 
 .section-block.map-section__block {
-  background-image: linear-gradient(109.6deg, #55BABE 11.2%, #BEFCFE 91.1%);
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
 
 .section-block.map-section__block .section-block__text {
@@ -692,7 +692,7 @@ a {
 }
 
 .section-block.map-section__block .section-block__number {
-  color: #55BABE;
+  color: #a1c4fd;
 }
 
 .section-block__text {
@@ -1048,36 +1048,26 @@ footer:before {
   .section-content__container.how-to-section {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
-    -ms-grid-rows: (1fr)[3];
-        grid-template-rows: repeat(3, 1fr);
     grid-gap: 2em 2em;
   }
   .section-content__container.can-i-section {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
-    -ms-grid-rows: (1fr)[2];
-        grid-template-rows: repeat(2, 1fr);
     grid-gap: 2em 2em;
   }
   .section-content__container.used-section {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    -ms-grid-rows: (1fr)[3];
-        grid-template-rows: repeat(3, 1fr);
     grid-gap: 2em 2em;
   }
   .section-content__container.join-section {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    -ms-grid-rows: (1fr)[4];
-        grid-template-rows: repeat(4, 1fr);
     grid-gap: 2em 2em;
   }
   .section-content__container.hospital-section {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    -ms-grid-rows: (1fr)[4];
-        grid-template-rows: repeat(4, 1fr);
     grid-gap: 2em 2em;
   }
   .footer-heading__drop {
@@ -1141,15 +1131,11 @@ footer:before {
   .section-content__container.how-to-section {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    -ms-grid-rows: (1fr)[6];
-        grid-template-rows: repeat(6, 1fr);
     grid-gap: 2em 2em;
   }
   .section-content__container.can-i-section {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    -ms-grid-rows: (1fr)[4];
-        grid-template-rows: repeat(4, 1fr);
     grid-gap: 2em 2em;
   }
 }

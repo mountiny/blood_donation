@@ -92,23 +92,24 @@
                             Before donation, drink plenty of water, eat regular meals and avoid vigurous exercise.</div>
                     </div>
 
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">4</div>
                     <div class="section-block__text">
                             Once you arrive, a&nbsp;nurse will do a&nbsp;quick health screening to make sure you are safe to donate blood.</div>
                     </div>
                     
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">5</div>
                     <div class="section-block__text">
                             You will be seated and a&nbsp;nurse will begin the procedure which should take between 5&nbsp;and 10&nbsp;minutes.</div>
                     </div>
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">6</div>
                     <div class="section-block__text">
                             After the donation, you are encouraged to take a&nbsp;moment to relax, drink plenty and you can go home.</div>
                     </div>
             </div>
+            <div class="show-more h-700" data-section="how-to-section">Show more!</div>
 
         </section>
         <section id="can-i-donate" class="landing-section">
@@ -130,7 +131,7 @@
                     </div>
                 </div>
 
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">3</div>
                     <div class="section-block__text">
                         No holiday outside UK in last 4&nbsp;months.<br />
@@ -138,7 +139,7 @@
                     </div>
                 </div>
 
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">4</div>
                     <div class="section-block__text">
                         If you have been pregnant, you cannot give blood until 6 months after giving a birth.<br />
@@ -147,6 +148,7 @@
                 </div>
                     
             </div>
+            <div class="show-more h-700" data-section="can-i-section">Show more!</div>
 
         </section>
         <section id="how-is-it-used" class="landing-section">
@@ -168,7 +170,7 @@
                         </div>
                 </div>
 
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">3</div>
                     <div class="section-block__text">
                             <span class="block-text__title h-700">Childbrith</span><br />
@@ -177,6 +179,7 @@
                 </div>
                     
             </div>
+            <div class="show-more h-700" data-section="used-section">Show more!</div>
         </section>
         <section id="why-to-join" class="landing-section">
             <span class="section-heading h-900">Why to join this platform?</span>
@@ -197,14 +200,14 @@
                         </div>
                 </div>
 
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">3</div>
                     <div class="section-block__text">
                             <span class="block-text__title h-700">Often scary process explained</span><br />
                             People are scared of unknown. We try to raise awareness about blood donation by explaining everything important related to the entire process.
                         </div>
                 </div>
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                         <div class="section-block__number">4</div>
                         <div class="section-block__text">
                                 <span class="block-text__title h-700">Unsure about the importance of donation?</span><br />
@@ -213,6 +216,7 @@
                     </div>
                     
             </div>
+            <div class="show-more h-700" data-section="join-section">Show more!</div>
         </section>
         <section id="where-to-donate" class="landing-section">
             <span class="section-heading h-900">Where to donate?</span>
@@ -259,14 +263,14 @@
                         </div>
                 </div>
 
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                     <div class="section-block__number">3</div>
                     <div class="section-block__text">
                             <span class="block-text__title h-700">Send notifications</span><br />
                             Did some emergency happen and you are running low on some blood type? Push notifications to those who have this type to let them know their blood type is demanded.
                         </div>
                 </div>
-                <div class="section-block h-border-radius h-shadow">
+                <div class="section-block h-border-radius h-shadow fadeable h-display-none">
                         <div class="section-block__number">4</div>
                         <div class="section-block__text">
                                 <span class="block-text__title h-700">Motivate people</span><br />
@@ -275,6 +279,7 @@
                     </div>
                     
             </div>
+            <div class="show-more h-700" data-section="hospital-section">Show more!</div>
         </section>
 
        <div class="register-btn__container">
@@ -316,6 +321,16 @@
         $(".block-map").click(function (e) {
             e.preventDefault();
             smoothScroll($("#where-to-donate"));
+        });
+
+        $(".show-more").click(function () {
+            var section = $(this).data("section");
+            if($("."+section).find(".fadeable").hasClass("h-display-none")) {
+                $(this).text("Show less!");
+            } else {
+                $(this).text("Show more!");
+            }
+            $("."+section).find(".fadeable").toggleClass("h-display-none");
         });
 
     });

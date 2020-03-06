@@ -241,35 +241,46 @@ a {
     width: 100%;
     display: grid;
     &.how-to-section {
+        // grid-template-columns: repeat(3, 1fr);
+        // grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
         grid-gap: 2em 2em;
     }
     &.can-i-section {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        // grid-template-rows: repeat(2, 1fr);
         grid-gap: 2em 2em;
     }
     &.used-section {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        // grid-template-rows: repeat(2, 1fr);
         grid-gap: 2em 2em;
     }
     &.join-section {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        // grid-template-rows: repeat(2, 1fr);
         grid-gap: 2em 2em;
     }
     &.map-section {
         grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: repeat(1, 1fr);
+        // grid-template-rows: repeat(1, 1fr);
         grid-gap: 2em 2em;
     }
     &.hospital-section {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        // grid-template-rows: repeat(2, 1fr);
         grid-gap: 2em 2em;
     }
+}
+.show-more {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    font-size: 1.2em;
+    color: $primary;
+    cursor: pointer;
+    margin-top: 20px;
 }
 .section-block {
     position: relative;
@@ -285,12 +296,13 @@ a {
         box-shadow: 0 8px 50px 4px rgba(25,25,25,.32);
     }
     &.map-section__block {
-        background-image: linear-gradient( 109.6deg,  #55BABE 11.2%, #BEFCFE 91.1% );
+        background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        // background-image: linear-gradient( 109.6deg,  #55BABE 11.2%, #BEFCFE 91.1% );
         .section-block__text {
             color: black;
         }
         .section-block__number {
-            color: #55BABE;
+            color: #a1c4fd;//#55BABE;
         }
         
     }
@@ -339,7 +351,7 @@ a {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(1, 1fr);
     grid-gap: 2em 2em;
-  margin-top: 40px;
+    margin-top: 40px;
 }
 .selection-block {
     position: relative;
@@ -594,28 +606,28 @@ footer {
         display: grid;
         &.how-to-section {
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(3, 1fr);
+            // grid-template-rows: repeat(3, 1fr);
             grid-gap: 2em 2em;
         }
         &.can-i-section {
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+            // grid-template-rows: repeat(2, 1fr);
             grid-gap: 2em 2em;
         }
         &.used-section {
             grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: repeat(3, 1fr);
+            // grid-template-rows: repeat(3, 1fr);
             grid-gap: 2em 2em;
         }
         &.join-section {
             grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: repeat(4, 1fr);
+            // grid-template-rows: repeat(4, 1fr);
             grid-gap: 2em 2em;
         }
 
         &.hospital-section {
             grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: repeat(4, 1fr);
+            // grid-template-rows: repeat(4, 1fr);
             grid-gap: 2em 2em;
         }
     }
@@ -659,12 +671,12 @@ footer {
         display: grid;
         &.how-to-section {
             grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: repeat(6, 1fr);
+            // grid-template-rows: repeat(6, 1fr);
             grid-gap: 2em 2em;
         }
         &.can-i-section {
             grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: repeat(4, 1fr);
+            // grid-template-rows: repeat(4, 1fr);
             grid-gap: 2em 2em;
         }
 
