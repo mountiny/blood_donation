@@ -35,17 +35,90 @@
         <form class="form-wrapper donor-form selected-form" action="">
             {% csrf_token %}
 
-            <input type="text" name="email" id="email_field" placeholder="Email">
-            <input type="password" name="password" id="password_field" placeholder="Password">
-            <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Sign up">
+            <div class="form-line">
+                <label for="first_name">First name</label>
+                <input type="text" name="first_name" id="first_name_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="last_name">Last name</label>
+                <input type="text" name="last_name" id="last_name_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="birthday">Birthday</label>
+                <input type="date" name="birthday" id="birthday_field" required>
+            </div>
+            <div class="form-line">
+                <label for="weight">Weight in kilos</label>
+                <input type="number" name="weight" id="weight_field">
+            </div>
+            <div class="form-line">
+                <label for="height">Height in centimeters</label>
+                <input type="number" name="height" id="height_field">
+            </div>
+            <div class="form-line">
+                <label for="telephone">Phone number</label>
+                <input type="tel" name="telephone" id="telephone_field" required>
+            </div>
+            <div class="form-line">
+                <label for="city">City</label>
+                <input type="text" name="city" id="city_field">
+            </div>
+            <div class="form-line">
+                <label for="address1">Address line 1</label>
+                <input type="text" name="address1" id="address1_field">
+            </div>
+            <div class="form-line">
+                <label for="address2">Address line 2</label>
+                <input type="text" name="address2" id="address1_field">
+            </div>
+            <div class="form-line">
+                <label for="blood_type">Your blood type</label>
+                <select name="blood_type" id="blood_field" required>
+                    <option value="" disabled>Your Blood Type</option>
+                    <option value="IDK">I do not know yet</option>
+                    <option value="O+">O positive</option>
+                    <option value="O-">O negative</option>
+                    <option value="A+">A positive</option>
+                    <option value="A-">A negative</option>
+                    <option value="B+">B positive</option>
+                    <option value="B-">B negative</option>
+                    <option value="AB+">AB positive</option>
+                    <option value="AB-">AB negative</option>
+                </select>
+            </div>
+            
+            <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up">
 
         </form>
         <form class="form-wrapper hospital-form" action="">
             {% csrf_token %}
 
-            <input type="text" name="email" id="email_field" placeholder="Hospital">
-            <input type="password" name="password" id="password_field" placeholder="Password">
-            <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Sign up">
+            <div class="form-line">
+                    <label for="email">Email</label>
+                    <input type="email" name="hospital_email" id="hospital_email_field" required>
+                </div>
+                <div class="form-line">
+                    <label for="password">Password</label>
+                    <input type="password" name="hospital_password" id="hospital_password_field" required>
+                </div>
+                <div class="form-line">
+                    <label for="hospital_name">Hospital Name</label>
+                    <input type="text" name="hospital_name" id="hospital_name_field" required>
+                </div>
+
+            <input class="h-btn h-text-center h-700 h-submit-btn" id="hospital-submit-btn" type="submit" value="Sign up">
 
         </form>
 

@@ -257,6 +257,35 @@ table {
   margin: 30px auto;
 }
 
+.form-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  margin: 10px auto;
+}
+
+.form-line label {
+  margin-right: 30px;
+  text-align: right;
+  width: 160px;
+  line-height: 1.5em;
+  display: inline-block;
+}
+
+select {
+  max-width: 90vw;
+  min-width: 240px;
+  height: 30px;
+}
+
 input {
   position: relative;
   height: 40px;
@@ -274,15 +303,12 @@ input {
   z-index: 101;
   line-height: normal;
   max-width: 90vw;
-  min-width: 260px;
+  min-width: 200px;
+  border-bottom: 3px solid #e74c3c;
 }
 
 input.h-btn {
   padding: 0px 20px 0px 20px;
-}
-
-input[type="text"], input[type="password"] {
-  border-bottom: 3px solid #e74c3c;
 }
 
 input::-webkit-input-placeholder {
@@ -1070,6 +1096,9 @@ footer:before {
         grid-template-columns: repeat(1, 1fr);
     grid-gap: 2em 2em;
   }
+  .selection-block__text {
+    font-size: 2.8em;
+  }
   .footer-heading__drop {
     margin-bottom: 16px;
     margin-right: 0px;
@@ -1137,6 +1166,9 @@ footer:before {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
     grid-gap: 2em 2em;
+  }
+  .selection-block__text {
+    font-size: 2.3em;
   }
 }
 

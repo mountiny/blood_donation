@@ -32,6 +32,25 @@
 .form-element {
     margin: 30px auto;
 }
+.form-line {
+    @include display_flexbox();
+    @include justify_content(center);
+    @include align-items(center);
+    @include align-content(center);
+    margin: 10px auto;
+    label {
+        margin-right: 30px;
+        text-align: right;
+        width: 160px;
+        line-height: 1.5em;
+        display: inline-block;
+    }
+}
+select {
+    max-width: 90vw;
+    min-width: 240px;
+    height: 30px;
+}
 input {
     position: relative;
     height: 40px;
@@ -49,15 +68,15 @@ input {
     z-index: 101;
     line-height: normal;
     max-width: 90vw;
-    min-width: 260px;
+    min-width: 200px;
     &.h-btn {
        padding: 0px 20px 0px 20px;
        
     }
 
-    &[type="text"], &[type="password"]  {
-        border-bottom: 3px solid $primary;
-    }
+    // &[type="text"], &[type="password"]  {
+    border-bottom: 3px solid $primary;
+    // }
     // &[type="submit"] {
     //     margin: 20px auto;
     //     font-size: 1.3rem;
