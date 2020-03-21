@@ -71,29 +71,29 @@ class Donor(models.Model):
     notification = models.BooleanField
 
     def get_age(self, b):
-        return int((datetime.date.today() - b).days / 365.25)
+        return int((datetime.date.today() - datetime.datetime.strptime(b, "%Y-%m-%d").date()).days / 365.25)
 
     def __str__(self):
         return self.donor.username
 
     def new_donor(self, data):
-        donor = User.objects.create_user(data['username'], data['email'], data['pword'])
+        donor = User.objects.create_user(data['username'], data['email'], data['password'])
 
-        donor.first_name = data['first']
-        donor.last_name = data['last']
+        donor.first_name = data['first_name']
+        donor.last_name = data['last_name']
         donor.is_donor = True
 
-        self.birth = data['birth']
+        self.birth = (data['birthday'])
         self.age = self.get_age(self.birth)
 
-        self.phone = data['phone']
-        self.address = data['address']
+        self.phone = data['telephone']
+        self.address = data['city']
 
         self.height = data['height']
         self.weight = data['weight']
 
         self.blood_type = data['blood_type']
-        self.notification = data['notification']
+        # self.notification = data['notification']
         donor.save()
         self.save()
 
@@ -117,12 +117,13 @@ class Hospital(models.Model):
     def __str__(self):
         return self.name
 
+
     def new_hospital(self, data):
-        hospital = User.objects.create_user(data['username'], data['email'], data['pword'])
+        hospital = User.objects.create_user(data['hospital_name'], data['hospital_email'], data['hospital_password'])
         hospital.is_hospital = True
-        self.name = data['name']
-        self.location = data['location']
-        self.notified_types = data['notif_types']
+        self.name = data['hospital_name']
+        # self.location = data['location']
+        # self.notified_types = data['notif_types']
 
         hospital.save()
         self.save()

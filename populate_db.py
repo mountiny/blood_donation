@@ -15,13 +15,13 @@ from app.models import *
 def create_donor():
     data = {
         'username': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(3, 7))),
-        'first': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(3, 7))),
-        'last': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(5, 10))),
-        'pword': "a",
+        'first_name': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(3, 7))),
+        'last_name': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(5, 10))),
+        'password': "a",
         'email': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(3, 5))) + "gmail.com",
-        'birth': datetime.date(random.randrange(1950, 2000), random.randrange(1, 12), random.randrange(1, 28)),
-        'phone': random.randrange(100000000, 999999999),
-        'address': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(10, 20))),
+        'birthday': str(random.randrange(1950, 2000)) + "-" + str(random.randrange(1, 12)) +"-" +str(random.randrange(1, 28)),
+        'telephone': random.randrange(100000000, 999999999),
+        'city': ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randrange(10, 20))),
         'height': random.randrange(150, 200),
         'weight': random.randrange(60, 90),
         'blood_type': random.choice(["A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-"]),
@@ -36,9 +36,9 @@ def create_hospital():
     h = "Hospital" + ''.join(random.choice(string.ascii_uppercase) for _ in range(5))
     data = {
         'username': h.lower(),
-        'pword': "a",
-        'email': h.lower() + "gmail.com",
-        'name': h[:-5] + " " + h[-5:],
+        'hospital_password': "a",
+        'hospital_email': h.lower() + "gmail.com",
+        'hospital_name': h[:-5] + " " + h[-5:],
         'location': "Location" + ''.join(random.choice(string.ascii_uppercase) for _ in range(3)),
         'notif_types': random.choice(["A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-"])
     }
