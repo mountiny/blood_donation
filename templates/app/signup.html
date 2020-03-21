@@ -17,13 +17,108 @@
 
     <div class="form-container h-width">
 
-        <h1 class="form-heading h-900 h-text-center">Sign up</h1>
+        <h1 class="page-heading h-900 h-text-center">Sign up</h1>
 
-        <form class="form-wrapper" action="">
+        <div class="selection-container">
+                <div data-form="donor-form" class="selection-block h-border-radius h-shadow h-pointer selected">
+                    <div class="selection-block__text">
+                        Donor
+                    </div>
+                </div>
+                <div data-form="hospital-form" class="selection-block h-border-radius h-shadow h-pointer">
+                    <div class="selection-block__text">
+                        Hospital
+                    </div>
+                </div>
+        </div>
 
-            <input type="text" name="email" id="email_field" placeholder="Email">
-            <input type="password" name="password" id="password_field" placeholder="Password">
-            <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Sign up">
+        <form class="form-wrapper donor-form selected-form" action="">
+            {% csrf_token %}
+
+            <div class="form-line">
+                <label for="first_name_field">First name</label>
+                <input type="text" name="first_name" id="first_name_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="last_name_field">Last name</label>
+                <input type="text" name="last_name" id="last_name_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="username_field">Username</label>
+                <input type="text" name="username" id="username_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="email_field">Email</label>
+                <input type="email" name="email" id="email_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="password_field">Password</label>
+                <input type="password" name="password" id="password_field"  required>
+            </div>
+            <div class="form-line">
+                <label for="birthday_field">Birthday</label>
+                <input type="date" name="birthday" id="birthday_field" required>
+            </div>
+            <div class="form-line">
+                <label for="weight_field">Weight in kilos</label>
+                <input type="number" name="weight" id="weight_field">
+            </div>
+            <div class="form-line">
+                <label for="height_field">Height in centimeters</label>
+                <input type="number" name="height" id="height_field">
+            </div>
+            <div class="form-line">
+                <label for="telephone_field">Phone number</label>
+                <input type="tel" name="telephone" id="telephone_field" required>
+            </div>
+            <div class="form-line">
+                <label for="city_field">City</label>
+                <input type="text" name="city" id="city_field">
+            </div>
+            <div class="form-line">
+                <label for="address1_field">Address line 1</label>
+                <input type="text" name="address1" id="address1_field">
+            </div>
+            <div class="form-line">
+                <label for="address1_field">Address line 2</label>
+                <input type="text" name="address2" id="address1_field">
+            </div>
+            <div class="form-line">
+                <label for="blood_field">Your blood type</label>
+                <select name="blood_type" id="blood_field" required>
+                    <option value="" disabled>Your Blood Type</option>
+                    <option value="IDK">I do not know yet</option>
+                    <option value="O+">O positive</option>
+                    <option value="O-">O negative</option>
+                    <option value="A+">A positive</option>
+                    <option value="A-">A negative</option>
+                    <option value="B+">B positive</option>
+                    <option value="B-">B negative</option>
+                    <option value="AB+">AB positive</option>
+                    <option value="AB-">AB negative</option>
+                </select>
+            </div>
+            
+            <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up">
+
+        </form>
+        <form class="form-wrapper hospital-form" action="">
+            {% csrf_token %}
+
+            <div class="form-line">
+                    <label for="hospital_email_field">Email</label>
+                    <input type="email" name="hospital_email" id="hospital_email_field" required>
+                </div>
+                <div class="form-line">
+                    <label for="hospital_password_field">Password</label>
+                    <input type="password" name="hospital_password" id="hospital_password_field" required>
+                </div>
+                <div class="form-line">
+                    <label for="hospital_name_field">Hospital Name</label>
+                    <input type="text" name="hospital_name" id="hospital_name_field" required>
+                </div>
+
+            <input class="h-btn h-text-center h-700 h-submit-btn" id="hospital-submit-btn" type="submit" value="Sign up">
 
         </form>
 
@@ -33,10 +128,33 @@
                 Yes, log in!
             </a>
         </div>
-
+        
 
     </div>
 </div>
 
+
+{% endblock %}
+
+{% block javascript_block %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $(".selection-block").click(function () {
+            if($(this).hasClass("selected")) {
+                return;
+            }
+            var form = $(this).data("form");
+
+            $(".selected").toggleClass("selected");
+            $(this).toggleClass("selected");
+
+            $(".selected-form").toggleClass("selected-form");
+            $("."+form).toggleClass("selected-form");
+        });
+
+    });
+</script>
 
 {% endblock %}

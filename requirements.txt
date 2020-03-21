@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 django==2.1.5
 pillow==5.4.1
+=======
+certifi==2019.11.28
+Django==2.2.3
+Pillow==7.0.0
+pytz==2019.3
+sqlparse==0.3.0
+>>>>>>> af2b5628df7eac1528fc1ca4dc6102186e458fc9

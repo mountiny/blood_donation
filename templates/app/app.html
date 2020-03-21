@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block menu_items_block %}
+
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+            Profile
+        </a>
+    </li>
+
+{% endblock %}
+
+{% block body_block %}
+
+<div class="main-container">
+
+    <div class="form-container h-width">
+
+        <h2 class="dashboard-heading h-900">Welcome back, username!</h1>
+
+        <div class="dashboard-menu__container">
+            <div class="dashboard-block h-border-radius h-shadow h-pointer show-map">
+                <div class="dashboard-block__text">
+                    <span class="block-text__title h-900">Map</span><br />
+                    Discover hospitals nearby!
+                </div>
+            </div>
+            <div class="dashboard-block h-border-radius h-shadow h-pointer create-booking">
+                <div class="dashboard-block__text">
+                    <span class="block-text__title h-900">Book it</span><br />
+                    Create an appointment at hospital you fancy!
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript_block %}
+
+
+{% endblock %}

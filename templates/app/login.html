@@ -17,12 +17,20 @@
 
     <div class="form-container h-width">
 
-        <h1 class="form-heading h-900 h-text-center">Log in</h1>
+        <h1 class="page-heading h-900 h-text-center">Log in</h1>
 
         <form class="form-wrapper" action="">
+            {% csrf_token %}
 
-            <input type="text" name="email" id="email_field" placeholder="Email">
-            <input type="password" name="password" id="password_field" placeholder="Password">
+            <div class="form-line">
+                <label for="email_field">Email</label>
+                <input type="text" name="email" id="email_field">
+            </div>
+            <div class="form-line">
+                <label for="password_field">Password</label>
+                <input type="password" name="password" id="password_field">
+            </div>
+
             <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Log in">
 
         </form>
@@ -49,6 +57,12 @@
 
     </div>
 </div>
+
+
+{% endblock %}
+
+
+{% block javascript_block %}
 
 
 {% endblock %}

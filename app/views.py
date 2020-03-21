@@ -57,6 +57,36 @@ def signup(request):
     # Return a rendered response to send to the client.
     return response
 
+def contact(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/contact.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+
+def sitemap(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/site-map.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+
 def app(request):
     # category_list = Category.objects.order_by('-likes')[:5]
     # pages_list = Page.objects.order_by('-views')[:5]
@@ -71,6 +101,61 @@ def app(request):
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
+def hospital_map(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/map.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+def profile(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/profile.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+def profile_edit(request):
+    # category_list = Category.objects.order_by('-likes')[:5]
+    # pages_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {}
+    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    # context_dict['categories'] = category_list
+    # context_dict['pages'] = pages_list
+
+    # visitor_cookie_handler(request)
+
+    response = render(request, 'app/edit.html', context=context_dict)
+    # Return a rendered response to send to the client.
+    return response
+def hospital(request, hospital_slug):
+    context_dict = {}
+    # try:
+    #     hospital = Hospital.objects.get(slug=hospital_slug)
+
+
+    #     context_dict['hospital'] = hospital
+
+    # except Hospital.DoesNotExist:
+
+    #     context_dict['hospital'] = None
+
+    return render(request, 'app/login.html', context=context_dict)
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
