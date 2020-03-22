@@ -30,7 +30,7 @@ def index(request):
 
 def login(request):
     # TODO adapt for ajax
-    if request.method == 'GET':
+    if request.method == 'POST':
         username = request.GET.get('email')
         password = request.GET.get('password')
 
