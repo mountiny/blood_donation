@@ -61,6 +61,7 @@ class Donor(models.Model):
 
     # donor_id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
 
+    nickname = models.CharField(max_length=40, null=True)
     phone = models.CharField(max_length=10)
     address = models.CharField(max_length=100)
     blood_type = models.CharField(max_length=3)
@@ -77,10 +78,11 @@ class Donor(models.Model):
         return self.donor.username
 
     def new_donor(self, data):
-        donor = User.objects.create_user(data['username'], data['email'], data['password'])
+        donor = User.objects.create_user(username = data['email'], password=data['password'])
 
         donor.first_name = data['first_name']
         donor.last_name = data['last_name']
+        donor.nickname = data['nickname']
         donor.is_donor = True
 
         self.birth = (data['birthday'])
@@ -119,7 +121,8 @@ class Hospital(models.Model):
 
 
     def new_hospital(self, data):
-        hospital = User.objects.create_user(data['hospital_name'], data['hospital_email'], data['hospital_password'])
+        # hospital = User.objects.create_user(data['hospital_name'], data['hospital_email'], data['hospital_password'])
+        hospital = User.objects.create_user(username= data['hospital_email'], password=data['hospital_password'])
         hospital.is_hospital = True
         self.name = data['hospital_name']
         # self.location = data['location']

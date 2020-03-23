@@ -30,23 +30,25 @@ def index(request):
 
 def login(request):
     # TODO adapt for ajax
-    if request.method == 'POST':
+    if request.method == 'GET' :
         username = request.GET.get('email')
         password = request.GET.get('password')
 
         user = authenticate(username=username, password=password)
-        if user:
-            # Is the account active? It could have been disabled.
-            if user.is_active:
-                usr_login(request, user)
-                return redirect(reverse('app:index'))
+        if username is not None:
+            if user:
+                # Is the account active? It could have been disabled.
+                if user.is_active:
+                    usr_login(request, user)
+                    return redirect(reverse('app:index'))
+                else:
+                    # An inactive account was used - no logging in!
+                    return HttpResponse("Your account is disabled.")
             else:
-                # An inactive account was used - no logging in!
-                return HttpResponse("Your Rango account is disabled.")
+                print(f"Invalid login details: {username}, {password}")
+                return HttpResponse("Invalid login details supplied.")
         else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
-            # return render(request, 'app/login.html')
+            return render(request, 'app/login.html')
     else:
         return render(request, 'app/login.html')
 
