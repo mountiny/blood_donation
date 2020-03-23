@@ -82,14 +82,15 @@ class Donor(models.Model):
 
         donor.first_name = data['first_name']
         donor.last_name = data['last_name']
-        donor.nickname = data['nickname']
+        # donor.nickname = data['nickname']
+        donor.nickname = data['username']
         donor.is_donor = True
 
         self.birth = (data['birthday'])
         self.age = self.get_age(self.birth)
 
-        self.phone = data['telephone']
-        self.address = data['city']
+        # self.phone = data['telephone']
+        # self.address = data['city']
 
         self.height = data['height']
         self.weight = data['weight']
