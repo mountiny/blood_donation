@@ -73,6 +73,9 @@ input {
        padding: 0px 20px 0px 20px;
        
     }
+    &.h-empty {
+        background-color: $red-light;
+     }
 
     // &[type="text"], &[type="password"]  {
     border-bottom: 3px solid $primary;

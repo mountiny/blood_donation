@@ -125,7 +125,7 @@ class Hospital(models.Model):
         hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
         hospital.is_hospital = True
         self.name = data['hospital_name']
-        # self.location = data['location']
+        self.location = data['location']
         # self.notified_types = data['notif_types']
 
         hospital.save()

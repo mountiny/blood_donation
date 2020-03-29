@@ -19,7 +19,7 @@
 
         <h1 class="page-heading h-900 h-text-center">Log in</h1>
 
-        <form class="form-wrapper" action="">
+        <form class="form-wrapper" method="POST" action="{% url 'app:login' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form-line">
@@ -63,6 +63,108 @@
 
 
 {% block javascript_block %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        // Submit the login form data
+        $(".form-wrapper").on("submit", function(e) {
+            e.preventDefault();
+
+            // Get values from the form
+            var username = $("#email_field").val();
+            var password = $("#password_field").val();
+            var csrftoken = getCookie('csrftoken');
+
+            // Reset the error
+            $("#email_field").removeClass("h-empty");
+            $("#password_field").removeClass("h-empty");
+            
+            // check if the required fields are filled
+            if(username == "") {
+                $("#email_field").addClass("h-empty");
+                return;
+            }
+            if(password == "") {
+                $("#password_field").addClass("h-empty");
+                return;
+            }
+            console.log('Username: ' + username + " Password: " + password);
+
+             $.ajax({
+                type: "POST",
+                headers: {'X-CSRFToken' : csrftoken},
+                url: "{% url 'app:login' %}",
+                data: {'username': username,
+                        'password': password},
+                // dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+            
+
+
+        })
+
+        // function getCookie(name) {
+        //     var cookieValue = null;
+        //     if (document.cookie && document.cookie !== '') {
+        //         var cookies = document.cookie.split(';');
+        //         for (var i = 0; i < cookies.length; i++) {
+        //             var cookie = cookies[i].trim();
+        //             // Does this cookie string begin with the name we want?
+        //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     return cookieValue;
+        // }
+
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: url,
+        //     data: data,
+        //     dataType: dataType,
+        //     success: function(response) {
+
+        //     }
+        // });
+
+        // $(".scroll-down__icon").click(function (e) {
+        //     e.preventDefault();
+        //     smoothScroll($("#how-to-donate"));
+        // });
+        // $(".block-unit__link:not(.register-link)").click(function (e) {
+        //     e.preventDefault();
+        //     smoothScroll($($(this).attr("href")));
+        // });
+
+        // $(".block-eligibility").click(function (e) {
+        //     e.preventDefault();
+        //     smoothScroll($("#can-i-donate"));
+        // });
+
+        // $(".block-map").click(function (e) {
+        //     e.preventDefault();
+        //     smoothScroll($("#where-to-donate"));
+        // });
+
+        // $(".show-more").click(function () {
+        //     var section = $(this).data("section");
+        //     if($("."+section).find(".fadeable").hasClass("h-display-none")) {
+        //         $(this).text("Show less!");
+        //     } else {
+        //         $(this).text("Show more!");
+        //     }
+        //     $("."+section).find(".fadeable").toggleClass("h-display-none");
+        // });
+
+    });
+</script>
 
 
 {% endblock %}

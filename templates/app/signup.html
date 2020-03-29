@@ -32,7 +32,7 @@
                 </div>
         </div>
 
-        <form class="form-wrapper donor-form selected-form" action="">
+        <form class="form-wrapper donor-form selected-form" method="POST" action="/app/signup/">
             {% csrf_token %}
 
             <div class="form-line">
@@ -85,43 +85,12 @@
                 </select>
             </div>
 
-            <!-- Map settings -->
-            <h4>Please select your address on the map: </h4>
-            <div id="mapid" style="width: 705px; height: 375px"></div>
-            <script>
-                var map = L.map('mapid',{ center: [42.362432, -71.086086], zoom: 14});
-                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
-
-                var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-                var results = new L.LayerGroup().addTo(map);
-
-                 searchControl.on('results', function(data){
-                 results.clearLayers();
-                    for (var i = data.results.length - 1; i >= 0; i--) {
-                     results.addLayer(L.marker(data.results[i].latlng));
-                 }
-                 });
 
 
-                var popup = L.popup();
-                // Write function to set Properties of the Popup
-                function onMapClick(e) {
-                    popup
-                        .setLatLng(e.latlng)
-                        .setContent("Selected location: " + e.latlng.toString())
-                        .openOn(map);
-                    }
-
-                // Listen for a click event on the Map element
-                map.on('click', onMapClick);
-
-            </script>
-
-
-            <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up">
+            <!-- <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up"> -->
 
         </form>
-        <form class="form-wrapper hospital-form" action="">
+        <form class="form-wrapper hospital-form" method="POST" action="{% url 'app:signup' %}">
             {% csrf_token %}
 
             <div class="form-line">
@@ -136,6 +105,10 @@
                     <label for="hospital_name_field">Hospital Name</label>
                     <input type="text" name="hospital_name" id="hospital_name_field" required>
                 </div>
+
+            <!-- Map settings -->
+            <h4>Please select your address on the map: </h4>
+            <div id="mapid" style="width: 705px; height: 375px"></div>
 
             <input class="h-btn h-text-center h-700 h-submit-btn" id="hospital-submit-btn" type="submit" value="Sign up">
 
@@ -160,17 +133,101 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        $(".hospital-form").on("submit", function(e) {
+            e.preventDefault();
+
+            // Get values from the form
+            var username = $("#hospital_email_field").val();
+            var password = $("#hospital_password_field").val();
+            var hospital_name = $("#hospital_name_field").val();
+            var csrftoken = getCookie('csrftoken');
+
+            // Reset the error
+            $("#hospital_email_field").removeClass("h-empty");
+            $("#hospital_password_field").removeClass("h-empty");
+            $("#hospital_name_field").removeClass("h-empty");
+            
+            // check if the required fields are filled
+            if(username == "") {
+                $("#hospital_email_field").addClass("h-empty");
+                return;
+            }
+            if(password == "") {
+                $("#hospital_password_field").addClass("h-empty");
+                return;
+            }
+            if(hospital_name == "") {
+                $("#hospital_name_field").addClass("h-empty");
+                return;
+            }
+            console.log('Hospital emial: ' + username + " Hospital Pasword: " + password + " Hospital Name: " + hospital_name + " Hospital Location: " + JSON.stringify(loc));
+
+            $.ajax({
+                type: "POST",
+                headers: {'X-CSRFToken' : csrftoken},
+                url: "{% url 'app:signup' %}",
+                data: {'hospital_email': username,
+                        'hospital_password': password,
+                        'location': JSON.stringify(loc),
+                        'hospital_name' : hospital_name},
+                // dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+            
+
+
+        })
+
+        // Map setup
+
+        var map = L.map('mapid',{ center: [54.41058, -3.97794], zoom: 5});
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+
+        var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+        var results = new L.LayerGroup().addTo(map);
+
+        searchControl.on('results', function(data){
+            results.clearLayers();
+            for (var i = data.results.length - 1; i >= 0; i--) {
+                results.addLayer(L.marker(data.results[i].latlng));
+            }
+        });
+
+        var popup = L.popup();
+        var loc = "";
+
+        // Write function to set Properties of the Popup
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("Selected location: " + e.latlng.toString())
+                .openOn(map);
+                console.log(e.latlng["lat"])
+                loc = {"lat": e.latlng["lat"], "lon": e.latlng["lon"]};
+                // localStorage.setItem("location", e.latlng.toString());ú
+        }
+
+        // Listen for a click event on the Map element
+        map.on('click', onMapClick);
+
         $(".selection-block").click(function () {
             if($(this).hasClass("selected")) {
                 return;
             }
             var form = $(this).data("form");
+            
 
             $(".selected").toggleClass("selected");
             $(this).toggleClass("selected");
 
             $(".selected-form").toggleClass("selected-form");
             $("."+form).toggleClass("selected-form");
+
+            // Re-render the map
+            map.invalidateSize();
         });
 
     });

@@ -30,9 +30,9 @@ def index(request):
 
 def login(request):
     # TODO adapt for ajax
-    if request.method == 'GET' :
-        username = request.GET.get('email')
-        password = request.GET.get('password')
+    if request.method == 'POST' :
+        username = request.POST["username"]
+        password = request.POST["password"]
 
         user = authenticate(username=username, password=password)
         if username is not None:
@@ -62,8 +62,8 @@ def user_logout(request):
 
 def signup(request):
     # TODO change to AJAX
-    if request.method == 'GET':
-        qd = dict(request.GET)
+    if request.method == 'POST':
+        qd = dict(request.POST)
         if 'username' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
@@ -76,7 +76,7 @@ def signup(request):
             new_hopt.new_hospital(data=qd)
 
     else:
-        print("Neither donor or hospital")
+        return render(request, 'app/signup.html')
 
     context_dict = {}
     response = render(request, 'app/signup.html', context=context_dict)
@@ -115,7 +115,7 @@ def sitemap(request):
     # Return a rendered response to send to the client.
     return response
 
-
+@login_required
 def app(request):
     # category_list = Category.objects.order_by('-likes')[:5]
     # pages_list = Page.objects.order_by('-views')[:5]
@@ -131,7 +131,7 @@ def app(request):
     # Return a rendered response to send to the client.
     return response
 
-
+@login_required
 def hospital_map(request):
     # category_list = Category.objects.order_by('-likes')[:5]
     # pages_list = Page.objects.order_by('-views')[:5]
@@ -147,7 +147,7 @@ def hospital_map(request):
     # Return a rendered response to send to the client.
     return response
 
-
+@login_required
 def profile(request):
     # category_list = Category.objects.order_by('-likes')[:5]
     # pages_list = Page.objects.order_by('-views')[:5]
@@ -163,7 +163,7 @@ def profile(request):
     # Return a rendered response to send to the client.
     return response
 
-
+@login_required
 def profile_edit(request):
     # category_list = Category.objects.order_by('-likes')[:5]
     # pages_list = Page.objects.order_by('-views')[:5]
@@ -179,7 +179,7 @@ def profile_edit(request):
     # Return a rendered response to send to the client.
     return response
 
-
+@login_required
 def hospital(request, hospital_slug):
     context_dict = {}
     # try:

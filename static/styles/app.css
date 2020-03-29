@@ -311,6 +311,10 @@ input.h-btn {
   padding: 0px 20px 0px 20px;
 }
 
+input.h-empty {
+  background-color: #F7D9D4;
+}
+
 input::-webkit-input-placeholder {
   /* Edge */
   color: #000000;
