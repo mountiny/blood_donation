@@ -111,7 +111,7 @@ def populate():
 
     # add bookings
     for d in donors:
-        create_booking(i,hospitals[random.randrange(0, len(hospitals))])
+        create_booking(d,hospitals[random.randrange(0, len(hospitals))])
 
 
 # Start execution here!
