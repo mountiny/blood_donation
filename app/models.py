@@ -172,6 +172,16 @@ class Story(models.Model):
         story.likes -= 1
         story.save()
 
+    @staticmethod
+    def show_all_stories():
+        d = dict()
+        for story in Story.objects.all():
+            if story.hospital not in d:
+                d[story.hospital] = []
+            d[story.hospital].append(story.id)
+        return d
+
+
 
 class Booking(models.Model):
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
@@ -184,6 +194,15 @@ class Booking(models.Model):
         self.hospital = data['hospital']
         self.appointment = data['appointment']
         self.save()
+
+    @staticmethod
+    def show_all_bookings():
+        d = dict()
+        for booking in Booking.objects.all():
+            if booking.donor not in d:
+                d[booking.donor] = []
+            d[booking.donor].append(booking.id)
+        return d
 
 
 class Review(models.Model):
@@ -211,3 +230,12 @@ class Review(models.Model):
                 'hospital': review.hospital.name,
                 'date': review.date,
                 'review': review.review}
+
+    @staticmethod
+    def show_all_reviews():
+        d = dict()
+        for review in Review.objects.all():
+            if review.donor not in d:
+                d[review.donor] = []
+            d[review.donor].append(review.id)
+        return d
