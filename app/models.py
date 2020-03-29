@@ -78,14 +78,14 @@ class Donor(models.Model):
         return self.donor.username
 
     def new_donor(self, data):
-        donor = User.objects.create_user(username = data['email'], password=data['password'])
+        donor = User.objects.create_user(username=data['email'], password=data['password'])
 
         donor.first_name = data['first_name']
         donor.last_name = data['last_name']
         # donor.nickname = data['nickname']
-        donor.nickname = data['username']
         donor.is_donor = True
 
+        self.nickname = data['username']
         self.birth = (data['birthday'])
         self.age = self.get_age(self.birth)
 
@@ -120,10 +120,9 @@ class Hospital(models.Model):
     def __str__(self):
         return self.name
 
-
     def new_hospital(self, data):
         # hospital = User.objects.create_user(data['hospital_name'], data['hospital_email'], data['hospital_password'])
-        hospital = User.objects.create_user(username= data['hospital_email'], password=data['hospital_password'])
+        hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
         hospital.is_hospital = True
         self.name = data['hospital_name']
         # self.location = data['location']
@@ -148,6 +147,30 @@ class Story(models.Model):
         self.picture = data['picture']
         self.likes = data['likes']
         self.save()
+
+    @staticmethod
+    def show_story(data):
+        id = data['story_id']
+        story = Story.objects.get(id=id)
+        return {'hospital': story.hospital.name,
+                'date': story.date,
+                'story': story.story,
+                'picture': story.picture,
+                'likes': story.likes}
+
+    @staticmethod
+    def like_story(data):
+        id = data['story_id']
+        story = Story.objects.get(id=id)
+        story.likes += 1
+        story.save()
+
+    @staticmethod
+    def dislike_story(data):
+        id = data['story_id']
+        story = Story.objects.get(id=id)
+        story.likes -= 1
+        story.save()
 
 
 class Booking(models.Model):
@@ -179,3 +202,12 @@ class Review(models.Model):
         self.review = data['review']
 
         self.save()
+
+    @staticmethod
+    def show_review(data):
+        id = data['review_id']
+        review = Review.objects.get(id=id)
+        return {'donor': review.donor.nickname,
+                'hospital': review.hospital.name,
+                'date': review.date,
+                'review': review.review}
