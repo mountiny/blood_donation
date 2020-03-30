@@ -568,6 +568,61 @@ footer {
     
 }
 
+.signup-modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(247, 217, 212, 0.6);
+    opacity: 0;
+    display: none;
+    &.modal-open {
+        display: block;
+        opacity: 1;
+    }
+}
+.modal-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 90%;
+    width: 300px;
+    min-height: 240px;
+    @include prefix(transform, (translateX(-50%) translateY(-50%)));
+    background-color: white;
+    border: 3px solid black;
+    padding: 20px;
+    @include display_flexbox();
+    @include flex-direction(column);
+    @include justify_content(center);
+    @include align-items(center);
+    @include align-content(center);
+}
+.modal-content__msg {
+    text-align: center;
+    font-size: $h3;
+    margin-bottom: 30px;
+    width: 100%;
+    position: relative;
+}
+.modal-buttons__cont {
+    width: 100%;
+    position: relative;
+    @include display_flexbox();
+    @include justify_content(space-around);
+    @include align-items(center);
+    @include align-content(center);
+}
+.modal-button{
+    display: block;
+
+    &.btn-hidden {
+        display: none;
+    }
+}
+
 
 // Mobile styles
 

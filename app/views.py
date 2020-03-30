@@ -1,12 +1,14 @@
 from app.models import Donor, Hospital
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http.response import JsonResponse
 
 from django.urls import reverse
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as usr_login
 from django.contrib.auth.decorators import login_required
 
+from django.db.utils import IntegrityError
 from datetime import datetime
 
 
@@ -69,17 +71,24 @@ def signup(request):
                 qd[k] = v[0]
             new_donor = Donor()
             new_donor.new_donor(data=qd)
+            return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
         elif 'hospital_name' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
             new_hopt = Hospital()
-            new_hopt.new_hospital(data=qd)
+            try:
+                new_hopt.new_hospital(data=qd)
+            except IntegrityError as e:
+                return JsonResponse({'success':False, 'message':"This email has already been used!"})
+            else:
+                return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
 
     else:
         return render(request, 'app/signup.html')
 
     context_dict = {}
     response = render(request, 'app/signup.html', context=context_dict)
+    
     # Return a rendered response to send to the client.
     return response
 

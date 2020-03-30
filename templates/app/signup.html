@@ -107,7 +107,7 @@
                 </div>
 
             <!-- Map settings -->
-            <h4>Please select your address on the map: </h4>
+            <h4 style="font-size: 1rem; padding: 20px 0px;" id="map_text">Please select your address on the map: </h4>
             <div id="mapid" style="width: 705px; height: 375px"></div>
 
             <input class="h-btn h-text-center h-700 h-submit-btn" id="hospital-submit-btn" type="submit" value="Sign up">
@@ -122,6 +122,18 @@
         </div>
         
 
+    </div>
+</div>
+
+<div class="signup-modal">
+    <div class="modal-container">
+        <div class="modal-content__msg h-700"></div>
+        <div class="modal-buttons__cont">
+           <div class="modal-button h-pointer h-uppercase modal-close">Close</div>
+           <div class="modal-button h-pointer h-uppercase modal-btn-login"><a href="{% url 'app:login' %}">
+                log in
+            </a></div>
+        </div>
     </div>
 </div>
 
@@ -160,7 +172,10 @@
                 $("#hospital_name_field").addClass("h-empty");
                 return;
             }
-            console.log('Hospital emial: ' + username + " Hospital Pasword: " + password + " Hospital Name: " + hospital_name + " Hospital Location: " + JSON.stringify(loc));
+            if(loc == "") {
+                $("#map_text").html("You have not selected a location of the hospital!");
+                return;
+            }
 
             $.ajax({
                 type: "POST",
@@ -173,6 +188,16 @@
                 // dataType: "json",
                 success: function(response) {
                     console.log(response);
+                    if (response.success) {
+                        $(".modal-content__msg").html(response.message);
+                       
+                    } else {
+                        
+                        $(".modal-content__msg").html(response.message);
+                        $(".modal-btn-login").toggleClass("btn-hidden");
+
+                    }
+                    $(".signup-modal").toggleClass("modal-open");
                 }
             });
             
@@ -205,13 +230,25 @@
                 .setLatLng(e.latlng)
                 .setContent("Selected location: " + e.latlng.toString())
                 .openOn(map);
-                console.log(e.latlng["lat"])
+                // Save the location as a dictionary
                 loc = {"lat": e.latlng["lat"], "lon": e.latlng["lon"]};
-                // localStorage.setItem("location", e.latlng.toString());ú
         }
 
         // Listen for a click event on the Map element
         map.on('click', onMapClick);
+
+        $(".modal-close").click(function () {
+           
+            $(".signup-modal").toggleClass("modal-open");
+            $(".btn-hidden").toggleClass("btn-hidden");
+        
+        });
+
+        // $('body').click(function (e) {
+        //     if(!$(e.target).closest('.signup-modal').length && !$(e.target).is('.signup-modal')) {
+        //         $(".modal-open").toggleClass("modal-open");
+        //     }
+        // });
 
         $(".selection-block").click(function () {
             if($(this).hasClass("selected")) {
