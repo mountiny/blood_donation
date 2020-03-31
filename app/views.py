@@ -66,7 +66,9 @@ def user_logout(request):
 
 
 def signup(request):
-    # TODO change to AJAX
+
+    context_dict = {}
+
     if request.method == 'POST':
         qd = dict(request.POST)
         if 'username' in qd:
@@ -85,11 +87,17 @@ def signup(request):
                 return JsonResponse({'success':False, 'message':"This email has already been used!"})
             else:
                 return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
-
+    elif request.method == 'GET':
+        print("get is here")
+        hospital = request.GET.get('hospital', '')
+        print(hospital)
+        if hospital == "true":
+            context_dict['hospital'] = "true"
+            response = render(request, 'app/signup.html', context=context_dict)
     else:
         return render(request, 'app/signup.html')
 
-    context_dict = {}
+   
     response = render(request, 'app/signup.html', context=context_dict)
     
     # Return a rendered response to send to the client.

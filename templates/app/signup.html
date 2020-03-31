@@ -20,19 +20,19 @@
         <h1 class="page-heading h-900 h-text-center">Sign up</h1>
 
         <div class="selection-container">
-                <div data-form="donor-form" class="selection-block h-border-radius h-shadow h-pointer selected">
-                    <div class="selection-block__text">
-                        Donor
-                    </div>
+            <div data-form="donor-form" class="selection-block h-border-radius h-shadow h-pointer {% if hospital %} {% else %}selected {% endif %}">
+                <div class="selection-block__text">
+                    Donor
                 </div>
-                <div data-form="hospital-form" class="selection-block h-border-radius h-shadow h-pointer">
-                    <div class="selection-block__text">
-                        Hospital
-                    </div>
+            </div>
+            <div data-form="hospital-form" class="selection-block h-border-radius h-shadow h-pointer {% if hospital %} selected {% endif %}">
+                <div class="selection-block__text">
+                    Hospital
                 </div>
+            </div>
         </div>
 
-        <form class="form-wrapper donor-form selected-form" method="POST" action="/app/signup/">
+        <form class="form-wrapper donor-form {% if hospital %} {% else %}selected-form {% endif %}" method="POST" action="/app/signup/">
             {% csrf_token %}
 
             <div class="form-line">
@@ -88,7 +88,7 @@
             <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up">
 
         </form>
-        <form class="form-wrapper hospital-form" method="POST" action="{% url 'app:signup' %}">
+        <form class="form-wrapper hospital-form {% if hospital %} selected-form {% endif %}" method="POST" action="{% url 'app:signup' %}">
             {% csrf_token %}
 
             <div class="form-line">

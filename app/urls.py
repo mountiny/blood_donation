@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import url
 from app import views
+import re
 
 app_name = 'app'
 
@@ -14,7 +15,7 @@ urlpatterns = [
          views.hospital, name='hospital'),
     path('login/', views.login, name='login'),
     path('app/logout/', views.user_logout, name='logout'),
-    path('signup/', views.signup, name='signup'),
+    re_path(r'^signup/$', views.signup, name='signup'),
     path('contact/', views.contact, name='contact'),
     path('site-map/', views.sitemap, name='sitemap'),
 ]
