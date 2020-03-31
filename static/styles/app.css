@@ -302,6 +302,18 @@ table {
   display: inline-block;
 }
 
+.form-note {
+  width: 320px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 15px;
+  padding: 20px 0px;
+}
+
+.form-note a {
+  color: #e74c3c;
+}
+
 select {
   max-width: 90vw;
   min-width: 240px;
@@ -1120,6 +1132,7 @@ footer:before {
 .modal-content__msg {
   text-align: center;
   font-size: 1.4em;
+  line-height: 1.54em;
   margin-bottom: 50px;
   width: 100%;
   position: relative;

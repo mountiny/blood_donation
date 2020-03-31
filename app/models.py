@@ -90,7 +90,7 @@ class Donor(models.Model):
         self.age = self.get_age(self.birth)
 
         # self.phone = data['telephone']
-        # self.address = data['city']
+        self.address = data['city']
 
         self.height = data['height']
         self.weight = data['weight']

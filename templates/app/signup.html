@@ -44,8 +44,8 @@
                 <input type="text" name="last_name" id="last_name_field"  required>
             </div>
             <div class="form-line">
-                <label for="username_field">Username</label>
-                <input type="text" name="username" id="username_field"  required>
+                <label for="username_field">Nickname</label>
+                <input type="text" name="nickname" id="nickname_field"  required>
             </div>
             <div class="form-line">
                 <label for="email_field">Email</label>
@@ -57,16 +57,20 @@
             </div>
             <div class="form-line">
                 <label for="birthday_field">Birthday</label>
-                <input type="date" name="birthday" id="birthday_field" required>
+                <input type="date" value="1998-01-01" min="2004-01-01"name="birthday" id="birthday_field" required>
+            </div>
+            <div class="form-line">
+                <label for="city_field">City</label>
+                <input type="text" name="city" id="city_field"  required>
             </div>
             <div class="form-line">
                 <label for="weight_field">Weight in kilos</label>
-                <input type="number" name="weight" id="weight_field">
+                <input type="number" name="weight" id="weight_field" required>
             </div>
 
             <div class="form-line">
                 <label for="height_field">Height in centimeters</label>
-                <input type="number" name="height" id="height_field">
+                <input type="number" name="height" id="height_field" required>
             </div>
 
             <div class="form-line">
@@ -84,7 +88,9 @@
                     <option value="AB-">AB negative</option>
                 </select>
             </div>
-
+            <div class="form-note">
+                By submitting this form, you give us a consent to provide your data to blood donation centres. If you want to see exactly what we do with data from you email us here: <a href="mailto:privacy@blooddonation.com">privacy@blooddonation.com</a>.
+            </div>
             <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up">
 
         </form>
@@ -108,6 +114,9 @@
             <h4 style="font-size: 1rem; padding: 20px 0px;" id="map_text">Please select your address on the map: </h4>
             <div id="mapid" style="width: 705px; height: 375px"></div>
 
+            <div class="form-note">
+                    By submitting this form, you give us a consent to use this data to improve our services. If you want to see exactly what we do with data from you email us here: <a href="mailto:privacy@blooddonation.com">privacy@blooddonation.com</a>.
+                </div>
             <input class="h-btn h-text-center h-700 h-submit-btn" id="hospital-submit-btn" type="submit" value="Sign up">
 
         </form>
@@ -143,6 +152,111 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+
+        $(".donor-form").on("submit", function(e) {
+            e.preventDefault();
+
+            // Get values from the form
+            var first_name = $("#first_name_field").val();
+            var last_name = $("#last_name_field").val();
+            var nickname = $("#nickname_field").val();
+            var email = $("#email_field").val();
+            var password = $("#password_field").val();
+            var birthday = $("#birthday_field").val();
+            var city = $("#city_field").val();
+            var weight = $("#weight_field").val();
+            var height = $("#height_field").val();
+            var blood_type = $("#blood_field").val();
+            var csrftoken = getCookie('csrftoken');
+
+            // Reset the error
+            $("#first_name_field").removeClass("h-empty");
+            $("#last_name_field").removeClass("h-empty");
+            $("#nickname_field").removeClass("h-empty");
+            $("#email_field").removeClass("h-empty");
+            $("#password_field").removeClass("h-empty");
+            $("#birthday_field").removeClass("h-empty");
+            $("#city_field").removeClass("h-empty");
+            $("#weight_field").removeClass("h-empty");
+            $("#height_field").removeClass("h-empty");
+            $(".modal-btn-login").removeClass("btn-hidden");
+            
+            // check if the required fields are filled
+            if(first_name == "" || last_name == "" || nickname == "" || 
+            email == "" || password == "" || birthday == "" || 
+            weight == "" || height == "" || city == "" ) {
+
+                if(first_name == "") {
+                    $("#first_name_field").addClass("h-empty");
+                }
+                if(last_name == "") {
+                    $("#last_name_field").addClass("h-empty");
+                }
+                if(nickname == "") {
+                    $("#nickname_field").addClass("h-empty");
+                }
+                if(email == "") {
+                    $("#email_field").addClass("h-empty");
+                }
+                if(password == "") {
+                    $("#password_field").addClass("h-empty");
+                }
+                if(birthday == "") {
+                    $("#birthday_field").addClass("h-empty");
+                }
+                if(city == "") {
+                    $("#city_field").addClass("h-empty");
+                }
+                if(weight == "") {
+                    $("#weight_field").addClass("h-empty");
+                }
+                if(height == "") {
+                    $("#height_field").addClass("h-empty");
+                }
+                return;
+
+            }
+
+            console.log(birthday);
+
+            $.ajax({
+                type: "POST",
+                headers: {'X-CSRFToken' : csrftoken},
+                url: "{% url 'app:signup' %}",
+                data: {
+                    'username': nickname,
+                    'email': email,
+                    'password': password,
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'birthday': birthday,
+                    'height': height,
+                    'weight': weight,
+                    'city': city,
+                    'blood_type' : blood_type
+                },
+                // dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        $(".modal-content__msg").html(response.message);
+
+                        // reset the form
+                        $(".donor-form")[0].reset();
+                       
+                    } else {
+                        
+                        $(".modal-content__msg").html(response.message);
+                        $(".modal-btn-login").addClass("btn-hidden");
+
+                    }
+                    $(".modal-wrapper").toggleClass("modal-open");
+                }
+            });
+
+        });
+
+
         $(".hospital-form").on("submit", function(e) {
             e.preventDefault();
 
@@ -157,27 +271,31 @@
             $("#hospital_password_field").removeClass("h-empty");
             $("#hospital_name_field").removeClass("h-empty");
             $("#map_text").removeClass("h-warning");
+            $(".modal-btn-login").removeClass("btn-hidden");
             
             // check if the required fields are filled
-            if(username == "") {
-                $("#hospital_email_field").addClass("h-empty");
+            if(username == "" || password == "" || hospital_name == "" || 
+            loc == "") {
+
+                if(username == "") {
+                    $("#hospital_email_field").addClass("h-empty");
+
+                }
+                if(password == "") {
+                    $("#hospital_password_field").addClass("h-empty");
+
+                }
+                if(hospital_name == "") {
+                    $("#hospital_name_field").addClass("h-empty");
+
+                }
+                if(loc == "") {
+                    $("#map_text").html("You have not selected a location of the hospital!");
+                    $("#map_text").addClass("h-warning");
+                }
                 return;
             }
-            if(password == "") {
-                $("#hospital_password_field").addClass("h-empty");
-                return;
-            }
-            if(hospital_name == "") {
-                $("#hospital_name_field").addClass("h-empty");
-                return;
-            }
-            if(loc == "") {
-                $("#map_text").html("You have not selected a location of the hospital!");
-                $("#map_text").addClass("h-warning");
-                return;
-            }
-            console.log(loc);
-            console.log(JSON.stringify(loc));
+
 
             $.ajax({
                 type: "POST",
@@ -201,7 +319,7 @@
                     } else {
                         
                         $(".modal-content__msg").html(response.message);
-                        $(".modal-btn-login").toggleClass("btn-hidden");
+                        $(".modal-btn-login").addClass("btn-hidden");
 
                     }
                     $(".modal-wrapper").toggleClass("modal-open");

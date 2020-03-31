@@ -75,29 +75,35 @@ def signup(request):
             for k, v in qd.items():
                 qd[k] = v[0]
             new_donor = Donor()
-            new_donor.new_donor(data=qd)
-            return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
-        elif 'hospital_name' in qd:
-            for k, v in qd.items():
-                qd[k] = v[0]
-            new_hopt = Hospital()
+            # Try to create a new Donor and handle any errors which may occur
             try:
-                new_hopt.new_hospital(data=qd)
+                new_donor.new_donor(data=qd)
             except IntegrityError as e:
                 return JsonResponse({'success':False, 'message':"This email has already been used!"})
             else:
                 return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
+            
+        elif 'hospital_name' in qd:
+            for k, v in qd.items():
+                qd[k] = v[0]
+            new_hopt = Hospital()
+            # Try to create a new Hospital and handle any errors which may occur
+            try:
+                new_hopt.new_hospital(data=qd)
+            except IntegrityError as e:
+                print(e)
+                return JsonResponse({'success':False, 'message':"This email has already been used!"})
+            else:
+                return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
     elif request.method == 'GET':
-        print("get is here")
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
         hospital = request.GET.get('hospital', '')
-        print(hospital)
         if hospital == "true":
             context_dict['hospital'] = "true"
             response = render(request, 'app/signup.html', context=context_dict)
     else:
         return render(request, 'app/signup.html')
 
-   
     response = render(request, 'app/signup.html', context=context_dict)
     
     # Return a rendered response to send to the client.

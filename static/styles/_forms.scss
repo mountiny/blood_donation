@@ -46,6 +46,16 @@
         display: inline-block;
     }
 }
+.form-note {
+    width: 320px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 15px;
+    padding: 20px 0px;
+    a {
+        color: $primary;
+    }
+}
 select {
     max-width: 90vw;
     min-width: 240px;
