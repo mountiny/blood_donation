@@ -196,13 +196,12 @@ class Booking(models.Model):
         self.save()
 
     @staticmethod
-    def show_all_bookings():
-        d = dict()
+    def show_all_bookings(data):
+        l = []
         for booking in Booking.objects.all():
-            if booking.donor not in d:
-                d[booking.donor] = []
-            d[booking.donor].append(booking.id)
-        return d
+            if booking.donor == data['donor']:
+                l.append(booking.id)
+        return l
 
     @staticmethod
     def get_slot(data):
@@ -265,3 +264,19 @@ class Review(models.Model):
                 d[review.donor] = []
             d[review.donor].append(review.id)
         return d
+
+    @staticmethod
+    def show_hospital_reviews(data):
+        l = []
+        for review in Review.objects.all():
+            if review.hospital == data['hospital']:
+                l.append(review.id)
+        return l
+
+    @staticmethod
+    def show_donor_reviews(data):
+        l = []
+        for review in Review.objects.all():
+            if review.donor == data['donor']:
+                l.append(review.id)
+        return l

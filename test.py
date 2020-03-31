@@ -12,6 +12,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blood_donation.settings')
 django.setup()
 from app.models import *
 
-print(Story.show_all_stories())
-print(Review.show_all_reviews())
-print(Booking.show_all_bookings())
+for donor in Donor.objects.all():
+    print(Booking.show_all_bookings({ 'donor' : donor }))
+for donor in Donor.objects.all():
+    print(Review.show_donor_reviews({ 'donor' : donor }))
+for hospital in Hospital.objects.all():
+    print(Review.show_hospital_reviews({ 'hospital' : hospital }))
