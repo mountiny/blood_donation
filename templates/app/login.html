@@ -59,7 +59,7 @@
 </div>
 
 
-<div class="modal-wrapper">
+<div class="modal-wrapper" data-name="modal">
     <div class="modal-container">
         <div class="modal-content__msg h-700"></div>
         <div class="modal-buttons__cont">
@@ -116,10 +116,11 @@
                         // Redirect to the dashboard
                         window.location.href = ("../app/");
                     } else {
-                        // Error
+                        // Error handling
                         console.log(response);
                         $(".modal-content__msg").html(response.message);
                         $(".modal-wrapper").addClass("modal-open");
+                        $("html").css("overflow", "hidden");
                     }
                 }
             });
@@ -128,50 +129,22 @@
 
         })
 
+        // Close the modal by clicking on the close button
         $(".modal-close").click(function () {
            
            $(".modal-wrapper").toggleClass("modal-open");
+           $("html").css("overflow", "auto");
        
        });
+       // Close the modal by clicking around the diaglog box
+       $(".modal-wrapper").click(function (e) {
 
-        // $.ajax({
-        //     type: "POST",
-        //     url: url,
-        //     data: data,
-        //     dataType: dataType,
-        //     success: function(response) {
+            if (e.target.dataset["name"] == "modal") {
+                $(".modal-wrapper").toggleClass("modal-open");
+                $("html").css("overflow", "auto");
+            }
 
-        //     }
-        // });
-
-        // $(".scroll-down__icon").click(function (e) {
-        //     e.preventDefault();
-        //     smoothScroll($("#how-to-donate"));
-        // });
-        // $(".block-unit__link:not(.register-link)").click(function (e) {
-        //     e.preventDefault();
-        //     smoothScroll($($(this).attr("href")));
-        // });
-
-        // $(".block-eligibility").click(function (e) {
-        //     e.preventDefault();
-        //     smoothScroll($("#can-i-donate"));
-        // });
-
-        // $(".block-map").click(function (e) {
-        //     e.preventDefault();
-        //     smoothScroll($("#where-to-donate"));
-        // });
-
-        // $(".show-more").click(function () {
-        //     var section = $(this).data("section");
-        //     if($("."+section).find(".fadeable").hasClass("h-display-none")) {
-        //         $(this).text("Show less!");
-        //     } else {
-        //         $(this).text("Show more!");
-        //     }
-        //     $("."+section).find(".fadeable").toggleClass("h-display-none");
-        // });
+       });
 
     });
 </script>
