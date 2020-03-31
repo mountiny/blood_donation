@@ -204,6 +204,32 @@ class Booking(models.Model):
             d[booking.donor].append(booking.id)
         return d
 
+    @staticmethod
+    def get_slot(data):
+        hosp_id = data['hospital_id']
+        from_date = (datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=1)).replace(hour=8, minute=0)
+        to_date = (from_date + datetime.timedelta(days=6)).replace(hour=12, minute=0)
+
+        def half_hour(h):
+            return 0 if h % 2 == 0 else 30
+
+        # initialize slots dictionary with all slots free
+        slots = dict()
+        for d in range(5):
+            slots[(from_date + datetime.timedelta(days=d)).date()] = {}
+            for t in range(0, 6):
+                slots[(from_date + datetime.timedelta(days=d)).date()][datetime.time(9 + (t // 2), half_hour(t))] = True
+
+        # booked slots for given hospital for the next 5 days
+        booked_slots = Booking.objects.filter(hospital_id=hosp_id, appointment__range=[from_date, to_date])
+
+        # enter booked slots to the dictionary
+        for bs in booked_slots:
+            slots[bs.appointment.date()][bs.appointment.time()] = False
+
+        # pprint.pprint(slots)
+        return slots
+
 
 class Review(models.Model):
     # review_id = models.IntegerField(unique=True, primary_key=True)
