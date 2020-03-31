@@ -1,53 +1,9 @@
 import datetime
 
 from django.db import models
-
+from django.db.utils import IntegrityError
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import AbstractUser
-
-
-# Create your models here.
-# class Donor(models.Model):
-#     # username, pword, first+last name, email
-#     donor = models.OneToOneField(User, on_delete=models.CASCADE)
-#
-#     # id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
-#     phone = models.CharField(max_length = 10)
-#     address = models.CharField(max_length=100)
-#     blood_type = models.CharField(max_length=3)
-#     weight = models.IntegerField()
-#     height = models.IntegerField()
-#     birth = models.DateField()
-#     age = models.IntegerField()
-#     notification = models.BooleanField
-#
-#     def get_age(self):
-#         return int((datetime.date.today() - self.birth).days / 365.25)
-#
-#     def __str__(self):
-#         return self.donor.username
-#
-#     def new_donor(self, data):
-#         # self.donor_id = data['donor_id']
-#         self.username = data['username']
-#         self.first_name = data['first']
-#         self.last_name = data['last']
-#         self.password = data['pword']
-#
-#         self.email = data['email']
-#         self.birth = data['birth']
-#         self.age = self.get_age()
-#
-#         self.phone = data['phone']
-#         self.address = data['address']
-#
-#         self.height = data['height']
-#         self.weight = data['weight']
-#
-#         self.blood_type = data['blood_type']
-#         self.notification = data['notification']
-#         self.save()
-#         # return self
 
 
 class User(AbstractUser):
@@ -61,7 +17,7 @@ class Donor(models.Model):
 
     # donor_id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
 
-    nickname = models.CharField(max_length=40, null=True)
+    nickname = models.CharField(max_length=40, unique=True)
     phone = models.CharField(max_length=10)
     address = models.CharField(max_length=100)
     blood_type = models.CharField(max_length=3)
@@ -78,7 +34,13 @@ class Donor(models.Model):
         return self.donor.username
 
     def new_donor(self, data):
-        donor = User.objects.create_user(username=data['email'], password=data['password'])
+        try:
+            donor = User.objects.create_user(username=data['email'], password=data['password'])
+            donor.save()
+        except IntegrityError:
+            return {'error': "email already exists"}
+        except:
+            return {'error': "something went wrong please try again"}
 
         donor.first_name = data['first_name']
         donor.last_name = data['last_name']
@@ -89,7 +51,6 @@ class Donor(models.Model):
         self.birth = (data['birthday'])
         self.age = self.get_age(self.birth)
 
-        # self.phone = data['telephone']
         self.address = data['city']
 
         self.height = data['height']
@@ -97,8 +58,14 @@ class Donor(models.Model):
 
         self.blood_type = data['blood_type']
         # self.notification = data['notification']
-        donor.save()
-        self.save()
+
+        try:
+            self.save()
+        except IntegrityError:
+            return {'error': "nickname already exists"}
+        except:
+            return {'error': "something went wrong please try again"}
+        return {'error': None}
 
 
 class Hospital(models.Model):
@@ -183,7 +150,6 @@ class Story(models.Model):
                 d[story.hospital] = []
             d[story.hospital].append(story.id)
         return d
-
 
 
 class Booking(models.Model):

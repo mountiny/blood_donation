@@ -76,13 +76,12 @@ def signup(request):
                 qd[k] = v[0]
             new_donor = Donor()
             # Try to create a new Donor and handle any errors which may occur
-            try:
-                new_donor.new_donor(data=qd)
-            except IntegrityError as e:
-                return JsonResponse({'success':False, 'message':"This email has already been used!"})
-            else:
+            r = new_donor.new_donor(data=qd)
+            if r['error'] == None:
                 return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
-            
+            else:
+                return JsonResponse({'success':False, 'message':r['error']})
+
         elif 'hospital_name' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
@@ -90,16 +89,18 @@ def signup(request):
             # Try to create a new Hospital and handle any errors which may occur
             try:
                 new_hopt.new_hospital(data=qd)
+                return JsonResponse(
+                    {'success': True, 'message': "Account was successfully created. You can now log in!"})
             except IntegrityError as e:
                 return JsonResponse({'success':False, 'message':"This email has already been used!"})
-            else:
-                return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
-    elif request.method == 'GET':
+
+    if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         hospital = request.GET.get('hospital', '')
         if hospital == "true":
             context_dict['hospital'] = "true"
             response = render(request, 'app/signup.html', context=context_dict)
+
     else:
         return render(request, 'app/signup.html')
 
