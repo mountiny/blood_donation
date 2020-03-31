@@ -250,7 +250,10 @@
                         $(".modal-btn-login").addClass("btn-hidden");
 
                     }
+                    // Show a modal with information about the signup process
                     $(".modal-wrapper").toggleClass("modal-open");
+
+                    $("html").css("overflow", "hidden");
                 }
             });
 
@@ -322,7 +325,9 @@
                         $(".modal-btn-login").addClass("btn-hidden");
 
                     }
+                    // Show a modal with information about the signup process
                     $(".modal-wrapper").toggleClass("modal-open");
+                    // disable scrolling when modal is on
                     $("html").css("overflow", "hidden");
                 }
             });
@@ -364,6 +369,7 @@
         // Listen for a click event on the Map element
         map.on('click', onMapClick);
 
+        // Close the modal by clicking on the close button
         $(".modal-close").click(function () {
            
             $(".modal-wrapper").toggleClass("modal-open");
@@ -372,6 +378,7 @@
         
         });
 
+        // Close the modal by clicking around the dialog box
         $(".modal-wrapper").click(function (e) {
 
             if (e.target.dataset["name"] == "modal") {
@@ -382,11 +389,6 @@
 
         });
 
-        // $('body').click(function (e) {
-        //     if(!$(e.target).closest('.modal-wrapper').length && !$(e.target).is('.modal-wrapper')) {
-        //         $(".modal-open").toggleClass("modal-open");
-        //     }
-        // });
 
         $(".selection-block").click(function () {
             if($(this).hasClass("selected")) {
