@@ -89,6 +89,7 @@
             // Reset the error
             $("#email_field").removeClass("h-empty");
             $("#password_field").removeClass("h-empty");
+            $(".modal-wrapper").removeClass("modal-open");
             
             // check if the required fields are filled
             if(username == "") {
@@ -118,8 +119,8 @@
                         // Error
                         console.log(response);
                         $(".modal-content__msg").html(response.message);
+                        $(".modal-wrapper").addClass("modal-open");
                     }
-                    $(".modal-wrapper").toggleClass("modal-open");
                 }
             });
             
