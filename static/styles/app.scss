@@ -6,6 +6,7 @@
 
 
 @import 'forms';
+@import 'dashboard';
 
 html, body {
     font-family: $base-font-family;
@@ -26,11 +27,7 @@ a {
 .page-heading {
     padding-top: 4vh;
 }
-.dashboard-heading {
-    padding-top: 4vh;
-    position: relative;
-    width: 100%;
-}
+
 
 .main-container {
     position: relative;

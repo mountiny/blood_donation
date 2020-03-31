@@ -137,6 +137,7 @@ class Story(models.Model):
 
     date = models.DateField()
     story = models.TextField()
+    heading = models.TextField()
     picture = models.ImageField()
     likes = models.IntegerField()
 
@@ -144,6 +145,7 @@ class Story(models.Model):
         self.hospital = data['hospital']
         self.date = data['date']
         self.story = data['story']
+        self.heading = data['heading']
         self.picture = data['picture']
         self.likes = data['likes']
         self.save()
@@ -155,6 +157,7 @@ class Story(models.Model):
         return {'hospital': story.hospital.name,
                 'date': story.date,
                 'story': story.story,
+                'heading': story.heading,
                 'picture': story.picture,
                 'likes': story.likes}
 

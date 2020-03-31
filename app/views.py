@@ -1,4 +1,4 @@
-from app.models import Donor, Hospital
+from app.models import Donor, Hospital, Story, Booking, Review
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http.response import JsonResponse
@@ -91,7 +91,6 @@ def signup(request):
             try:
                 new_hopt.new_hospital(data=qd)
             except IntegrityError as e:
-                print(e)
                 return JsonResponse({'success':False, 'message':"This email has already been used!"})
             else:
                 return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
@@ -143,15 +142,12 @@ def sitemap(request):
 
 @login_required
 def app(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
-
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
+    # Get 4 most liked stories
+    stories = Story.objects.order_by('-likes')[:4]
 
-    # visitor_cookie_handler(request)
+    context_dict["stories"] = reversed(stories)
+    print(request.user.is_donor)
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.

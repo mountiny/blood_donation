@@ -374,6 +374,142 @@ input:focus {
   background-color: #f7d9d4;
 }
 
+.dasboard-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.dashboard-heading {
+  padding: 4vh 0px;
+  position: relative;
+  width: 100%;
+  text-align: left;
+}
+
+.stories-container {
+  position: relative;
+  width: 100%;
+}
+
+.stories-wrapper {
+  position: relative;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+  grid-gap: 3em 5em;
+}
+
+.story-block {
+  position: relative;
+}
+
+.story-block .icon_like {
+  width: 16px;
+  height: 16px;
+  vertical-align: top;
+  padding-right: 10px;
+}
+
+.story-block h4 {
+  padding-bottom: 20px;
+  display: block;
+}
+
+.story-pic {
+  width: 100%;
+  position: relative;
+}
+
+.story-block__bar {
+  width: 100%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.story-content {
+  padding: 20px;
+  position: relative;
+  width: calc(100% - 40px);
+}
+
+.story-text {
+  width: 100%;
+  position: relative;
+  padding-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-link {
+  background-color: #e74c3c;
+  padding: 10px;
+  color: white;
+  -webkit-transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.story-link:hover {
+  background-color: #f7d9d4;
+  color: black;
+}
+
+.likes-cont {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .stories-wrapper {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[1];
+        grid-template-columns: repeat(1, 1fr);
+    -ms-grid-rows: (1fr)[4];
+        grid-template-rows: repeat(4, 1fr);
+    grid-gap: 3em 5em;
+  }
+}
+
 html, body {
   font-family: "Lato", helvetica;
   letter-spacing: 1px;
@@ -393,12 +529,6 @@ a {
 
 .page-heading {
   padding-top: 4vh;
-}
-
-.dashboard-heading {
-  padding-top: 4vh;
-  position: relative;
-  width: 100%;
 }
 
 .main-container {

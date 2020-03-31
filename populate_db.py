@@ -64,7 +64,8 @@ def create_story(hospital=None):
     data = {
         'hospital': hospital,
         'date': datetime.date(random.randrange(2005, 2019), random.randrange(1, 12), random.randrange(1, 28)),
-        'story': ''.join(random.choice(string.ascii_lowercase) for _ in range(100, 150)),
+        'heading': 'This is heading',
+        'story': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.',#''.join(random.choice(string.ascii_lowercase) for _ in range(100, 150)),
         'likes': random.randrange(0, 20),
         'picture': None
     }

@@ -57,7 +57,7 @@
             </div>
             <div class="form-line">
                 <label for="birthday_field">Birthday</label>
-                <input type="date" value="1998-01-01" min="2004-01-01"name="birthday" id="birthday_field" required>
+                <input type="date" value="1998-01-01" max="2004-01-01"name="birthday" id="birthday_field" required>
             </div>
             <div class="form-line">
                 <label for="city_field">City</label>
@@ -217,8 +217,6 @@
 
             }
 
-            console.log(birthday);
-
             $.ajax({
                 type: "POST",
                 headers: {'X-CSRFToken' : csrftoken},
@@ -237,7 +235,7 @@
                 },
                 // dataType: "json",
                 success: function(response) {
-                    console.log(response);
+
                     if (response.success) {
                         $(".modal-content__msg").html(response.message);
 
