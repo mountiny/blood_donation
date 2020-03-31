@@ -84,7 +84,7 @@
                     <option value="AB-">AB negative</option>
                 </select>
             </div>
-            
+
             <input class="h-btn h-text-center h-700 h-submit-btn" id="donor-submit-btn" type="submit" value="Sign up">
 
         </form>
@@ -123,12 +123,12 @@
     </div>
 </div>
 
-<div class="signup-modal">
+<div class="modal-wrapper">
     <div class="modal-container">
         <div class="modal-content__msg h-700"></div>
         <div class="modal-buttons__cont">
-           <div class="modal-button h-pointer h-uppercase modal-close">Close</div>
-           <div class="modal-button h-pointer h-uppercase modal-btn-login"><a href="{% url 'app:login' %}">
+                <div class="modal-button h-pointer h-uppercase modal-close h-link-effect-primary h-700">Close</div>
+           <div class="modal-button h-pointer h-uppercase modal-btn-login h-link-effect-primary h-700"><a href="{% url 'app:login' %}">
                 log in
             </a></div>
         </div>
@@ -156,6 +156,7 @@
             $("#hospital_email_field").removeClass("h-empty");
             $("#hospital_password_field").removeClass("h-empty");
             $("#hospital_name_field").removeClass("h-empty");
+            $("#map_text").removeClass("h-warning");
             
             // check if the required fields are filled
             if(username == "") {
@@ -172,8 +173,11 @@
             }
             if(loc == "") {
                 $("#map_text").html("You have not selected a location of the hospital!");
+                $("#map_text").addClass("h-warning");
                 return;
             }
+            console.log(loc);
+            console.log(JSON.stringify(loc));
 
             $.ajax({
                 type: "POST",
@@ -188,6 +192,11 @@
                     console.log(response);
                     if (response.success) {
                         $(".modal-content__msg").html(response.message);
+
+                        // reset the form
+                        loc = "";
+                        $(".hospital-form")[0].reset();
+                        map.closePopup();
                        
                     } else {
                         
@@ -195,7 +204,7 @@
                         $(".modal-btn-login").toggleClass("btn-hidden");
 
                     }
-                    $(".signup-modal").toggleClass("modal-open");
+                    $(".modal-wrapper").toggleClass("modal-open");
                 }
             });
             
@@ -228,8 +237,9 @@
                 .setLatLng(e.latlng)
                 .setContent("Selected location: " + e.latlng.toString())
                 .openOn(map);
+
                 // Save the location as a dictionary
-                loc = {"lat": e.latlng["lat"], "lon": e.latlng["lon"]};
+                loc = {"lat": e.latlng["lat"], "lon": e.latlng["lng"]};
         }
 
         // Listen for a click event on the Map element
@@ -237,13 +247,13 @@
 
         $(".modal-close").click(function () {
            
-            $(".signup-modal").toggleClass("modal-open");
+            $(".modal-wrapper").toggleClass("modal-open");
             $(".btn-hidden").toggleClass("btn-hidden");
         
         });
 
         // $('body').click(function (e) {
-        //     if(!$(e.target).closest('.signup-modal').length && !$(e.target).is('.signup-modal')) {
+        //     if(!$(e.target).closest('.modal-wrapper').length && !$(e.target).is('.modal-wrapper')) {
         //         $(".modal-open").toggleClass("modal-open");
         //     }
         // });

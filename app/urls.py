@@ -13,6 +13,7 @@ urlpatterns = [
     path('app/hospital/<slug:hospital_slug>/',
          views.hospital, name='hospital'),
     path('login/', views.login, name='login'),
+    path('app/logout/', views.user_logout, name='logout'),
     path('signup/', views.signup, name='signup'),
     path('contact/', views.contact, name='contact'),
     path('site-map/', views.sitemap, name='sitemap'),

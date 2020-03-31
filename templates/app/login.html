@@ -59,6 +59,16 @@
 </div>
 
 
+<div class="modal-wrapper">
+    <div class="modal-container">
+        <div class="modal-content__msg h-700"></div>
+        <div class="modal-buttons__cont">
+            <div class="modal-button h-pointer h-uppercase modal-close h-link-effect-primary h-700">Close</div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
 
 
@@ -99,7 +109,17 @@
                         'password': password},
                 // dataType: "json",
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
+                    // logged in
+                    if(response.success) {
+                        // Redirect to the dashboard
+                        window.location.href = ("../app/");
+                    } else {
+                        // Error
+                        console.log(response);
+                        $(".modal-content__msg").html(response.message);
+                    }
+                    $(".modal-wrapper").toggleClass("modal-open");
                 }
             });
             
@@ -107,22 +127,11 @@
 
         })
 
-        // function getCookie(name) {
-        //     var cookieValue = null;
-        //     if (document.cookie && document.cookie !== '') {
-        //         var cookies = document.cookie.split(';');
-        //         for (var i = 0; i < cookies.length; i++) {
-        //             var cookie = cookies[i].trim();
-        //             // Does this cookie string begin with the name we want?
-        //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     return cookieValue;
-        // }
-
+        $(".modal-close").click(function () {
+           
+           $(".modal-wrapper").toggleClass("modal-open");
+       
+       });
 
         // $.ajax({
         //     type: "POST",

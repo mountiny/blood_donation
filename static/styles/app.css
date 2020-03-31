@@ -173,6 +173,11 @@ table {
   background-color: #ef8b80;
 }
 
+.h-warning {
+  color: #c23616;
+  font-weight: 700;
+}
+
 .h-link-effect:after {
   position: absolute;
   content: "";
@@ -187,6 +192,23 @@ table {
 }
 
 .h-link-effect:hover:after {
+  width: 100%;
+}
+
+.h-link-effect-primary:after {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 8px;
+  left: -7px;
+  bottom: 8px;
+  z-index: -1;
+  background-color: #e74c3c;
+  -webkit-transition: width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.h-link-effect-primary:hover:after {
   width: 100%;
 }
 
@@ -421,6 +443,15 @@ a {
   height: 100%;
   list-style: none;
   line-height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .menu-wrapper .menu-item {
@@ -428,6 +459,7 @@ a {
   text-transform: uppercase;
   font-size: 1.2em;
   font-weight: 600;
+  padding: 0px 20px;
 }
 
 .menu-wrapper .menu-item .menu-item__link {
@@ -1039,7 +1071,7 @@ footer:before {
   margin-top: 30px;
 }
 
-.signup-modal {
+.modal-wrapper {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -1051,7 +1083,7 @@ footer:before {
   display: none;
 }
 
-.signup-modal.modal-open {
+.modal-wrapper.modal-open {
   display: block;
   opacity: 1;
 }
@@ -1061,7 +1093,7 @@ footer:before {
   top: 50%;
   left: 50%;
   max-width: 90%;
-  width: 300px;
+  width: 400px;
   min-height: 240px;
   -webkit-transform: translateX(-50%) translateY(-50%);
           transform: translateX(-50%) translateY(-50%);
@@ -1087,8 +1119,8 @@ footer:before {
 
 .modal-content__msg {
   text-align: center;
-  font-size: 1.6em;
-  margin-bottom: 30px;
+  font-size: 1.4em;
+  margin-bottom: 50px;
   width: 100%;
   position: relative;
 }
@@ -1110,6 +1142,9 @@ footer:before {
 
 .modal-button {
   display: block;
+  position: relative;
+  font-size: 1.6em;
+  padding: 10px;
 }
 
 .modal-button.btn-hidden {

@@ -108,6 +108,10 @@
         // color: black;
     }
 }
+.h-warning {
+    color: $primary-dark;
+    font-weight: 700;
+}
 
 .h-link-effect {
    
@@ -118,6 +122,28 @@
         height: 8px;
         left: -7px;
         bottom: 28px;
+        z-index: -1;
+        background-color: $primary;
+        @include prefix(transition, width 0.3s $curve);
+    }
+
+    &:hover {
+        &:after {
+            width: 100%;
+
+        }
+    
+    }
+}
+.h-link-effect-primary {
+   
+    &:after {
+        position: absolute;
+        content: "";
+        width: 0px;
+        height: 8px;
+        left: -7px;
+        bottom: 8px;
         z-index: -1;
         background-color: $primary;
         @include prefix(transition, width 0.3s $curve);

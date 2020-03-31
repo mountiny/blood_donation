@@ -70,12 +70,16 @@ a {
     height: 100%;
     list-style: none;
     line-height: $navbar-height;
+    @include display_flexbox();
+    @include justify_content(center);
+    @include align-items(center);
 
     .menu-item {
         height: 100%;
         text-transform: uppercase;
         font-size: 1.2em;
         font-weight: 600;
+        padding: 0px 20px;
         
         .menu-item__link {
             display: block;
@@ -568,7 +572,7 @@ footer {
     
 }
 
-.signup-modal {
+.modal-wrapper {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -588,7 +592,7 @@ footer {
     top: 50%;
     left: 50%;
     max-width: 90%;
-    width: 300px;
+    width: 400px;
     min-height: 240px;
     @include prefix(transform, (translateX(-50%) translateY(-50%)));
     background-color: white;
@@ -602,8 +606,8 @@ footer {
 }
 .modal-content__msg {
     text-align: center;
-    font-size: $h3;
-    margin-bottom: 30px;
+    font-size: $h4;
+    margin-bottom: 50px;
     width: 100%;
     position: relative;
 }
@@ -617,6 +621,9 @@ footer {
 }
 .modal-button{
     display: block;
+    position: relative;
+    font-size: $h3;
+    padding: 10px;
 
     &.btn-hidden {
         display: none;
