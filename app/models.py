@@ -62,6 +62,7 @@ class Donor(models.Model):
         # self.notification = data['notification']
     
         try:
+            self.donor.save()
             self.save()
         except IntegrityError:
             return {'error': "nickname already exists"}
@@ -96,6 +97,7 @@ class Hospital(models.Model):
         self.name = data['hospital_name']
         self.location = data['location']
         # self.notified_types = data['notif_types']
+        self.hospital.save()
         self.save()
 
 
