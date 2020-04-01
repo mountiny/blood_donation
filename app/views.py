@@ -284,3 +284,13 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
 
     request.session['visits'] = visits
+
+
+def all_hospitals(request):
+    hospitals = Hospital.objects.all()
+    hospital_info = []
+    for h in hospitals:
+        hospital_info.append([{h.name}, float(h.location['lat']), float(h.location['lon'])])
+
+    response = render(request, 'app/map.html', context=hospital_info)
+    return response

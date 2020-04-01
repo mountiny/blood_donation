@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block menu_items_block %}
+
+
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+            log in
+        </a>
+    </li>
+
+{% endblock %}
+
+{% block body_block %}
+
+<div class="main-container">
+    <div class="map-container h-width">
+        <h1 class="page-heading h-900">Donation map</h1>
+       <div class="map-block__wrapper">
+           <div class="map-block">
+               <div id="mapid" style="width: 1000px; height: 550px"></div>
+            </div>
+       </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript_block %}
+
+    <script type="text/javascript">
+        var map = L.map('mapid',{ center: [54.41058, -3.97794], zoom: 5});
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+         var hospitals = JSON.stringify($.ajax({
+             url: '/all_hospitals',
+            dataType: "json",
+            async: false
+             }).responseText);
+
+                 console.log(hospitals);
+
+               var marker = new L.marker([hospitals[1], hospitals[2]], title = hospitals[0])
+                 .addTo(map);
+               for (var h in hospitals) {
+                    var marker = new L.marker([h[1], h[2]], title = h[0])
+                         .addTo(map);
+                     marker.bindPopup(h[0]).openPopup(); }
+
+            });
+
+    </script>
+{% endblock %}
