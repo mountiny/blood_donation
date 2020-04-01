@@ -6,7 +6,9 @@ app/migrations/*
 ./idea/*
 .idea
 app/__pycache__/
+app/__pycache__/*
 blood_donation/__pycache__/
+blood_donation/__pycache__/*
 
 # VSCode
 .vscode/*
