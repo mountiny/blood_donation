@@ -57,7 +57,6 @@ class Donor(models.Model):
 
         self.blood_type = data['blood_type']
         # self.notification = data['notification']
-        donor.save()
         try:
             donor.save()
             self.save()
