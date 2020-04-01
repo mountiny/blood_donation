@@ -38,16 +38,16 @@ class Donor(models.Model):
     def new_donor(self, data):
 
         try:
-            donor = User.objects.create_user(username=data['email'], password=data['password'])
+            self.donor = User.objects.create_user(username=data['email'], password=data['password'])
         except IntegrityError:
             return {'error': "email already exists"}
         except:
             return {'error': "something went wrong with email please try again"}
 
-        donor.first_name = data['first_name']
-        donor.last_name = data['last_name']
+        self.donor.first_name = data['first_name']
+        self.donor.last_name = data['last_name']
         # donor.nickname = data['nickname']
-        donor.is_donor = True
+        self.donor.is_donor = True
 
         self.nickname = data['username']
         self.birth = (data['birthday'])
@@ -62,15 +62,11 @@ class Donor(models.Model):
         # self.notification = data['notification']
     
         try:
-            donor.save()
             self.save()
         except IntegrityError:
-            donor.delete()
             return {'error': "nickname already exists"}
         except:
-            donor.delete()
             return {'error': "something went wrong with nickname please try again"}
-        
         return {'error': None}
 
 
@@ -95,13 +91,11 @@ class Hospital(models.Model):
 
     def new_hospital(self, data):
         # hospital = User.objects.create_user(data['hospital_name'], data['hospital_email'], data['hospital_password'])
-        hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
-        hospital.is_hospital = True
+        self.hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
+        self.hospital.is_hospital = True
         self.name = data['hospital_name']
         self.location = data['location']
         # self.notified_types = data['notif_types']
-
-        hospital.save()
         self.save()
 
 
