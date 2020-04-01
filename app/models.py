@@ -36,11 +36,10 @@ class Donor(models.Model):
     def new_donor(self, data):
         try:
             donor = User.objects.create_user(username=data['email'], password=data['password'])
-            donor.save()
         except IntegrityError:
             return {'error': "email already exists"}
         except:
-            return {'error': "something went wrong please try again"}
+            return {'error': "something went wrong with email please try again"}
 
         donor.first_name = data['first_name']
         donor.last_name = data['last_name']
@@ -60,11 +59,14 @@ class Donor(models.Model):
         # self.notification = data['notification']
 
         try:
+            donor.save()
             self.save()
         except IntegrityError:
+            donor.delete()
             return {'error': "nickname already exists"}
         except:
-            return {'error': "something went wrong please try again"}
+            donor.delete()
+            return {'error': "something went wrong with nickname please try again"}
         return {'error': None}
 
 
