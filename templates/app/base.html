@@ -116,12 +116,14 @@
                                 <li>
                                     <a class="footer-link" href="{% url 'app:contact' %}">Contact</a>
                                 </li>
+                                {% if not user.is_authenticated %}
                                 <li>
                                     <a class="footer-link" href="{% url 'app:login' %}">Log in</a>
                                 </li>
                                 <li>
                                     <a class="footer-link" href="{% url 'app:signup' %}">Sign up</a>
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a class="footer-link" href="{% url 'app:sitemap' %}">Site map</a>
                                 </li>
