@@ -167,14 +167,15 @@ def app(request):
     stories = Story.objects.order_by('-likes')[:4]
 
     context_dict["stories"] = stories
-    print(request.user.id)
+
     if request.user.is_donor:
         # Tato pičovinka
-        donor = Donor.objects.get(donor=request.user.id)
-        # print(donor)
+        # print (Donor.objects.get(user_id=request.user.id))
+        donor = Donor.objects.filter(donor=request.user).first()
+        print(donor.nickname)
         # context_dict["donor"] = donor
     else:
-        hospital = Hospital.objects.get(pk=request.user.id)
+        hospital = Hospital.objects.filter(hospital=request.user).first()
         context_dict["hospital"] = hospital
 
     response = render(request, 'app/app.html', context=context_dict)
