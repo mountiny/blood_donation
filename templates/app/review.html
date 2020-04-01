@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block body_block %}
-<!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
 
 <div class="main-container">
 
@@ -24,15 +23,17 @@
 
         <h4 class="back-link"><a href="{% url 'app:app'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to dashboard</a></h4>
 
-        <h2 class="dashboard-heading h-900">{{ review.heading }}</h2>
+
+            <span class="review-detail__note">Review for:</span><br />
+            <h2 class="review-heading h-900">{{ review.hospital }}</h2>
 
             <div class="review-detail">
-                
+
                 <div class="review-detail__content">
-                    <div class="review-detail__text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
-                    <div class="review-detail__bar">
-                      
-                    </div>
+                    <span class="review-detail__date">On: {{ review.date }}</span><br />
+                    <span class="review-detail__author">By: {{ review.donor }}</span>
+                    <div class="review-detail__text">{{ review.review }}</div>
+                   
                 </div>
             </div>
 
@@ -45,13 +46,4 @@
 
 {% block javascript_block %}
 
-<script>
-
-$(document).ready(function() {
-
- 
-
-
-})
-</script>
 {% endblock %}

@@ -184,15 +184,14 @@ def app(request):
     print("Has user blood_type attribute:")
     print(request.user._meta.fields)
     # print (Donor.objects.get(donor_id = request.user.id).nickname)
-    if request.user.is_donor:
-        # Tato pičovinka
-        donor = Donor.objects.filter(donor=request.user).first()
-        print(donor)
-        # context_dict["donor"] = donor
-    else:
+    if request.user.is_hospital:
         hospital = Hospital.objects.filter(hospital=request.user).first()
         print(hospital)
         context_dict["hospital"] = hospital
+    else:
+        donor = Donor.objects.filter(donor=request.user).first()
+        print(donor)
+        # context_dict["donor"] = donor
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
