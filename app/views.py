@@ -31,7 +31,19 @@ def index(request):
 
 
 def login(request):
-    # TODO adapt for ajax
+
+    context_dict = {}
+
+    # If the user is logged in redirect to the app dashboard
+    if request.user.is_authenticated:
+        stories = Story.objects.order_by('-likes')[:4]
+
+        context_dict["stories"] = reversed(stories)
+        if request.user.is_donor:
+            context_dict["donor"] = "True"
+
+        return render(request, 'app/app.html', context=context_dict)
+
     if request.method == 'POST' :
         username = request.POST["username"]
         password = request.POST["password"]
@@ -68,6 +80,16 @@ def user_logout(request):
 def signup(request):
 
     context_dict = {}
+    
+    # If the user is logged in redirect to the app dashboard
+    if request.user.is_authenticated:
+        stories = Story.objects.order_by('-likes')[:4]
+
+        context_dict["stories"] = reversed(stories)
+        if request.user.is_donor:
+            context_dict["donor"] = "True"
+
+        return render(request, 'app/app.html', context=context_dict)
 
     if request.method == 'POST':
         qd = dict(request.POST)
@@ -148,7 +170,8 @@ def app(request):
     stories = Story.objects.order_by('-likes')[:4]
 
     context_dict["stories"] = reversed(stories)
-    print(request.user.is_donor)
+    if request.user.is_donor:
+        context_dict["donor"] = "True"
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
