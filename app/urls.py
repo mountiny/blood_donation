@@ -19,4 +19,5 @@ urlpatterns = [
     re_path(r'^signup/$', views.signup, name='signup'),
     path('contact/', views.contact, name='contact'),
     path('site-map/', views.sitemap, name='sitemap'),
+    re_path(r'^app/map/all_hospitals/$', views.all_hospitals, name='all_hospitals'),
 ]
