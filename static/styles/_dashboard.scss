@@ -60,6 +60,9 @@
     }
 
 }
+
+// Stories block styles
+
 .stories-container {
     position: relative;
     width: 100%;
@@ -71,11 +74,17 @@
     display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: repeat(2, 1fr);
-    grid-gap: 3em 5em;
+    grid-gap: 3em 3em;
 
 }
 .story-block {
     position: relative;
+    border: 2px solid $red-light;
+    background-color: white;
+    @include prefix(transition,(background-color 0.3s $curve));
+    &:hover {
+        background-color: $red-light;
+    }
 
     .icon_like {
         width: 16px;
@@ -120,9 +129,8 @@
     background-color: $primary;
     padding: 10px;
     color: white;
-    @include prefix(transition,(color 0.3s $curve, background-color 0.3s $curve));
+    @include prefix(transition,(color 0.3s $curve));
     &:hover {
-        background-color: $red-light;
         color: black
     }
 }
@@ -133,6 +141,8 @@
     @include align-items(center);
     @include align-content(center);
 }
+
+// Bookings block styles
 
 .bookings-container {
     position: relative;
@@ -194,12 +204,81 @@
     }
 }
 
+// Review block styles
+
+.reviews-container {
+    position: relative;
+    width: 100%;
+}
+.reviews-wrapper {
+    position: relative;
+    width: 100%;
+
+    display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	// grid-template-rows: repeat(2, 1fr);
+    grid-gap: 3em 3em;
+
+}
+.review-block {
+    position: relative;
+    border: 2px solid $red-light;
+    background-color: $red-light;
+
+    h4 {
+        padding: 20px 0px;
+        display: block;
+    }
+}
+.review-bar {
+    // padding: 20px;
+    width: 100%;
+    position: relative;
+    @include display_flexbox();
+    @include justify_content(flex-end);
+    @include align-items(center);
+    @include align-content(center);
+}
+.review-content {
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 40px);
+}
+.review-date {
+    width: 100%;
+    position: relative;
+    display: block;
+    padding-bottom: 10px;
+    font-size: 11px;
+    line-height: 14px;
+    text-align: left;
+}
+.review-text {
+    width: 100%;
+    position: relative;
+    padding-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.review-btn {
+    background-color: $primary;
+    padding: 10px;
+    color: white;
+    @include prefix(transition,(color 0.3s $curve));
+    &:hover {
+        color: black
+    }
+}
+
 @media only screen and (max-width: 800px) {
     .stories-wrapper {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(4, 1fr);
-        grid-gap: 3em 5em;
+        grid-gap: 3em 3em;
     
     }
     .dashboard-menu__container {

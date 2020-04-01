@@ -100,7 +100,7 @@
                                     <div class="booking-date">22-05-2020</div>
                                     <div class="booking-hospital">Glasgow South Hospital</div>
                                     <div class="booking-actions">
-                                        <div class="booking-delete h-pointer h-700" data-id="3">CANCEL</div>
+                                        <div class="booking-delete h-pointer h-700" data-id="1">CANCEL</div>
                                     </div>
                                 <!-- </div> -->
                             </div>
@@ -110,7 +110,7 @@
                                     <div class="booking-date">23-05-2020</div>
                                     <div class="booking-hospital">Glasgow North Hospital</div>
                                     <div class="booking-actions">
-                                        <div class="booking-delete h-pointer h-700" data-id="4">CANCEL</div>
+                                        <div class="booking-delete h-pointer h-700" data-id="2">CANCEL</div>
                                     </div>
                                 <!-- </div> -->
                             </div>
@@ -120,7 +120,7 @@
                                     <div class="booking-date">24-05-2020</div>
                                     <div class="booking-hospital">Glasgow West Hospital</div>
                                     <div class="booking-actions">
-                                        <div class="booking-delete h-pointer h-700" data-id="5">CANCEL</div>
+                                        <div class="booking-delete h-pointer h-700" data-id="3">CANCEL</div>
                                     </div>
                                 <!-- </div> -->
                             </div>
@@ -135,50 +135,86 @@
                     <h2 class="dashboard-heading h-900">My reviews</h2>
                     <div class="reviews-wrapper">
                        
-                            {% if reviews %}
-                                {% for review in reviews %}
-        
-                                <div class="reviews-block">
-                                    <!-- <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
-                                    <div class="story-content">
-                                        <h4>{{ review.heading }}</h4>
-                                        <div class="story-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
-                                        <div class="story-block__bar">
-                                            <a href="story?id={{ story.id }}" class="story-link h-700">Read the story</a>
-                                            <div class="likes-cont h-pointer" data-id="{{ story.id }}">
-                                                <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
-                                                <span class="likes-count">{{ story.likes }}</span>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                
-                                {% endfor %}
-                            {% else %}
-                                <div class="reviews-block">
-                                    <div class="reviews-content">
-                                        <h4>You have not given any review yet</h4>
+                    {% if reviews %}
+                        {% for review in reviews %}
 
+                        <div class="review-block">
+                                <div class="review-content">
+                                    <span>Review for:</span><br />
+                                    <h4 class="h-700">{{ review.hospital }}</h4>
+                                    <span class="review-date">On: {{ review.date }}</span>
+                                    <div class="review-text">{{ review.review }}</div>
+                                    <div class="review-bar">
+                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                                     </div>
                                 </div>
-                            {% endif %}
-        
-                                <!-- <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg> -->
+                            </div>
+
                         
-                    </div>
-                </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="review-block">
+                            <div class="review-content">
+                                <span>Review for:</span><br />
+                                <h4 class="h-700">Glasgow South Hospital</h4>
+                                <span class="review-date">On: 20-03-2020 19:30</span>
+                                <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
+                                </div>
+                                <div class="review-bar">
+                                    <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-block">
+                            <div class="review-content">
+                                <span>Review for:</span><br />
+                                <h4 class="h-700">Glasgow South Hospital</h4>
+                                <span class="review-date">On: 20-03-2020 19:30</span>
+                                <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
+                                </div>
+                                <div class="review-bar">
+                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-block">
+                            <div class="review-content">
+                                <span>Review for:</span><br />
+                                <h4 class="h-700">Glasgow South Hospital</h4>
+                                <span class="review-date">On: 20-03-2020 19:30</span>
+                                <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
+                                </div>
+                                <div class="review-bar">
+                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="reviews-block">
+                            <div class="reviews-content">
+                                <h4>You have not given any review yet</h4>
+
+                            </div>
+                        </div> -->
+                    {% endif %}
+
+                        <!-- <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg> -->
+                
+            </div>
+        </div>
 
     </div>
 </div>
 
-<div class="modal-wrapper" data-name="modal">
+<div class="modal-wrapper cancel-booking__modal" data-name="modal">
     <div class="modal-container">
-        <div class="modal-content__msg h-700"></div>
+        <div class="modal-content__msg h-700">Do you really want to cancel this booking?</div>
         <div class="modal-buttons__cont">
-                <div class="modal-button h-pointer h-uppercase modal-close h-link-effect-primary h-700">Close</div>
-            <div class="modal-button h-pointer h-uppercase modal-btn-login h-link-effect-primary h-700"><a href="{% url 'app:login' %}">
-                log in
-            </a></div>
+            <div class="modal-button h-pointer h-uppercase cancel-modal__close h-link-effect-primary h-700">
+                Close
+            </div>
+            <div class="modal-button h-pointer h-uppercase cancel-booking__btn h-link-effect-primary h-700">
+                cancel it
+            </div>
         </div>
     </div>
 </div>
@@ -191,6 +227,8 @@
 
 $(document).ready(function() {
 
+    var booking_to_cancel = -1;
+
     // Get only 40 words of the story text
     function ellipsizeTextBox(e) {
 
@@ -201,6 +239,7 @@ $(document).ready(function() {
             newArray.push(wordArray[i]);
             i++;
         }
+        console.log(newArray)
         e.html(newArray.join(' ') + '...');
     }
 
@@ -208,6 +247,63 @@ $(document).ready(function() {
     $(".story-text").each(function() {
         ellipsizeTextBox($(this));
     })
+
+    // Trim the text for all the texts
+    $(".review-text").each(function() {
+        ellipsizeTextBox($(this));
+    })
+
+    // Open confirmation modal for booking cancellation
+    $(".booking-delete").click(function () {
+
+        booking_to_cancel =  $(this).data("id");
+
+        $(".cancel-booking__modal").toggleClass("modal-open");
+        $("html").css("overflow", "hidden");
+
+    });
+
+    // Cancel the given booking
+    $(".cancel-booking__btn").click(function () {
+
+        // TODO Cancel booking
+
+        if(booking_to_cancel != -1) {
+
+            console.log(booking_to_cancel);
+
+            $.ajax({
+                url: "cancel_booking?id="+booking_to_cancel,
+                dataType: "json",
+                async: false,
+                success: function(response) {
+                    console.log(response)
+                }
+            })
+        }
+        
+
+        $(".modal-wrapper").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+
+    
+    });
+     // Close open modal
+    $(".cancel-modal__close").click(function () {
+        
+        $(".modal-wrapper").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+    // Close the modal by clicking around the diaglog box
+    $(".modal-wrapper").click(function (e) {
+
+        if (e.target.dataset["name"] == "modal") {
+            $(this).toggleClass("modal-open");
+            $("html").css("overflow", "auto");
+        }
+
+    });
 
 
 })

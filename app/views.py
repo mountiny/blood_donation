@@ -167,18 +167,29 @@ def app(request):
     # Get 4 most liked stories
     stories = Story.objects.order_by('-likes')[:4]
 
+    # Get all reviews of by the donor
+    reviews = Review.objects.all()
+
     context_dict["stories"] = stories
+    context_dict["reviews"] = reviews
+
+    print("Is donor:")
     print(request.user.is_donor)
-    # print(Donor.objects.all())
+    print("Is hospital:")
+    print(request.user.is_hospital)
+    print("All donors:")
+    print(Donor.objects.all())
+    print("All hospitals:")
+    print(Hospital.objects.all())
     # print (Donor.objects.get(donor_id = request.user.id).nickname)
     if request.user.is_donor:
         # Tato pičovinka
-        # print (Donor.objects.get(user_id=request.user.id))
         donor = Donor.objects.filter(donor=request.user).first()
         print(donor)
         # context_dict["donor"] = donor
     else:
         hospital = Hospital.objects.filter(hospital=request.user).first()
+        print(hospital)
         context_dict["hospital"] = hospital
 
     response = render(request, 'app/app.html', context=context_dict)
@@ -190,7 +201,7 @@ def story(request):
     context_dict = {}
 
     if request.method == 'GET':
-        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        # Check if valid story id has been provided in the url
         story_id = request.GET.get('id', '')
         story = Story.objects.get(pk=story_id)
         if story:
@@ -202,16 +213,25 @@ def story(request):
         return redirect("app:app")
 
 @login_required
+def review(request):
+    context_dict = {}
+
+    if request.method == 'GET':
+        # Check if valid review id has been provided in the url
+        review_id = request.GET.get('id', '')
+        review = Review.objects.get(pk=review_id)
+        if review:
+            context_dict["review"] = review
+            return render(request, 'app/review.html', context=context_dict)
+        else:
+            return redirect("app:app")
+    else:
+        return redirect("app:app")
+
+@login_required
 def hospital_map(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
-
-    # visitor_cookie_handler(request)
 
     response = render(request, 'app/map.html', context=context_dict)
     # Return a rendered response to send to the client.
@@ -301,3 +321,25 @@ def all_hospitals(request):
     # print()
     # response = render(request, 'app/map.html', context=context_dict)
     return JsonResponse(context_dict)
+
+def cancel_booking(request):
+
+    print(Booking.objects.all())
+
+    if request.method == 'GET':
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        booking_id = request.GET.get('id', '')
+        try:
+            booking = Booking.objects.get(pk=booking_id)
+            if booking:
+                booking.delete()
+                return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
+        except:
+            return JsonResponse({'success': False, 'message': "Booking with given id does not exist!"})
+        # if booking:
+        #     booking.delete()
+        #     return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
+        # else:
+        #     return redirect("app:app")
+    else:
+        return redirect("app:app")

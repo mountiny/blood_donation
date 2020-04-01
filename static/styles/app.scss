@@ -97,6 +97,7 @@ a {
     position: relative;
     text-align: left;
     display: inline-block;
+    letter-spacing: 0px;
     margin: 30px 0px;
     @include align-self(flex-start);
     a {

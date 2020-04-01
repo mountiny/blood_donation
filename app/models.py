@@ -36,6 +36,7 @@ class Donor(models.Model):
         return self.donor.username
 
     def new_donor(self, data):
+
         try:
             donor = User.objects.create_user(username=data['email'], password=data['password'])
         except IntegrityError:
@@ -59,6 +60,7 @@ class Donor(models.Model):
 
         self.blood_type = data['blood_type']
         # self.notification = data['notification']
+    
         try:
             donor.save()
             self.save()
@@ -68,6 +70,7 @@ class Donor(models.Model):
         except:
             donor.delete()
             return {'error': "something went wrong with nickname please try again"}
+        
         return {'error': None}
 
 
