@@ -6,6 +6,7 @@ from datetime import datetime
 
 import django
 import pytz
+import json
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blood_donation.settings')
 
@@ -39,7 +40,7 @@ def create_hospital():
         'hospital_password': "a",
         'hospital_email': h.lower() + "gmail.com",
         'hospital_name': h[:-5] + " " + h[-5:],
-        'location': "Location" + ''.join(random.choice(string.ascii_uppercase) for _ in range(3)),
+        'location': json.dumps({"lat":54.38495605005061,"lon":-0.5048828125000004 + random.randrange(1, 3)}),
         'notif_types': random.choice(["A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-"])
     }
     hospital = Hospital()

@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.utils import IntegrityError
 from datetime import datetime
 
+import json
+
 
 # Create your views here.
 
@@ -291,9 +293,13 @@ def visitor_cookie_handler(request):
 
 def all_hospitals(request):
     hospitals = Hospital.objects.all()
-    hospital_info = []
+    # print(hospitals)
+    
+    context_dict = {}
+    # context_dict["hospitals"] = hospitals
     for h in hospitals:
-        hospital_info.append([{h.name}, float(h.location['lat']), float(h.location['lon'])])
-
-    response = render(request, 'app/map.html', context=hospital_info)
-    return response
+        # print(h.hospital_id)
+        context_dict[h.name] = [h.hospital_id, h.location]
+    # print()
+    # response = render(request, 'app/map.html', context=context_dict)
+    return JsonResponse(context_dict)

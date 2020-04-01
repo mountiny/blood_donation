@@ -10,6 +10,7 @@ urlpatterns = [
     path('app/', views.app, name='app'),
     re_path(r'^app/story/$', views.story, name='story'),
     path('app/map/', views.hospital_map, name='map'),
+    path('app/map/all_hospitals/', views.all_hospitals, name='all_hospitals'),
     path('app/profile/', views.profile, name='profile'),
     path('app/profile/edit/', views.profile_edit, name='profile_edit'),
     path('app/hospital/<slug:hospital_slug>/',
@@ -19,5 +20,4 @@ urlpatterns = [
     re_path(r'^signup/$', views.signup, name='signup'),
     path('contact/', views.contact, name='contact'),
     path('site-map/', views.sitemap, name='sitemap'),
-    re_path(r'^app/map/all_hospitals/$', views.all_hospitals, name='all_hospitals'),
 ]

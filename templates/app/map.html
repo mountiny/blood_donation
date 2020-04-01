@@ -4,11 +4,17 @@
 {% block menu_items_block %}
 
 
+
 <li class="menu-item">
-        <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
-            log in
-        </a>
-    </li>
+    <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+        Profile
+    </a> 
+</li>
+<li class="menu-item">
+    <a class="menu-item__link h-link-effect" href="{% url 'app:logout' %}">
+        Log out
+    </a>
+</li>
 
 {% endblock %}
 
@@ -16,12 +22,13 @@
 
 <div class="main-container">
     <div class="map-container h-width">
-        <h1 class="page-heading h-900">Donation map</h1>
-       <div class="map-block__wrapper">
-           <div class="map-block">
-               <div id="mapid" style="width: 1000px; height: 550px"></div>
+            <h4 class="back-link"><a href="{% url 'app:app'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to dashboard</a></h4>
+        <h2 class="map-heading h-900">Donation centres map</h2>
+        <div class="map-block__wrapper">
+            <div class="map-block">
+                <div id="mapid" style="width: 1000px; height: 550px"></div>
             </div>
-       </div>
+        </div>
 
     </div>
 </div>
@@ -38,22 +45,27 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
-         var hospitals = JSON.stringify($.ajax({
-             url: '/all_hospitals',
-            dataType: "json",
-            async: false
-             }).responseText);
 
-                 console.log(hospitals);
+            $.ajax({
+                url: "{% url 'app:all_hospitals' %}",
+                dataType: "json",
+                async: false,
+                success: function(response) {
+                }
+            }).done(function(data){
+                
+                $.each(data,function(key, val) {
+                    var loc = JSON.parse(val[1]);
+                    console.log(loc)
+                    var marker = new L.marker([loc["lat"], loc["lon"]], title = key)
+                    marker.addTo(map);
+                    marker.bindPopup(key).openPopup(); 
+                })
+   
+            })
 
-               var marker = new L.marker([hospitals[1], hospitals[2]], title = hospitals[0])
-                 .addTo(map);
-               for (var h in hospitals) {
-                    var marker = new L.marker([h[1], h[2]], title = h[0])
-                         .addTo(map);
-                     marker.bindPopup(h[0]).openPopup(); }
-
-            });
+    
+        });
 
     </script>
 {% endblock %}
