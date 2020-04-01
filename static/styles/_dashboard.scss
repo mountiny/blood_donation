@@ -12,6 +12,54 @@
     width: 100%;
     text-align: left;
 }
+.dashboard-menu__container {
+    position: relative;
+    width: 100%;
+    padding-top: 3vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 2em 2em;
+
+}
+.dashboard-block {
+    position: relative;
+    // width: 100%;
+    padding: 20px 20px;
+    overflow: hidden;
+    z-index: 100;
+    background: $primary-dark; /* fallback for old browsers */
+    background-image: -webkit-radial-gradient( circle farthest-corner at 10% 20%,  $gradient-light 0%, $gradient-dark 90% ); 
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  $gradient-light 0%, $gradient-dark 90% );
+    @include prefix(transition,(box-shadow 0.3s $curve));
+    &:hover{
+        box-shadow: 0 8px 50px 4px rgba(25,25,25,.32);
+    }
+    
+    .block-text__title {
+        font-size: 2.5em;
+        line-height: 1em;
+        padding-bottom: 20px;
+        display: block;
+        position: relative;
+    }
+
+}
+.dashboard-block__text {
+    z-index: 110;
+    color: black;
+    font-size: 1.3em;
+    line-height: 1.4em;
+    font-weight: 700;
+    position: relative;
+    // margin-bottom: 50px;
+    br {
+        display: block;
+        content: '';
+        margin: 10px;
+    }
+
+}
 .stories-container {
     position: relative;
     width: 100%;
@@ -86,12 +134,94 @@
     @include align-content(center);
 }
 
+.bookings-container {
+    position: relative;
+    width: 100%;
+}
+.bookings-wrapper {
+    position: relative;
+    width: 100%;
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+
+}
+.booking-block {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    padding: 20px 0px;
+    align-items: center;
+    &:nth-of-type(odd) {
+        background-color: $red-light;
+    }
+    // grid-gap: 3em 5em;
+}
+
+// .booking-content {
+//     padding: 20px;
+//     position: relative;
+//     width: calc(100% - 40px);
+// }
+.booking-date {
+    position: relative;
+    padding-left: 20px;
+}
+.booking-hospital {
+    position: relative;
+  
+}
+.booking-actions {
+   position: relative;
+   padding-right: 20px;
+   @include display_flexbox();
+    @include justify_content(flex-end);
+    @include align-items(center);
+    @include align-content(center);
+}
+.booking-delete {
+    position: relative;
+    padding: 10px 15px;
+    background-color: $primary;
+    color: white;
+    @include prefix(transition,(color 0.3s $curve, background-color 0.3s $curve));
+    &:hover {
+        color: black;
+    }
+}
+
 @media only screen and (max-width: 800px) {
     .stories-wrapper {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(4, 1fr);
         grid-gap: 3em 5em;
+    
+    }
+    .dashboard-menu__container {
+        position: relative;
+        width: 100%;
+        padding-top: 3vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-gap: 2em 2em;
+    
+    }
+}
+@media only screen and (max-width: 600px) {
+    .dashboard-menu__container {
+        position: relative;
+        width: 100%;
+        padding-top: 3vh;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 2em 2em;
     
     }
 }

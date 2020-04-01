@@ -170,8 +170,8 @@ def app(request):
     print(request.user.id)
     if request.user.is_donor:
         # Tato pičovinka
-        donor = Donor.objects.get(donor=request.user.id)
-        # print(donor)
+        # donor = Donor.objects.get(pk=request.user.id)
+        print("asd")
         # context_dict["donor"] = donor
     else:
         hospital = Hospital.objects.get(pk=request.user.id)
