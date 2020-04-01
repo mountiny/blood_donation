@@ -132,13 +132,14 @@
             </div>
 
             <div class="reviews-container">
-                    <h2 class="dashboard-heading h-900">My reviews</h2>
-                    <div class="reviews-wrapper">
-                       
-                    {% if reviews %}
-                        {% for review in reviews %}
+                <h2 class="dashboard-heading h-900">My reviews</h2>
+                <div class="reviews-wrapper">
+                    
+                {% if reviews %}
+                    {% for review in reviews %}
+                        {% if forloop.counter < 5 %}
 
-                        <div class="review-block">
+                            <div class="review-block">
                                 <div class="review-content">
                                     <span>Review for:</span><br />
                                     <h4 class="h-700">{{ review.hospital }}</h4>
@@ -149,57 +150,70 @@
                                     </div>
                                 </div>
                             </div>
-
-                        
-                        {% endfor %}
-                    {% else %}
-                        <div class="review-block">
+                        {% else %}
+                        <div class="review-block fadeable h-display-none">
                             <div class="review-content">
                                 <span>Review for:</span><br />
-                                <h4 class="h-700">Glasgow South Hospital</h4>
-                                <span class="review-date">On: 20-03-2020 19:30</span>
-                                <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
-                                </div>
+                                <h4 class="h-700">{{ review.hospital }}</h4>
+                                <span class="review-date">On: {{ review.date }}</span>
+                                <div class="review-text">{{ review.review }}</div>
                                 <div class="review-bar">
                                     <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="review-block">
-                            <div class="review-content">
-                                <span>Review for:</span><br />
-                                <h4 class="h-700">Glasgow South Hospital</h4>
-                                <span class="review-date">On: 20-03-2020 19:30</span>
-                                <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
-                                </div>
-                                <div class="review-bar">
-                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="review-block">
+                        <div class="review-content">
+                            <span>Review for:</span><br />
+                            <h4 class="h-700">Glasgow South Hospital</h4>
+                            <span class="review-date">On: 20-03-2020 19:30</span>
+                            <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
+                            </div>
+                            <div class="review-bar">
+                                <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                             </div>
                         </div>
-                        <div class="review-block">
-                            <div class="review-content">
-                                <span>Review for:</span><br />
-                                <h4 class="h-700">Glasgow South Hospital</h4>
-                                <span class="review-date">On: 20-03-2020 19:30</span>
-                                <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
-                                </div>
-                                <div class="review-bar">
-                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                </div>
+                    </div>
+                    <div class="review-block">
+                        <div class="review-content">
+                            <span>Review for:</span><br />
+                            <h4 class="h-700">Glasgow South Hospital</h4>
+                            <span class="review-date">On: 20-03-2020 19:30</span>
+                            <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
+                            </div>
+                            <div class="review-bar">
+                                    <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                             </div>
                         </div>
-                        <!-- <div class="reviews-block">
-                            <div class="reviews-content">
-                                <h4>You have not given any review yet</h4>
-
+                    </div>
+                    <div class="review-block">
+                        <div class="review-content">
+                            <span>Review for:</span><br />
+                            <h4 class="h-700">Glasgow South Hospital</h4>
+                            <span class="review-date">On: 20-03-2020 19:30</span>
+                            <div class="review-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.
                             </div>
-                        </div> -->
-                    {% endif %}
+                            <div class="review-bar">
+                                    <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="reviews-block">
+                        <div class="reviews-content">
+                            <h4>You have not given any review yet</h4>
 
-                        <!-- <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg> -->
+                        </div>
+                    </div> -->
+                {% endif %}
                 
             </div>
+
+            {% if reviews|length > 4 %}
+                <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+            {% endif %}
         </div>
 
     </div>
@@ -239,7 +253,6 @@ $(document).ready(function() {
             newArray.push(wordArray[i]);
             i++;
         }
-        console.log(newArray)
         e.html(newArray.join(' ') + '...');
     }
 
@@ -269,8 +282,6 @@ $(document).ready(function() {
         // TODO Cancel booking
 
         if(booking_to_cancel != -1) {
-
-            console.log(booking_to_cancel);
 
             $.ajax({
                 url: "cancel_booking?id="+booking_to_cancel,
@@ -303,6 +314,16 @@ $(document).ready(function() {
             $("html").css("overflow", "auto");
         }
 
+    });
+
+    // Show more reviews
+    $(".show-more").click(function () {
+        if($(".reviews-wrapper").find(".fadeable").hasClass("h-display-none")) {
+            $(this).text("Show less!");
+        } else {
+            $(this).text("Show more!");
+        }
+        $(".reviews-wrapper").find(".fadeable").toggleClass("h-display-none");
     });
 
 

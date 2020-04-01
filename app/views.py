@@ -181,6 +181,8 @@ def app(request):
     print(Donor.objects.all())
     print("All hospitals:")
     print(Hospital.objects.all())
+    print("Has user blood_type attribute:")
+    print(request.user._meta.fields)
     # print (Donor.objects.get(donor_id = request.user.id).nickname)
     if request.user.is_donor:
         # Tato pičovinka
