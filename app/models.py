@@ -39,7 +39,7 @@ class Donor(models.Model):
         except IntegrityError:
             return {'error': "email already exists"}
         except:
-            return {'error': "something went wrong please try again"}
+            return {'error': "something went wrong with email please try again"}
 
         donor.first_name = data['first_name']
         donor.last_name = data['last_name']
@@ -59,11 +59,14 @@ class Donor(models.Model):
         # self.notification = data['notification']
         donor.save()
         try:
+            donor.save()
             self.save()
         except IntegrityError:
+            donor.delete()
             return {'error': "nickname already exists"}
         except:
-            return {'error': "something went wrong please try again"}
+            donor.delete()
+            return {'error': "something went wrong with nickname please try again"}
         return {'error': None}
 
 
