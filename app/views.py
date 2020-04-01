@@ -172,7 +172,7 @@ def app(request):
         # Tato pičovinka
         # print (Donor.objects.get(user_id=request.user.id))
         donor = Donor.objects.filter(donor=request.user).first()
-        print(donor.nickname)
+        print(donor)
         # context_dict["donor"] = donor
     else:
         hospital = Hospital.objects.filter(hospital=request.user).first()
