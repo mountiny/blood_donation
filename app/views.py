@@ -84,26 +84,25 @@ def signup(request):
         if 'username' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
-
-            print(qd)
             new_donor = Donor()
 
-            r = new_donor.new_donor(data=qd)
-            #     return JsonResponse(
-            #         {'success': True, 'message': "Account was successfully created. You can now log in!"})
-            # except IntegrityError as e:
-            #     return JsonResponse({'success':False, 'message':"This email has already been used!"})
+            try:
+                new_donor.new_donor(data=qd)
+                return JsonResponse(
+                    {'success': True, 'message': "Account was successfully created. You can now log in!"})
+            except IntegrityError as e:
+                return JsonResponse({'success':False, 'message':"This email has already been used!"})
 
-            # Try to create a new Donor and handle any errors which may occur
-            if r['error'] == None:
-                return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
-            else:
-                return JsonResponse({'success':False, 'message':r['error']})
+            # # Try to create a new Donor and handle any errors which may occur
+            # if r['error'] == None:
+            #     return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
+            # else:
+            #     return JsonResponse({'success':False, 'message':r['error']})
 
         elif 'hospital_name' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
-            print(qd)
+
             new_hopt = Hospital()
             # Try to create a new Hospital and handle any errors which may occur
             try:
@@ -167,18 +166,17 @@ def app(request):
     stories = Story.objects.order_by('-likes')[:4]
 
     context_dict["stories"] = stories
-
+    print(request.user.is_donor)
+    # print(Donor.objects.all())
+    # print (Donor.objects.get(donor_id = request.user.id).nickname)
     if request.user.is_donor:
         # Tato pičovinka
-<<<<<<< HEAD
-        # donor = Donor.objects.get(pk=request.user.id)
-        print("asd")
-=======
         # print (Donor.objects.get(user_id=request.user.id))
-        donor = Donor.objects.filter(donor=request.user).first()
-        print(donor.nickname)
->>>>>>> 5e7f09dc5762164b5c805c71a5be9ea6be049e97
+        # donor = Donor.objects.filter(donor=request.user).first()
+        # print("name" + donor.nickname)
+        # # print(Donor.objects.filter(donor_id=request.user.id).first())
         # context_dict["donor"] = donor
+        print("ASd")
     else:
         hospital = Hospital.objects.filter(hospital=request.user).first()
         context_dict["hospital"] = hospital
