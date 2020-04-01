@@ -174,11 +174,9 @@ def app(request):
     if request.user.is_donor:
         # Tato pičovinka
         # print (Donor.objects.get(user_id=request.user.id))
-        # donor = Donor.objects.filter(donor=request.user).first()
-        # print("name" + donor.nickname)
-        # # print(Donor.objects.filter(donor_id=request.user.id).first())
+        donor = Donor.objects.filter(donor=request.user).first()
+        print(donor)
         # context_dict["donor"] = donor
-        print("ASd")
     else:
         hospital = Hospital.objects.filter(hospital=request.user).first()
         context_dict["hospital"] = hospital

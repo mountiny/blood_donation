@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.db import models
 from django.db.utils import IntegrityError
@@ -26,6 +27,7 @@ class Donor(models.Model):
     birth = models.DateField()
     age = models.IntegerField()
     notification = models.BooleanField
+    likedStories = models.TextField(default=json.dumps([]))
 
     def get_age(self, b):
         return int((datetime.date.today() - datetime.datetime.strptime(b, "%Y-%m-%d").date()).days / 365.25)
@@ -132,16 +134,32 @@ class Story(models.Model):
     @staticmethod
     def like_story(data):
         id = data['story_id']
-        story = Story.objects.get(id=id)
-        story.likes += 1
-        story.save()
+        donor_id = data['donor_id']
+        donor = Donor.objects.get(donor_id=donor_id)
+        liked_stories = json.loads(donor.likedStories)
+        # add like only if donor had not given like before
+        if id not in liked_stories:
+            story = Story.objects.get(id=id)
+            story.likes += 1
+            story.save()
+            liked_stories.append(id)
+            donor.likedStories = json.dumps(liked_stories)
+            donor.save()
+
 
     @staticmethod
     def dislike_story(data):
         id = data['story_id']
-        story = Story.objects.get(id=id)
-        story.likes -= 1
-        story.save()
+        donor_id = data['donor_id']
+        donor = Donor.objects.get(donor_id=donor_id)
+        liked_stories = json.loads(donor.likedStories)
+        if id in liked_stories:
+            story = Story.objects.get(id=id)
+            story.likes -= 1
+            story.save()
+            liked_stories.remove(id)
+            donor.likedStories = json.dumps(liked_stories)
+            donor.save()
 
     @staticmethod
     def show_all_stories():
