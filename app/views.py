@@ -1,4 +1,4 @@
-from app.models import Donor, Hospital, Story, Booking, Review
+from app.models import Donor, Hospital, Story, Booking, Review, User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http.response import JsonResponse
@@ -36,13 +36,7 @@ def login(request):
 
     # If the user is logged in redirect to the app dashboard
     if request.user.is_authenticated:
-        stories = Story.objects.order_by('-likes')[:4]
-
-        context_dict["stories"] = reversed(stories)
-        if request.user.is_donor:
-            context_dict["donor"] = "True"
-
-        return render(request, 'app/app.html', context=context_dict)
+       return redirect("app:app")
 
     if request.method == 'POST' :
         username = request.POST["username"]
@@ -80,25 +74,27 @@ def user_logout(request):
 def signup(request):
 
     context_dict = {}
-    
+
     # If the user is logged in redirect to the app dashboard
     if request.user.is_authenticated:
-        stories = Story.objects.order_by('-likes')[:4]
-
-        context_dict["stories"] = reversed(stories)
-        if request.user.is_donor:
-            context_dict["donor"] = "True"
-
-        return render(request, 'app/app.html', context=context_dict)
+        return redirect("app:app")
 
     if request.method == 'POST':
         qd = dict(request.POST)
         if 'username' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
+
+            print(qd)
             new_donor = Donor()
-            # Try to create a new Donor and handle any errors which may occur
+
             r = new_donor.new_donor(data=qd)
+            #     return JsonResponse(
+            #         {'success': True, 'message': "Account was successfully created. You can now log in!"})
+            # except IntegrityError as e:
+            #     return JsonResponse({'success':False, 'message':"This email has already been used!"})
+
+            # Try to create a new Donor and handle any errors which may occur
             if r['error'] == None:
                 return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
             else:
@@ -107,6 +103,7 @@ def signup(request):
         elif 'hospital_name' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
+            print(qd)
             new_hopt = Hospital()
             # Try to create a new Hospital and handle any errors which may occur
             try:
@@ -169,13 +166,36 @@ def app(request):
     # Get 4 most liked stories
     stories = Story.objects.order_by('-likes')[:4]
 
-    context_dict["stories"] = reversed(stories)
+    context_dict["stories"] = stories
+    print(request.user.id)
     if request.user.is_donor:
-        context_dict["donor"] = "True"
+        # Tato pičovinka
+        donor = Donor.objects.get(donor=request.user.id)
+        # print(donor)
+        # context_dict["donor"] = donor
+    else:
+        hospital = Hospital.objects.get(pk=request.user.id)
+        context_dict["hospital"] = hospital
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
+
+@login_required
+def story(request):
+    context_dict = {}
+
+    if request.method == 'GET':
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        story_id = request.GET.get('id', '')
+        story = Story.objects.get(pk=story_id)
+        if story:
+            context_dict["story"] = story
+            return render(request, 'app/story.html', context=context_dict)
+        else:
+            return redirect("app:app")
+    else:
+        return redirect("app:app")
 
 @login_required
 def hospital_map(request):

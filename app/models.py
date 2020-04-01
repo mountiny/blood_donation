@@ -36,7 +36,6 @@ class Donor(models.Model):
     def new_donor(self, data):
         try:
             donor = User.objects.create_user(username=data['email'], password=data['password'])
-            donor.save()
         except IntegrityError:
             return {'error': "email already exists"}
         except:
@@ -58,7 +57,7 @@ class Donor(models.Model):
 
         self.blood_type = data['blood_type']
         # self.notification = data['notification']
-
+        donor.save()
         try:
             self.save()
         except IntegrityError:

@@ -1,0 +1,77 @@
+.dasboard-container {
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+
+}
+.dashboard-heading {
+    padding: 4vh 0px;
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+.stories-container {
+    position: relative;
+    width: 100%;
+}
+.stories-wrapper {
+    position: relative;
+    width: 100%;
+
+    display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+    grid-gap: 3em 5em;
+
+}
+.story-detail {
+    position: relative;
+
+    .icon_like {
+        width: 16px;
+        height: 16px;
+        vertical-align: top;
+        padding-right: 10px;
+    }
+    h4 {
+        padding-bottom: 20px;
+        display: block;
+    }
+}
+.story-detail__pic {
+    width: 100%;
+    position: relative;
+}
+.story-block__bar {
+    // padding: 20px;
+    width: 100%;
+    position: relative;
+    @include display_flexbox();
+    @include justify_content(space-between);
+    @include align-items(center);
+    @include align-content(center);
+}
+.story-detail__content {
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 40px);
+}
+.story-detail__text {
+    width: 100%;
+    position: relative;
+    padding-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.story-detail__likes {
+    position: relative;
+    @include display_flexbox();
+    @include justify_content(flex-end);
+    @include align-items(center);
+    @include align-content(center);
+}

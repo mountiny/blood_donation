@@ -510,6 +510,117 @@ input:focus {
   }
 }
 
+.dasboard-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.dashboard-heading {
+  padding: 4vh 0px;
+  position: relative;
+  width: 100%;
+  text-align: left;
+}
+
+.stories-container {
+  position: relative;
+  width: 100%;
+}
+
+.stories-wrapper {
+  position: relative;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+  grid-gap: 3em 5em;
+}
+
+.story-detail {
+  position: relative;
+}
+
+.story-detail .icon_like {
+  width: 16px;
+  height: 16px;
+  vertical-align: top;
+  padding-right: 10px;
+}
+
+.story-detail h4 {
+  padding-bottom: 20px;
+  display: block;
+}
+
+.story-detail__pic {
+  width: 100%;
+  position: relative;
+}
+
+.story-block__bar {
+  width: 100%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.story-detail__content {
+  padding: 20px;
+  position: relative;
+  width: calc(100% - 40px);
+}
+
+.story-detail__text {
+  width: 100%;
+  position: relative;
+  padding-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-detail__likes {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
 html, body {
   font-family: "Lato", helvetica;
   letter-spacing: 1px;
@@ -609,6 +720,44 @@ a {
   height: 100%;
   position: relative;
   z-index: 10;
+}
+
+.back-link {
+  position: relative;
+  text-align: left;
+  display: inline-block;
+  margin: 30px 0px;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.back-link a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.back-link a:hover svg {
+  -webkit-transform: translateX(-6px) rotate(180deg);
+          transform: translateX(-6px) rotate(180deg);
+}
+
+.back-link svg {
+  padding-left: 10px;
+  height: 16px;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), -webkit-transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  -webkit-transform: translateX(0px) rotate(180deg);
+          transform: translateX(0px) rotate(180deg);
 }
 
 .intro-container {

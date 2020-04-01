@@ -8,6 +8,7 @@ app_name = 'app'
 urlpatterns = [
     path('', views.index, name='index'),
     path('app/', views.app, name='app'),
+    re_path(r'^app/story/$', views.story, name='story'),
     path('app/map/', views.hospital_map, name='map'),
     path('app/profile/', views.profile, name='profile'),
     path('app/profile/edit/', views.profile_edit, name='profile_edit'),

@@ -7,6 +7,7 @@
 
 @import 'forms';
 @import 'dashboard';
+@import 'story_detail';
 
 html, body {
     font-family: $base-font-family;
@@ -86,6 +87,30 @@ a {
         }
     }
 
+}
+
+.back-link {
+    position: relative;
+    text-align: left;
+    display: inline-block;
+    margin: 30px 0px;
+    @include align-self(flex-start);
+    a {
+        @include display_flexbox();
+        @include justify_content(flex-start);
+        @include align-items(center);
+        &:hover {
+            svg {
+                @include prefix(transform, (translateX(-6px) rotate(180deg)));
+            }
+        }
+    }
+    svg {
+        padding-left: 10px;
+        height: 16px;
+        @include prefix(transition,(transform 0.3s $curve));
+        @include prefix(transform, (translateX(0px) rotate(180deg)));
+    }
 }
 
 .intro-container {
