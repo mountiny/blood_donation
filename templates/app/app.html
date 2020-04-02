@@ -2,17 +2,16 @@
 {% load staticfiles %}
 
 {% block menu_items_block %}
-
-<li class="menu-item">
-    <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
-        Profile
-    </a> 
-</li>
-<li class="menu-item">
-    <a class="menu-item__link h-link-effect" href="{% url 'app:logout' %}">
-        Log out
-    </a>
-</li>
+    <li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:profile' %}">
+            Profile
+        </a> 
+    </li>
+    <li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:logout' %}">
+            Log out
+        </a>
+    </li>
 {% endblock %}
 
 {% block body_block %}
@@ -77,57 +76,57 @@
                    
                         {% if bookings %}
                             {% for booking in bookings %}
-    
-                            <div class="booking-block">
-                                <div class="booking-content">
-                                    <h4>{{ story.heading }}</h4>
-                                    <div class="story-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
-                                    <div class="story-block__bar">
-                                        <a href="story?id={{ story.id }}" class="story-link h-700">Read the story</a>
-                                        <div class="likes-cont h-pointer" data-id="{{ story.id }}">
-                                            <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
-                                            <span class="likes-count">{{ story.likes }}</span>
-                                        </div>
+
+                                <div class="booking-block">
+            
+                                    <div class="booking-date">{{ booking.appointment }}</div>
+                                    <div class="booking-hospital">{{ booking.hospital }}</div>
+                                    <div class="booking-actions">
+                                        <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
                                     </div>
+
                                 </div>
-                            </div>
+    
+
                             
                             {% endfor %}
                         {% else %}
-                            <div class="booking-block">
+                        <div class="booking-block">
                                 
-                                <!-- <div class="booking-content"> -->
+                                <div class="booking-date"></div>
+                                <div class="booking-hospital">You do not have any appointment booked.</div>
+                                <div class="booking-actions">
+
+                                </div>
+
+                        </div>
+
+                            <!-- <div class="booking-block">
+                                
                                     <div class="booking-date">22-05-2020</div>
                                     <div class="booking-hospital">Glasgow South Hospital</div>
                                     <div class="booking-actions">
                                         <div class="booking-delete h-pointer h-700" data-id="1">CANCEL</div>
                                     </div>
-                                <!-- </div> -->
+
                             </div>
                             <div class="booking-block">
                                 
-                                <!-- <div class="booking-content"> -->
                                     <div class="booking-date">23-05-2020</div>
                                     <div class="booking-hospital">Glasgow North Hospital</div>
                                     <div class="booking-actions">
                                         <div class="booking-delete h-pointer h-700" data-id="2">CANCEL</div>
                                     </div>
-                                <!-- </div> -->
                             </div>
                             <div class="booking-block">
                             
-                                <!-- <div class="booking-content"> -->
                                     <div class="booking-date">24-05-2020</div>
                                     <div class="booking-hospital">Glasgow West Hospital</div>
                                     <div class="booking-actions">
                                         <div class="booking-delete h-pointer h-700" data-id="3">CANCEL</div>
                                     </div>
-                                <!-- </div> -->
-                            </div>
-                        {% endif %}
-    
-                            <!-- <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg> -->
-                    
+                            </div> -->
+                        {% endif %}                
                 </div>
             </div>
 

@@ -173,7 +173,6 @@ class Story(models.Model):
 class Booking(models.Model):
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
-
     appointment = models.DateTimeField(unique=True)
 
     def new_appointment(self, data):

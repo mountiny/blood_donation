@@ -3,11 +3,35 @@
 
 {% block menu_items_block %}
 
-<li class="menu-item">
+{% if user.is_authenticated %}
+
+    <li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:app' %}">
+            Dashboard
+        </a> 
+    </li>   
+    <li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:profile' %}">
+            Profile
+        </a> 
+    </li>
+    <li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:logout' %}">
+            Log out
+        </a>
+    </li>
+
+
+{% else %}
+
+    <li class="menu-item">
         <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
             log in
         </a>
     </li>
+
+{% endif %}
+
 
 {% endblock %}
 

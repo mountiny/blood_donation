@@ -171,11 +171,15 @@ def app(request):
     context_dict["reviews"] = reviews
 
     if request.user.is_donor:
-        donor = Donor.objects.filter(donor=request.user).first()
-        print(donor)
-        # context_dict["donor"] = donor
+        donor = Donor.objects.get(pk=request.user.id)
+        context_dict["donor"] = donor
+
+        bookings = Booking.objects.filter(donor=donor)
+        if len(bookings) > 0:
+            context_dict["bookings"] = bookings
+
     else:
-        hospital = Hospital.objects.filter(hospital=request.user).first()
+        hospital = Hospital.objects.get(pk=request.user.id)
         context_dict["hospital"] = hospital
 
     response = render(request, 'app/app.html', context=context_dict)
@@ -228,15 +232,16 @@ def hospital_map(request):
 
 @login_required
 def profile(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
 
-    # visitor_cookie_handler(request)
+    if request.user.is_donor:
+        donor = Donor.objects.get(pk=request.user.id)
+        context_dict["donor"] = donor
+
+    else:
+        hospital = Hospital.objects.get(pk=request.user.id)
+        context_dict["hospital"] = hospital
 
     response = render(request, 'app/profile.html', context=context_dict)
     # Return a rendered response to send to the client.
@@ -245,17 +250,18 @@ def profile(request):
 
 @login_required
 def profile_edit(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
 
-    # visitor_cookie_handler(request)
+    if request.user.is_donor:
+        donor = Donor.objects.get(pk=request.user.id)
+        context_dict["donor"] = donor
 
-    response = render(request, 'app/edit.html', context=context_dict)
+    else:
+        hospital = Hospital.objects.get(pk=request.user.id)
+        context_dict["hospital"] = hospital
+
+    response = render(request, 'app/profile_edit.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
 
