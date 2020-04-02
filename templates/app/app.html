@@ -48,7 +48,11 @@
                         {% for story in stories %}
 
                         <div class="story-block">
-                            <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                            {% if story.picture is not None %}
+                                <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-detail__pic"/>
+                            {% else %}
+                                <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-detail__pic">
+                            {% endif %}
                             <div class="story-content">
                                 <h4>{{ story.heading }}</h4>
                                 <div class="story-text">{{ story.story }}</div>
