@@ -46,7 +46,6 @@ class Donor(models.Model):
 
         self.donor.first_name = data['first_name']
         self.donor.last_name = data['last_name']
-        # donor.nickname = data['nickname']
         self.donor.is_donor = True
 
         self.nickname = data['username']
@@ -61,8 +60,11 @@ class Donor(models.Model):
         self.weight = data['weight']
 
         self.blood_type = data['blood_type']
-        # self.notification = data['notification']
-
+        if data['notification'] == "true":
+            self.notification = True
+        else:
+            self.notification = False
+    
         try:
             self.donor.save()
             self.save()
@@ -82,9 +84,8 @@ class Hospital(models.Model):
     # hospital_id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=300)
-    notified_types = models.CharField(max_length=100)
+    notified_types = models.CharField(max_length=100,default="NO")
     slug_name = models.SlugField(unique=True)
-
     # stories = models.ManyToOneRel(Hospital, )
 
     def save(self, *args, **kwargs):
@@ -105,7 +106,6 @@ class Hospital(models.Model):
         self.hospital.is_hospital = True
         self.name = data['hospital_name']
         self.location = data['location']
-        # self.notified_types = data['notif_types']
 
         try:
             self.hospital.save()
@@ -114,6 +114,7 @@ class Hospital(models.Model):
             self.hospital.delete()
             return {'error': "something went wrong please try again"}
         return {'error': None}
+
 
 class Story(models.Model):
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)

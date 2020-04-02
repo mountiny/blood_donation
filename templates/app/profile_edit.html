@@ -98,6 +98,14 @@
             </div>
             <div class="donor-data">
                 <div class="data-label">
+                    Allow notifications:
+                </div>
+                <div class="data-value">
+                    <input type="checkbox" {% if donor.notification %} checked {% endif %} name="notification" id="notification_field" required>
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
                     Blood type:
                 </div>
                 <div class="data-value">
@@ -209,6 +217,7 @@
                 var city = $("#city_field").val();
                 var weight = $("#weight_field").val();
                 var height = $("#height_field").val();
+                var notification = $("#notification_field").prop('checked');
                 var blood_type = $("#blood_field").val();
                 var csrftoken = getCookie('csrftoken');
 
@@ -269,6 +278,7 @@
                         'height': height,
                         'weight': weight,
                         'city': city,
+                        'notification': notification,
                         'blood_type' : blood_type
                     },
                     success: function(response) {
@@ -348,46 +358,47 @@
 
 
         })
+         if (loc_raw != ""){
+            var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
+            // Map setup
 
-        var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
-        // Map setup
+            var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
 
-        var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+            var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+            var results = new L.LayerGroup().addTo(map);
 
-        var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-        var results = new L.LayerGroup().addTo(map);
+            searchControl.on('results', function(data){
+                results.clearLayers();
+                for (var i = data.results.length - 1; i >= 0; i--) {
+                    results.addLayer(L.marker(data.results[i].latlng));
+                }
+            });
 
-        searchControl.on('results', function(data){
-            results.clearLayers();
-            for (var i = data.results.length - 1; i >= 0; i--) {
-                results.addLayer(L.marker(data.results[i].latlng));
-            }
-        });
-
-        var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name)
-        marker.addTo(map);
-                    // marker.bindPopup(hospital_name).openPopup(); 
-
-        var popup = L.popup();
-
-        // Write function to set Properties of the Popup
-        function onMapClick(e) {
-            // Remove the previous marker
-            map.removeLayer(marker);
-
-            marker = new L.marker([e.latlng["lat"], e.latlng["lng"]], title = hospital_name)
+            var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name)
             marker.addTo(map);
-            marker.bindPopup(hospital_name).openPopup(); 
+                        // marker.bindPopup(hospital_name).openPopup(); 
+
+            var popup = L.popup();
+
+            // Write function to set Properties of the Popup
+            function onMapClick(e) {
+                // Remove the previous marker
+                map.removeLayer(marker);
+
+                marker = new L.marker([e.latlng["lat"], e.latlng["lng"]], title = hospital_name)
+                marker.addTo(map);
+                marker.bindPopup(hospital_name).openPopup(); 
 
 
-            // Save the location as a dictionary
-            loc = {lat: e.latlng["lat"], lon: e.latlng["lng"]};
+                // Save the location as a dictionary
+                loc = {lat: e.latlng["lat"], lon: e.latlng["lng"]};
+            }
+
+            // Listen for a click event on the Map element
+            map.on('click', onMapClick);
         }
-
-        // Listen for a click event on the Map element
-        map.on('click', onMapClick);
 
 
 

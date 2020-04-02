@@ -296,6 +296,10 @@ def profile_edit(request):
             donor.address = qd['city']
             donor.height = qd['height']
             donor.weight = qd['weight']
+            if qd['notification'] == "true":
+                donor.notification = True
+            else:
+                donor.notification = False
 
             donor.blood_type = qd['blood_type']
             # self.notification = data['notification']
