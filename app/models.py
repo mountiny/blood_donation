@@ -26,7 +26,7 @@ class Donor(models.Model):
     height = models.IntegerField()
     birth = models.DateField()
     age = models.IntegerField()
-    notification = models.BooleanField
+    notification = models.BooleanField(default=False)
     likedStories = models.TextField(default=json.dumps([]))
 
     def get_age(self, b):
@@ -42,7 +42,7 @@ class Donor(models.Model):
         except IntegrityError:
             return {'error': "email already exists"}
         except:
-            return {'error': "something went wrong with email please try again"}
+            return {'error': "something went wrong please try again"}
 
         self.donor.first_name = data['first_name']
         self.donor.last_name = data['last_name']
@@ -56,18 +56,22 @@ class Donor(models.Model):
         self.address = data['city']
 
         self.height = data['height']
+        if int (data['weight']) < 50:
+            return {'error': "You must weight over 50kg to be able to sign up"}
         self.weight = data['weight']
 
         self.blood_type = data['blood_type']
         # self.notification = data['notification']
-    
+
         try:
             self.donor.save()
             self.save()
         except IntegrityError:
+            self.donor.delete()
             return {'error': "nickname already exists"}
         except:
-            return {'error': "something went wrong with nickname please try again"}
+            self.donor.delete()
+            return {'error': "something went wrong please try again"}
         return {'error': None}
 
 
@@ -91,15 +95,25 @@ class Hospital(models.Model):
         return self.name
 
     def new_hospital(self, data):
-        # hospital = User.objects.create_user(data['hospital_name'], data['hospital_email'], data['hospital_password'])
-        self.hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
+        try:
+            self.hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
+        except IntegrityError:
+            return {'error': "email already exists"}
+        except:
+            return {'error': "something went wrong with email please try again"}
+
         self.hospital.is_hospital = True
         self.name = data['hospital_name']
         self.location = data['location']
         # self.notified_types = data['notif_types']
-        self.hospital.save()
-        self.save()
 
+        try:
+            self.hospital.save()
+            self.save()
+        except:
+            self.hospital.delete()
+            return {'error': "something went wrong please try again"}
+        return {'error': None}
 
 class Story(models.Model):
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
@@ -144,7 +158,6 @@ class Story(models.Model):
             liked_stories.append(id)
             donor.likedStories = json.dumps(liked_stories)
             donor.save()
-
 
     @staticmethod
     def dislike_story(data):

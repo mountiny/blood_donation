@@ -90,7 +90,7 @@ def signup(request):
 
             r = new_donor.new_donor(data=qd)
             # Try to create a new Donor and handle any errors which may occur
-            if r['error'] == None:
+            if r['error'] is None:
                 return JsonResponse(
                     {'success': True, 'message': "Account was successfully created. You can now log in!"})
             else:
@@ -100,14 +100,14 @@ def signup(request):
             for k, v in qd.items():
                 qd[k] = v[0]
 
-            new_hopt = Hospital()
+            new_hosp = Hospital()
             # Try to create a new Hospital and handle any errors which may occur
-            try:
-                new_hopt.new_hospital(data=qd)
+            r = new_hosp.new_hospital(data=qd)
+            if r['error'] is None:
                 return JsonResponse(
                     {'success': True, 'message': "Account was successfully created. You can now log in!"})
-            except IntegrityError as e:
-                return JsonResponse({'success': False, 'message': "This email has already been used!"})
+            else:
+                return JsonResponse({'success': False, 'message': r['error']})
 
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
@@ -160,13 +160,16 @@ def sitemap(request):
 @login_required
 def app(request):
     context_dict = {}
-    
+
     # Check if the logged in user is Donor or Hospital
     if request.user.is_donor:
         # Get the logged in donor
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
-        
+
+        if donor.notification:
+            context_dict["notification"] = Hospital.objects.filter(notified_types=donor.blood_type)
+
         # Get 4 most liked stories
         stories = Story.objects.order_by('-likes')[:4]
         context_dict["stories"] = stories
@@ -175,7 +178,7 @@ def app(request):
         reviews = Review.objects.filter(donor=donor)
         if len(reviews) > 0:
             context_dict["reviews"] = reviews
-        
+
         # Get bookings of this donor
         bookings = Booking.objects.filter(donor=donor)
         if len(bookings) > 0:
@@ -197,7 +200,6 @@ def app(request):
         reviews = Review.objects.filter(hospital=hospital)
         if len(reviews) > 0:
             context_dict["reviews"] = reviews
-        
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
@@ -249,7 +251,6 @@ def hospital_map(request):
 
 @login_required
 def profile(request):
-
     context_dict = {}
 
     if request.user.is_donor:
@@ -267,7 +268,6 @@ def profile(request):
 
 @login_required
 def profile_edit(request):
-
     context_dict = {}
 
     if request.method == 'POST':
@@ -309,7 +309,7 @@ def profile_edit(request):
                 return JsonResponse({'success': False, 'message': "This is already used"})
             except:
                 return JsonResponse({'success': False, 'message': "Something went wrong"})
-            
+
 
         elif 'hospital_name' in qd:
             print("hejhola")
@@ -341,7 +341,6 @@ def profile_edit(request):
                 return JsonResponse({'success': False, 'message': "This email has already been used!"})
             except:
                 return JsonResponse({'success': False, 'message': "Something went wrong"})
-
 
     if request.user.is_donor:
         donor = Donor.objects.get(pk=request.user.id)
@@ -424,7 +423,6 @@ def all_hospitals(request):
 
 
 def cancel_booking(request):
-
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         booking_id = request.GET.get('id', '')
@@ -458,7 +456,7 @@ def write_review(request):
 
         review = Review()
         review.new_review(data)
-        try: 
+        try:
             # review.new_review(data)
             return JsonResponse({'success': True, 'message': "The review has been succesfully published!"})
         except:
