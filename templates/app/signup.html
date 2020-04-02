@@ -111,7 +111,7 @@
                 </div>
 
             <!-- Map settings -->
-            <h4 style="font-size: 1rem; padding: 20px 0px;" id="map_text">Please select your address on the map: </h4>
+            <h4 style="font-size: 1rem; padding: 20px 0px;" id="map_text">Please select the hospital address on the map: </h4>
             <div id="mapid" style="width: 705px; height: 375px"></div>
 
             <div class="form-note">
@@ -233,7 +233,6 @@
                     'city': city,
                     'blood_type' : blood_type
                 },
-                // dataType: "json",
                 success: function(response) {
 
                     if (response.success) {
@@ -243,6 +242,7 @@
                         $(".donor-form")[0].reset();
                        
                     } else {
+                        // Error handling
                         
                         $(".modal-content__msg").html(response.message);
                         $(".modal-btn-login").addClass("btn-hidden");
@@ -250,7 +250,7 @@
                     }
                     // Show a modal with information about the signup process
                     $(".modal-wrapper").toggleClass("modal-open");
-
+                    // disable scrolling when modal is on
                     $("html").css("overflow", "hidden");
                 }
             });
@@ -317,6 +317,7 @@
                         map.closePopup();
                        
                     } else {
+                        // Error handling
                         
                         $(".modal-content__msg").html(response.message);
                         $(".modal-btn-login").addClass("btn-hidden");
@@ -360,7 +361,7 @@
                 .openOn(map);
 
                 // Save the location as a dictionary
-                loc = {"lat": e.latlng["lat"], "lon": e.latlng["lng"]};
+                loc = {lat: e.latlng["lat"], lon: e.latlng["lng"]};
         }
 
         // Listen for a click event on the Map element

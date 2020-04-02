@@ -50,7 +50,7 @@ def login(request):
                 if user.is_active:
                     usr_login(request, user)
                     return JsonResponse(
-                        {'success': True, 'message': "Logged in successfully!"})  # redirect(reverse('app:index'))
+                        {'success': True, 'message': "Logged in successfully!"})
                 else:
                     # An inactive account was used - no logging in!
                     # return HttpResponse("Your account is disabled.")
@@ -86,7 +86,6 @@ def signup(request):
             for k, v in qd.items():
                 qd[k] = v[0]
 
-            # print(qd)
             new_donor = Donor()
 
             r = new_donor.new_donor(data=qd)
@@ -242,6 +241,7 @@ def profile(request):
     else:
         hospital = Hospital.objects.get(pk=request.user.id)
         context_dict["hospital"] = hospital
+        print(hospital.location)
 
     response = render(request, 'app/profile.html', context=context_dict)
     # Return a rendered response to send to the client.
@@ -252,6 +252,79 @@ def profile(request):
 def profile_edit(request):
 
     context_dict = {}
+
+    if request.method == 'POST':
+        qd = dict(request.POST)
+        if 'username' in qd:
+            for k, v in qd.items():
+                qd[k] = v[0]
+            user = User.objects.get(pk=request.user.id)
+            donor = Donor.objects.get(pk=request.user.id)
+
+            # Check if this username has been used
+            if user.username != qd['email']:
+                user.username = qd['email']
+            try:
+                user.save()
+            except IntegrityError as e:
+                return JsonResponse({'success': False, 'message': "This email is already used"})
+
+            user.first_name = qd['first_name']
+            user.last_name = qd['last_name']
+
+            donor.nickname = qd['username']
+            donor.birth = (qd['birthday'])
+            donor.age = donor.get_age(donor.birth)
+
+            donor.address = qd['city']
+            donor.height = qd['height']
+            donor.weight = qd['weight']
+
+            donor.blood_type = qd['blood_type']
+            # self.notification = data['notification']
+
+            # Try to create a save the changes
+            try:
+                user.save()
+                donor.save()
+                return JsonResponse({'success': True, 'message': "Updated successfully!"})
+            except IntegrityError:
+                return JsonResponse({'success': False, 'message': "This is already used"})
+            except:
+                return JsonResponse({'success': False, 'message': "Something went wrong"})
+            
+
+        elif 'hospital_name' in qd:
+            print("hejhola")
+            for k, v in qd.items():
+                qd[k] = v[0]
+
+            user = User.objects.get(pk=request.user.id)
+            hospital = Hospital.objects.get(pk=request.user.id)
+
+            # Check if this username has been used
+            if user.username != qd['hospital_email']:
+                user.username = qd['hospital_email']
+            try:
+                user.save()
+            except IntegrityError:
+                return JsonResponse({'success': False, 'message': "This email is already used"})
+            print(qd['location'])
+            hospital.name = qd['hospital_name']
+            hospital.location = qd['location']
+            # self.notified_types = data['notif_types']
+
+            # Try to create a save the changes
+            try:
+                user.save()
+                hospital.save()
+                return JsonResponse(
+                    {'success': True, 'message': "Updated successfully!"})
+            except IntegrityError as e:
+                return JsonResponse({'success': False, 'message': "This email has already been used!"})
+            except:
+                return JsonResponse({'success': False, 'message': "Something went wrong"})
+
 
     if request.user.is_donor:
         donor = Donor.objects.get(pk=request.user.id)

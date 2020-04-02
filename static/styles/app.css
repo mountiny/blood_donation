@@ -1000,7 +1000,23 @@ input:focus {
   position: relative;
 }
 
+.profile-content input {
+  background-color: #f7d9d4;
+}
+
+.profile-content input.h-empty {
+  border: 2px solid #e74c3c;
+}
+
 .profile-content__donor {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2em 2em;
+}
+
+.profile-content__hospital {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[2];
@@ -1018,13 +1034,18 @@ input:focus {
   padding: 20px;
 }
 
-.donor-label {
+.data-label {
   position: relative;
-  border-right: 2px solid #e74c3c;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
-.donor-value {
+.data-value {
   position: relative;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 .actions-cont {
@@ -1056,7 +1077,7 @@ input:focus {
   color: black;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .profile-content__donor {
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);

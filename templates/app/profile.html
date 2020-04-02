@@ -59,14 +59,6 @@
             </div>
             <div class="donor-data">
                 <div class="data-label">
-                    Password:
-                </div>
-                <div class="data-value">
-                    ****
-                </div>
-            </div>
-            <div class="donor-data">
-                <div class="data-label">
                     Birthday:
                 </div>
                 <div class="data-value">
@@ -75,7 +67,7 @@
             </div>
             <div class="donor-data">
                 <div class="data-label">
-                    Address:
+                    City:
                 </div>
                 <div class="data-value">
                     {{ donor.address }}
@@ -114,25 +106,34 @@
 
         {% else %}
 
+            <div class="profile-content profile-content__hospital">
+            
+                <div class="donor-data">
+                    <div class="data-label">
+                        Email:
+                    </div>
+                    <div class="data-value">
+                        {{ user.username }}
+                    </div>
+                </div>
+                <div class="donor-data">
+                    <div class="data-label">
+                        Hospital name:
+                    </div>
+                    <div class="data-value">
+                        {{ hospital }}
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mapid" style="margin-top: 30px;width: 100%; height: 375px"></div>
+
+
         {% endif %}
 
         <div class="actions-cont">
             <a href="{% url 'app:profile_edit' %}" class="profile-edit__link h-700 h-uppercase">Edit profile</a>
         </div>
-<!-- 
-            <div class="story-detail">
-                <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-detail__pic">
-                <div class="story-detail__content">
-                    <div class="story-detail__text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
-                    <div class="story-detail__bar">
-                      
-                        <div class="story-detail__likes h-pointer" data-id="{{ story.id }}">
-                            <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
-                            <span class="likes-count">{{ story.likes }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 
     </div>
 </div>
@@ -142,5 +143,29 @@
 
 
 {% block javascript_block %}
+
+<script type="text/javascript">
+
+    var loc_raw = "{{ hospital.location }}";
+    var hospital_name = "{{ hospital }}";
+    console.log(loc_raw)
+
+    $(document).ready(function() {
+
+        var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
+        console.log(loc)
+        // Map setup
+
+        var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+
+        var results = new L.LayerGroup().addTo(map);
+
+        var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name)
+        marker.addTo(map);
+                    
+    });
+</script>
 
 {% endblock %}
