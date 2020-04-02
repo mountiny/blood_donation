@@ -60,8 +60,10 @@
                 $.each(data,function(key, val) {
                     var loc = JSON.parse(val[1]);
                     var marker = new L.marker([loc["lat"], loc["lon"]], title = key)
+                    // Create a popup for marker with a link to the specific hospital detail page
+                    var popup = L.popup().setContent('Visit the<a href="../hospital/'+val[2]+'"> detail page of '+ key +'</a>')
                     marker.addTo(map);
-                    marker.bindPopup(key).openPopup(); 
+                    marker.bindPopup(popup).openPopup(); 
                 })
    
             })

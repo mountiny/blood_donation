@@ -160,26 +160,44 @@ def sitemap(request):
 @login_required
 def app(request):
     context_dict = {}
-    # Get 4 most liked stories
-    stories = Story.objects.order_by('-likes')[:4]
-
-    # Get all reviews of by the donor
-    reviews = Review.objects.all()
-
-    context_dict["stories"] = stories
-    context_dict["reviews"] = reviews
-
+    
+    # Check if the logged in user is Donor or Hospital
     if request.user.is_donor:
+        # Get the logged in donor
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
 
+        # Get 4 most liked stories
+        stories = Story.objects.order_by('-likes')[:4]
+        context_dict["stories"] = stories
+
+        # Get all reviews of by the donor
+        reviews = Review.objects.filter(donor=donor)
+        if len(reviews) > 0:
+            context_dict["reviews"] = reviews
+        
+        # Get bookings of this donor
         bookings = Booking.objects.filter(donor=donor)
         if len(bookings) > 0:
             context_dict["bookings"] = bookings
 
     else:
+        # Get the logged in hospital
         hospital = Hospital.objects.get(pk=request.user.id)
         context_dict["hospital"] = hospital
+        # Get bookings at this hospital
+        bookings = Booking.objects.filter(hospital=hospital)
+        if len(bookings) > 0:
+            context_dict["bookings"] = bookings
+        # Get stories written by this hospital
+        stories = Story.objects.filter(hospital=hospital)
+        if len(stories) > 0:
+            context_dict["stories"] = stories
+        # Get all reviews about this hospital
+        reviews = Review.objects.filter(hospital=hospital)
+        if len(reviews) > 0:
+            context_dict["reviews"] = reviews
+        
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
@@ -241,7 +259,6 @@ def profile(request):
     else:
         hospital = Hospital.objects.get(pk=request.user.id)
         context_dict["hospital"] = hospital
-        print(hospital.location)
 
     response = render(request, 'app/profile.html', context=context_dict)
     # Return a rendered response to send to the client.
@@ -342,16 +359,29 @@ def profile_edit(request):
 @login_required
 def hospital(request, hospital_slug):
     context_dict = {}
-    # try:
-    #     hospital = Hospital.objects.get(slug=hospital_slug)
+    try:
+        hospital = Hospital.objects.get(slug_name=hospital_slug)
 
-    #     context_dict['hospital'] = hospital
+        if request.user.is_hospital:
+            user_hospital = Hospital.objects.get(pk=request.user.id)
+            if user_hospital.slug_name == hospital.slug_name:
+                return redirect("app:app")
 
-    # except Hospital.DoesNotExist:
+        context_dict['hospital'] = hospital
+        
+        stories = Story.objects.filter(hospital=hospital)
+        if len(stories) > 0:
+            context_dict["stories"] = stories
+        # Get all reviews about this hospital
+        reviews = Review.objects.filter(hospital=hospital)
+        if len(reviews) > 0:
+            context_dict["reviews"] = reviews
 
-    #     context_dict['hospital'] = None
+        return render(request, 'app/hospital.html', context=context_dict)
 
-    return render(request, 'app/login.html', context=context_dict)
+    except Hospital.DoesNotExist:
+
+        return redirect("app:app")
 
 
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -387,14 +417,13 @@ def all_hospitals(request):
     # context_dict["hospitals"] = hospitals
     for h in hospitals:
         # print(h.hospital_id)
-        context_dict[h.name] = [h.hospital_id, h.location]
+        context_dict[h.name] = [h.hospital_id, h.location, h.slug_name]
     # print()
     # response = render(request, 'app/map.html', context=context_dict)
     return JsonResponse(context_dict)
 
 
 def cancel_booking(request):
-    print(Booking.objects.all())
 
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
@@ -411,5 +440,29 @@ def cancel_booking(request):
         #     return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
         # else:
         #     return redirect("app:app")
+    else:
+        return redirect("app:app")
+
+
+def write_review(request):
+    context_dict = {}
+
+    if request.method == 'POST':
+        print(request.POST)
+        donor_id = request.POST["donor"]
+        hospital_id = request.POST["hospital"]
+        data = {'donor': Donor.objects.get(pk=donor_id),
+                'hospital': Hospital.objects.get(pk=hospital_id),
+                'date': request.POST["time"],
+                'review': request.POST["review_text"]}
+
+        review = Review()
+        review.new_review(data)
+        try: 
+            # review.new_review(data)
+            return JsonResponse({'success': True, 'message': "The review has been succesfully published!"})
+        except:
+            return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
+
     else:
         return redirect("app:app")

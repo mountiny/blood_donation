@@ -3,6 +3,11 @@
 
 {% block menu_items_block %}
     <li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:app' %}">
+            Dashboard
+        </a> 
+    </li> 
+    <li class="menu-item">
         <a class="menu-item__link h-link-effect" href="{% url 'app:profile' %}">
             Profile
         </a> 
@@ -15,13 +20,14 @@
 {% endblock %}
 
 {% block body_block %}
-<!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
 
 <div class="main-container">
 
     <div class="dasboard-container h-width">
 
-        <h2 class="dashboard-heading h-900">Welcome back,{% if user.is_donor %} {{donor.nickname}}{% else %} {{hospital.name}}{% endif %}!</h1>
+        <h4 class="back-link"><a href="{% url 'app:app'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to dashboard</a></h4>
+
+        <h2 class="dashboard-heading h-900">{{hospital.name}}</h1>
 
         {% if user.is_donor %}
 
@@ -29,36 +35,63 @@
                 <div class="dashboard-block h-border-radius h-shadow h-pointer show-map">
                     <a href="{% url 'app:map'%}" class="dashboard-block__text">
                         
-                        <span class="block-text__title h-900">Map</span><br />
-                        Discover hospitals nearby!
+                        <span class="block-text__title h-900">Book it!</span><br />
+                        Book an appointment for next days!
                     </a>
                 </div>
-                <div class="dashboard-block h-border-radius h-shadow h-pointer create-booking">
+                <div class="dashboard-block h-border-radius h-shadow h-pointer write-review_btn">
                     <div class="dashboard-block__text">
-                        <span class="block-text__title h-900">Book it</span><br />
-                        Create an appointment at hospital you fancy!
+                        <span class="block-text__title h-900">Review it!</span><br />
+                        Describe your experience for other users!
                     </div>
                 </div>
 
             </div>
 
+            <div class="bookings-container map-container">
+                    <h2 class="dashboard-heading h-900">Where to find this hospital</h2>
+                    <div id="mapid" style="width: 100%; height: 300px"></div>
+                </div>
+
             <div class="stories-container">
-                <h2 class="dashboard-heading h-900">Most popular stories</h2>
-                    {% if stories %}
-                        <div class="stories-wrapper">
-                            {% for story in stories %}
+                <h2 class="dashboard-heading h-900">Stories by this hospital</h2>
+                {% if stories %}
+                <div class="stories-wrapper">
+                    {% for story in stories %}
+
+                        {% if forloop.counter < 5 %}
 
                             <div class="story-block">
-                                    {% if story.picture %}
-                                    <img src="{% static '{{ story.picture }}' %}" alt="Story picture" class="story-pic">
-                                    {% else %}
-                                    <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
-                                    {% endif %}
+                                {% if story.picture %}
+                                <img src="{% static '{{ story.picture }}' %}" alt="Story picture" class="story-pic">
+                                {% else %}
+                                <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
+                                {% endif %}
+                                
                                 <div class="story-content">
                                     <h4 class="h-700">{{ story.heading }}</h4>
                                     <div class="story-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
                                     <div class="story-block__bar">
-                                        <a href="story?id={{ story.id }}" class="story-link h-700">Read the story</a>
+                                        <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
+                                        <div class="likes-cont h-pointer" data-id="{{ story.id }}">
+                                            <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
+                                            <span class="likes-count">{{ story.likes }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="story-block fadeable h-display-none">
+                                {% if story.picture %}
+                                <img src="{% static '{{ story.picture }}' %}" alt="Story picture" class="story-pic">
+                                {% else %}
+                                <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
+                                {% endif %}
+                                <div class="story-content">
+                                    <h4 class="h-700">{{ story.heading }}</h4>
+                                    <div class="story-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
+                                    <div class="story-block__bar">
+                                        <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
                                         <div class="likes-cont h-pointer" data-id="{{ story.id }}">
                                             <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
                                             <span class="likes-count">{{ story.likes }}</span>
@@ -67,167 +100,89 @@
                                 </div>
                             </div>
                             
-                            {% endfor %}
-                        
-                        </div>
-                    {% else %}
-                        <div class="bookings-wrapper">
-                            <div class="nothing-block">
-                                    
-                                    <div class="booking-hospital">There have been no stories posted yet.</div>
-
-                            </div>
-                        </div>
-
-                    {% endif %}
-            </div>
-
-            <div class="bookings-container">
-                    <h2 class="dashboard-heading h-900">My bookings</h2>
+                        {% endif %}
+                    
+                    {% endfor %}
                 
-                        {% if bookings %}
-                            <div class="bookings-wrapper">
-                                {% for booking in bookings %}
-
-                                    <div class="booking-block">
-                
-                                        <div class="booking-date">{{ booking.appointment }}</div>
-                                        <div class="booking-hospital">{{ booking.hospital }}</div>
-                                        <div class="booking-actions">
-                                            <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
-                                        </div>
-
-                                    </div>
-        
-
-                                
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="bookings-wrapper">
-                                <div class="booking-block">
-                                        
-                                        <div class="booking-date"></div>
-                                        <div class="booking-hospital">You do not have any appointment booked.</div>
-                                        <div class="booking-actions">
-
-                                        </div>
-
-                                </div>
-                            </div>
-                        {% endif %}                
                 </div>
 
-                <div class="reviews-container">
-                    <h2 class="dashboard-heading h-900">My reviews</h2>
+                {% if stories|length > 4 %}
+                    <div class="show-more show-more-stories h-700" data-section="stories-section">Show more!</div>
+                {% endif %}
 
-                    {% if reviews %}
-                        <div class="reviews-wrapper">
-                            {% for review in reviews %}
-                                {% if forloop.counter < 5 %}
-                                    <div class="review-block">
-                                        <div class="review-content">
-                                            <span>Review for:</span><br />
-                                            <h4 class="h-700">{{ review.hospital }}</h4>
-                                            <span class="review-date">On: {{ review.date }}</span><br />
-                                            <span class="review-author">By: {{ review.donor }}</span>
-                                            <div class="review-text">{{ review.review }}</div>
-                                            <div class="review-bar">
-                                                <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% else %}
-                                <div class="review-block fadeable h-display-none">
+            {% else %}
+                <div class="bookings-wrapper">
+                    <div class="nothing-block">
+                            
+                        <div class="booking-hospital">There has been no stories posted by this hospital yet.</div>
+
+                    </div>
+                </div>
+
+            {% endif %}
+            </div>
+
+            <div class="reviews-container">
+                <h2 class="dashboard-heading h-900">Reviews of this hospital</h2>
+
+                {% if reviews %}
+                    <div class="reviews-wrapper">
+                        {% for review in reviews %}
+                            {% if forloop.counter < 5 %}
+                                <div class="review-block">
                                     <div class="review-content">
                                         <span>Review for:</span><br />
                                         <h4 class="h-700">{{ review.hospital }}</h4>
-                                        <span class="review-date">On: {{ review.date }}</span><br />
-                                        <span class="review-author">By: {{ review.donor }}</span>                                     <span class="review-author">By: {{ review.donor }}</span>
+                                        <span class="review-date">On: {{ review.date }}</span>
+                                        <span class="review-author">By: {{ review.donor }}</span>
                                         <div class="review-text">{{ review.review }}</div>
                                         <div class="review-bar">
-                                            <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                            <a href="../../review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                                         </div>
                                     </div>
                                 </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="bookings-wrapper">
-                            <div class="nothing-block">
-                                    
-                                <div class="booking-hospital">You have not written any review yet.</div>
-
+                            {% else %}
+                            <div class="review-block fadeable h-display-none">
+                                <div class="review-content">
+                                    <span>Review for:</span><br />
+                                    <h4 class="h-700">{{ review.hospital }}</h4>
+                                    <span class="review-date">On: {{ review.date }}</span>
+                                    <span class="review-author">By: {{ review.donor }}</span>
+                                    <div class="review-text">{{ review.review }}</div>
+                                    <div class="review-bar">
+                                        <a href="../../review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                    </div>
+                                </div>
                             </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="bookings-wrapper">
+                        <div class="nothing-block">
+                            
+                            <div class="booking-hospital">Nobody has reviewed this hospital yet.</div>
+
                         </div>
+                    </div>
 
-                    {% endif %}
-                    
-                </div>
-
-                {% if reviews|length > 4 %}
-                    <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
                 {% endif %}
+                
+            </div>
+
+            {% if reviews|length > 4 %}
+                <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+            {% endif %}
 
 
         {% else %}
-
-        <div class="dashboard-menu__container">
-                <div class="dashboard-block h-border-radius h-shadow h-pointer show-map">
-                    <a href="{% url 'app:map'%}" class="dashboard-block__text">
-                        
-                        <span class="block-text__title h-900">Story</span><br />
-                        Write a story to engage with donors!
-                    </a>
-                </div>
-                <div class="dashboard-block h-border-radius h-shadow h-pointer show-map">
-                    <a href="{% url 'app:map' %}" class="dashboard-block__text">
-                        <span class="block-text__title h-900">Map</span><br />
-                        Look which other hospitals joined!
-                    </a>
-                </div>
-
-            </div>
-
-            <div class="bookings-container">
-                <h2 class="dashboard-heading h-900">Bookings</h2>
-            
-                    {% if bookings %}
-                        <div class="bookings-wrapper">
-                            {% for booking in bookings %}
-
-                                <div class="booking-block">
-            
-                                    <div class="booking-date">{{ booking.appointment }}</div>
-                                    <div class="booking-hospital">{{ booking.hospital }}</div>
-                                    <div class="booking-actions">
-                                        <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
-                                    </div>
-
-                                </div>
-    
-
-                            
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="bookings-wrapper">
-                            <div class="booking-block">
-                                    
-                                    <div class="booking-date"></div>
-                                    <div class="booking-hospital">You do not have any appointment booked.</div>
-                                    <div class="booking-actions">
-
-                                    </div>
-
-                            </div>
-                        </div>
-                    {% endif %}                
+            <div class="bookings-container map-container">
+                <h2 class="dashboard-heading h-900">Where to find this hospital</h2>
+                <div id="mapid" style="width: 100%; height: 300px"></div>
             </div>
 
             <div class="stories-container">
-                <h2 class="dashboard-heading h-900">My stories</h2>
+                <h2 class="dashboard-heading h-900">Stories by this hospital</h2>
                     {% if stories %}
                         <div class="stories-wrapper">
                             {% for story in stories %}
@@ -245,7 +200,7 @@
                                             <h4 class="h-700">{{ story.heading }}</h4>
                                             <div class="story-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
                                             <div class="story-block__bar">
-                                                <a href="story?id={{ story.id }}" class="story-link h-700">Read the story</a>
+                                                <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
                                                 <div class="likes-cont h-pointer" data-id="{{ story.id }}">
                                                     <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
                                                     <span class="likes-count">{{ story.likes }}</span>
@@ -264,7 +219,7 @@
                                             <h4 class="h-700">{{ story.heading }}</h4>
                                             <div class="story-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.</div>
                                             <div class="story-block__bar">
-                                                <a href="story?id={{ story.id }}" class="story-link h-700">Read the story</a>
+                                                <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
                                                 <div class="likes-cont h-pointer" data-id="{{ story.id }}">
                                                     <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
                                                     <span class="likes-count">{{ story.likes }}</span>
@@ -296,7 +251,7 @@
             </div>
 
             <div class="reviews-container">
-                <h2 class="dashboard-heading h-900">My reviews</h2>
+                <h2 class="dashboard-heading h-900">Reviews of this hospital</h2>
 
                 {% if reviews %}
                     <div class="reviews-wrapper">
@@ -309,7 +264,7 @@
                                         <span class="review-date">On: {{ review.date }}</span>
                                         <div class="review-text">{{ review.review }}</div>
                                         <div class="review-bar">
-                                            <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                            <a href="../../review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                                         </div>
                                     </div>
                                 </div>
@@ -321,7 +276,7 @@
                                     <span class="review-date">On: {{ review.date }}</span>
                                     <div class="review-text">{{ review.review }}</div>
                                     <div class="review-bar">
-                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                        <a href="../../review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
                                     </div>
                                 </div>
                             </div>
@@ -351,19 +306,24 @@
     </div>
 </div>
 
-<div class="modal-wrapper cancel-booking__modal" data-name="modal">
+<div class="modal-wrapper write-review__modal" data-name="modal">
     <div class="modal-container">
-        <div class="modal-content__msg h-700">Do you really want to cancel this booking?</div>
+        {% csrf_token %}
+        <div class="modal-content__msg">
+            <label for="review_field">Your review of this hospital:</label>
+            <textarea name="review_field" id="review_field" cols="30" rows="10"></textarea>
+        </div>
         <div class="modal-buttons__cont">
-            <div class="modal-button h-pointer h-uppercase cancel-modal__close h-link-effect-primary h-700">
+            <div class="modal-button h-pointer h-uppercase review-modal__close h-link-effect-primary h-700">
                 Close
             </div>
-            <div class="modal-button h-pointer h-uppercase cancel-booking__btn h-link-effect-primary h-700">
-                cancel it
+            <div class="modal-button h-pointer h-uppercase write-review__btn h-link-effect-primary h-700">
+                Send the review
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 
@@ -374,6 +334,8 @@
 $(document).ready(function() {
 
     var booking_to_cancel = -1;
+
+    var hospital_id = "{{ user.id }}";
 
     // Get only 40 words of the story text
     function ellipsizeTextBox(e) {
@@ -400,6 +362,67 @@ $(document).ready(function() {
         ellipsizeTextBox($(this));
     })
 
+    // Open modal for review creation
+    $(".write-review_btn").click(function () {
+
+        $(".write-review__modal").toggleClass("modal-open");
+        $("html").css("overflow", "hidden");
+
+    });
+
+    // Write an review
+    $(".write-review__btn").click(function () {
+
+        // TODO Cancel booking
+        var csrftoken = getCookie('csrftoken');
+
+        var donor_id = "{{ user.id }}";
+        var hospital_id = "{{ hospital.pk }}";
+        var review_text = $("#review_field").val();
+
+        console.log(review_text)
+        // Reset the error
+        $("#review_field").removeClass("h-empty");
+        
+        // check if the required fields are filled
+        if(review_text == "") {
+            $("#review_field").addClass("h-empty");
+            return;
+        }
+
+        // Get well formatted today's date
+        var date = new Date(Date.now()).toISOString().split('T')[0]
+
+        var data = {'review_text': review_text,
+                    'time': date,
+                    'donor': donor_id,
+                    'hospital': hospital_id
+                    }
+                    console.log(data)
+        $.ajax({
+            type: "POST",
+            headers: {'X-CSRFToken' : csrftoken},
+            url: "{% url 'app:write_review' %}",
+            data: data,
+            // dataType: "json",
+            success: function(response) {
+                console.log("sent")
+                console.log(response)
+                if(response.success) {
+
+                } else {
+
+                }
+            }
+        })
+
+
+        $(".write-review__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+
+
+    });
+
     // Open confirmation modal for booking cancellation
     $(".booking-delete").click(function () {
 
@@ -418,7 +441,6 @@ $(document).ready(function() {
         if(booking_to_cancel != -1) {
 
             $.ajax({
-                type: "POST",
                 url: "cancel_booking?id="+booking_to_cancel,
                 dataType: "json",
                 async: false,
@@ -428,16 +450,15 @@ $(document).ready(function() {
             })
         }
         
-
         $(".modal-wrapper").toggleClass("modal-open");
         $("html").css("overflow", "auto");
 
     
     });
      // Close open modal
-    $(".cancel-modal__close").click(function () {
+    $(".review-modal__close").click(function () {
         
-        $(".modal-wrapper").toggleClass("modal-open");
+        $(".write-review__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
     
     });
@@ -470,6 +491,18 @@ $(document).ready(function() {
         }
         $(".stories-wrapper").find(".fadeable").toggleClass("h-display-none");
     });
+
+    // Map setup
+    var loc_raw = "{{ hospital.location }}";
+    var hospital_name = "{{ hospital }}";
+    var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'));
+
+    var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+
+    var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name);
+    marker.addTo(map);
 
 
 })

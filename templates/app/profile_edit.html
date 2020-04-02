@@ -2,7 +2,11 @@
 {% load staticfiles %}
 
 {% block menu_items_block %}
-
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:app' %}">
+            Dashboard
+        </a> 
+    </li> 
 <li class="menu-item">
     <a class="menu-item__link h-link-effect" href="{% url 'app:logout' %}">
         Log out
@@ -16,7 +20,7 @@
 
     <div class="dasboard-container h-width">
 
-        <h4 class="back-link"><a href="{% url 'app:app'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to dashboard</a></h4>
+        <h4 class="back-link"><a href="{% url 'app:profile'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to profile</a></h4>
 
         <h2 class="dashboard-heading h-900">Edit my profile</h2>
 

@@ -586,6 +586,9 @@ footer {
     @include align-items(center);
     @include align-content(center);
 }
+.write-review__modal .modal-container {
+    width: 500px;
+}
 .modal-content__msg {
     text-align: center;
     font-size: $h4;
@@ -769,6 +772,17 @@ footer {
     }
 }
 @media only screen and (max-width: 600px) {
+
+    .menu-wrapper {
+
+
+        .menu-item {
+
+            font-size: 1em;
+            padding: 0px 10px;
+        }
+
+    }
     .section-content__container {
         position: relative;
         width: 100%;

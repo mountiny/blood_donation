@@ -85,7 +85,7 @@ input {
     }
     &.h-empty {
         background-color: $red-light;
-     }
+    }
 
     // &[type="text"], &[type="password"]  {
     border-bottom: 3px solid $primary;
@@ -124,5 +124,34 @@ input {
         outline: none;
         box-shadow: none;
         background-color: $red-light;
+    }
+}
+textarea {
+    width: calc(100% - 40px);
+    position: relative;
+    height: 200px;
+    border: none;
+    text-transform: none;
+    font-weight: 500;
+    color: $black;
+    text-align: left;
+    text-decoration: none;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 10px auto;
+    z-index: 101;
+    line-height: normal;
+    max-width: 90vw;
+    min-width: 200px;
+    resize: none;
+    background-color: $red-light;
+    &.h-btn {
+       padding: 0px 20px 0px 20px;
+       
+    }
+    &.h-empty {
+        border: 2px solid $primary;
     }
 }

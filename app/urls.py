@@ -11,6 +11,7 @@ urlpatterns = [
     re_path(r'^app/cancel_booking/$', views.cancel_booking, name='cancel_booking'),
     re_path(r'^app/story/$', views.story, name='story'),
     re_path(r'^app/review/$', views.review, name='review'),
+    path('app/write_review/', views.write_review, name='write_review'),
     path('app/map/', views.hospital_map, name='map'),
     path('app/map/all_hospitals/', views.all_hospitals, name='all_hospitals'),
     path('app/profile/', views.profile, name='profile'),

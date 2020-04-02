@@ -2,7 +2,11 @@
 {% load staticfiles %}
 
 {% block menu_items_block %}
-
+<li class="menu-item">
+        <a class="menu-item__link h-link-effect" href="{% url 'app:app' %}">
+            Dashboard
+        </a> 
+    </li> 
 <li class="menu-item">
     <a class="menu-item__link h-link-effect" href="{% url 'app:profile' %}">
         Profile

@@ -25,7 +25,6 @@
 .dashboard-block {
     position: relative;
     // width: 100%;
-    padding: 20px 20px;
     overflow: hidden;
     z-index: 100;
     background: $primary-dark; /* fallback for old browsers */
@@ -52,6 +51,8 @@
     line-height: 1.4em;
     font-weight: 700;
     position: relative;
+    display: block;
+    padding: 20px;
     // margin-bottom: 50px;
     br {
         display: block;
@@ -158,6 +159,7 @@
     @include align-content(center);
 
 }
+
 .booking-block {
     position: relative;
     width: 100%;
@@ -165,6 +167,20 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
     padding: 20px 0px;
+    align-items: center;
+    &:nth-of-type(odd) {
+        background-color: $red-light;
+    }
+    // grid-gap: 3em 5em;
+}
+.nothing-block {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    padding: 20px 0px;
+    text-align: center;
     align-items: center;
     &:nth-of-type(odd) {
         background-color: $red-light;
@@ -253,6 +269,15 @@
     line-height: 14px;
     text-align: left;
 }
+.review-author {
+    width: 100%;
+    position: relative;
+    display: block;
+    padding-bottom: 10px;
+    font-size: 11px;
+    line-height: 14px;
+    text-align: left;
+}
 .review-text {
     width: 100%;
     position: relative;
@@ -271,6 +296,12 @@
     &:hover {
         color: black
     }
+}
+
+// map styles
+
+.leaflet-popup-content-wrapper {
+    padding: 10px !important;
 }
 
 @media only screen and (max-width: 800px) {

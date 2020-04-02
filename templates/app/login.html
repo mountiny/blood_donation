@@ -108,9 +108,9 @@
                 url: "{% url 'app:login' %}",
                 data: {'username': username,
                         'password': password},
-                // dataType: "json",
+
                 success: function(response) {
-                    // console.log(response);
+
                     // logged in
                     if(response.success) {
                         // Redirect to the dashboard

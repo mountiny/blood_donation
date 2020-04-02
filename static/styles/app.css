@@ -374,6 +374,37 @@ input:focus {
   background-color: #f7d9d4;
 }
 
+textarea {
+  width: calc(100% - 40px);
+  position: relative;
+  height: 200px;
+  border: none;
+  text-transform: none;
+  font-weight: 500;
+  color: #000000;
+  text-align: left;
+  text-decoration: none;
+  outline: none;
+  font-size: 1rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 10px auto;
+  z-index: 101;
+  line-height: normal;
+  max-width: 90vw;
+  min-width: 200px;
+  resize: none;
+  background-color: #f7d9d4;
+}
+
+textarea.h-btn {
+  padding: 0px 20px 0px 20px;
+}
+
+textarea.h-empty {
+  border: 2px solid #e74c3c;
+}
+
 .dasboard-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -414,7 +445,6 @@ input:focus {
 
 .dashboard-block {
   position: relative;
-  padding: 20px 20px;
   overflow: hidden;
   z-index: 100;
   background: #c23616;
@@ -446,6 +476,8 @@ input:focus {
   line-height: 1.4em;
   font-weight: 700;
   position: relative;
+  display: block;
+  padding: 20px;
 }
 
 .dashboard-block__text br {
@@ -604,6 +636,26 @@ input:focus {
   background-color: #f7d9d4;
 }
 
+.nothing-block {
+  position: relative;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[1];
+      grid-template-columns: repeat(1, 1fr);
+  -ms-grid-rows: (1fr)[1];
+      grid-template-rows: repeat(1, 1fr);
+  padding: 20px 0px;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nothing-block:nth-of-type(odd) {
+  background-color: #f7d9d4;
+}
+
 .booking-date {
   position: relative;
   padding-left: 20px;
@@ -700,6 +752,16 @@ input:focus {
   text-align: left;
 }
 
+.review-author {
+  width: 100%;
+  position: relative;
+  display: block;
+  padding-bottom: 10px;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: left;
+}
+
 .review-text {
   width: 100%;
   position: relative;
@@ -721,6 +783,10 @@ input:focus {
 
 .review-btn:hover {
   color: black;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 10px !important;
 }
 
 @media only screen and (max-width: 800px) {
@@ -1821,6 +1887,10 @@ footer:before {
   align-content: center;
 }
 
+.write-review__modal .modal-container {
+  width: 500px;
+}
+
 .modal-content__msg {
   text-align: center;
   font-size: 1.4em;
@@ -2033,6 +2103,10 @@ footer:before {
 }
 
 @media only screen and (max-width: 600px) {
+  .menu-wrapper .menu-item {
+    font-size: 1em;
+    padding: 0px 10px;
+  }
   .section-content__container {
     position: relative;
     width: 100%;
