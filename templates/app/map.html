@@ -42,7 +42,7 @@
 {% block javascript_block %}
 
     <script type="text/javascript">
-        var map = L.map('mapid',{ center: [54.41058, -3.97794], zoom: 5});
+        var map = L.map('mapid',{ center: [38.903858, -99.492188], zoom:4});
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
         $(document).ready(function(){
@@ -63,7 +63,7 @@
                     // Create a popup for marker with a link to the specific hospital detail page
                     var popup = L.popup().setContent('Visit the<a href="../hospital/'+val[2]+'"> detail page of '+ key +'</a>')
                     marker.addTo(map);
-                    marker.bindPopup(popup).openPopup(); 
+                    marker.bindPopup(popup); 
                 })
    
             })

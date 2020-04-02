@@ -71,12 +71,9 @@
 .stories-wrapper {
     position: relative;
     width: 100%;
-
     display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
     grid-gap: 3em 3em;
-
 }
 .story-block {
     position: relative;
@@ -308,7 +305,6 @@
     .stories-wrapper {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: repeat(4, 1fr);
         grid-gap: 3em 3em;
     
     }

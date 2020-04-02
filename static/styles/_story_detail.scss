@@ -16,18 +16,13 @@
     position: relative;
     width: 100%;
 }
-.stories-wrapper {
-    position: relative;
-    width: 100%;
-
-    display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
-    grid-gap: 3em 5em;
-
-}
 .story-detail {
     position: relative;
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
 
     .icon_like {
         width: 16px;
@@ -43,6 +38,8 @@
 .story-detail__pic {
     width: 100%;
     position: relative;
+    max-height: 400px;
+    object-fit: contain;
 }
 .story-block__bar {
     // padding: 20px;

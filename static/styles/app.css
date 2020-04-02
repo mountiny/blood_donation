@@ -498,8 +498,6 @@ textarea.h-empty {
   display: grid;
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
   grid-gap: 3em 3em;
 }
 
@@ -795,8 +793,6 @@ textarea.h-empty {
     display: grid;
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
-    -ms-grid-rows: (1fr)[4];
-        grid-template-rows: repeat(4, 1fr);
     grid-gap: 3em 3em;
   }
   .dashboard-menu__container {
@@ -858,20 +854,23 @@ textarea.h-empty {
   width: 100%;
 }
 
-.stories-wrapper {
-  position: relative;
-  width: 100%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[2];
-      grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
-  grid-gap: 3em 5em;
-}
-
 .story-detail {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
 }
 
 .story-detail .icon_like {
@@ -889,6 +888,9 @@ textarea.h-empty {
 .story-detail__pic {
   width: 100%;
   position: relative;
+  max-height: 400px;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .story-block__bar {
