@@ -26,7 +26,11 @@
         <h2 class="dashboard-heading h-900">{{ story.heading }}</h2>
 
             <div class="story-detail">
-                <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-detail__pic">
+                {% if story.picture is not None %}
+                    <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-detail__pic"/>
+                {% else %}
+                    <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-detail__pic">
+                {% endif %}
                 <div class="story-detail__content">
                     <div class="story-detail__text">{{ story.story }}</div>
                     <div class="story-detail__bar">
