@@ -168,7 +168,6 @@
     &:nth-of-type(odd) {
         background-color: $red-light;
     }
-    // grid-gap: 3em 5em;
 }
 .nothing-block {
     position: relative;
@@ -182,7 +181,18 @@
     &:nth-of-type(odd) {
         background-color: $red-light;
     }
-    // grid-gap: 3em 5em;
+}
+.notify-block {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    padding: 20px 0px;
+    align-items: center;
+    &:nth-of-type(odd) {
+        background-color: $red-light;
+    }
 }
 
 // .booking-content {
@@ -206,7 +216,7 @@
     @include align-items(center);
     @include align-content(center);
 }
-.booking-delete {
+.booking-delete, .notify-donors {
     position: relative;
     padding: 10px 15px;
     background-color: $primary;
@@ -317,6 +327,23 @@
         grid-template-rows: repeat(1, 1fr);
         grid-gap: 2em 2em;
     
+    }
+    .notify-block {
+        position: relative;
+        width: 100%;
+        @include display_flexbox();
+        @include flex_direction(column);
+        @include justify_content(center);
+        @include align-items(center);
+        @include align-content(center);
+        padding: 20px 0px;
+        &:nth-of-type(odd) {
+            background-color: $red-light;
+        }
+        & > * {
+            padding: 10px 0px;
+        }
+        
     }
 }
 @media only screen and (max-width: 600px) {

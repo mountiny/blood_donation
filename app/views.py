@@ -373,11 +373,11 @@ def hospital(request, hospital_slug):
 
         context_dict['hospital'] = hospital
 
-        stories = Story.objects.filter(hospital=hospital)
+        stories = Story.objects.order_by('-pk').filter(hospital=hospital)
         if len(stories) > 0:
             context_dict["stories"] = stories
         # Get all reviews about this hospital
-        reviews = Review.objects.filter(hospital=hospital)
+        reviews = Review.objects.order_by('-pk').filter(hospital=hospital)
         if len(reviews) > 0:
             context_dict["reviews"] = reviews
 
@@ -439,11 +439,7 @@ def cancel_booking(request):
                 return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
         except:
             return JsonResponse({'success': False, 'message': "Booking with given id does not exist!"})
-        # if booking:
-        #     booking.delete()
-        #     return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
-        # else:
-        #     return redirect("app:app")
+
     else:
         return redirect("app:app")
 
@@ -468,5 +464,35 @@ def write_review(request):
         except:
             return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
 
+    else:
+        return redirect("app:app")
+
+def get_new_reviews(request):
+    context_dict = {}
+    if request.method == 'GET':
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        hospital_id = request.GET.get('hospital_id', '')
+        try:
+            hospital = Hospital.objects.get(pk=hospital_id)
+            reviews = Review.objects.order_by('-pk').filter(hospital=hospital).values()
+            data = list(reviews)
+            return JsonResponse({'success': True, 'data':data, 'message': "The reviews have been retrieved successfully!"})
+        except:
+            return JsonResponse({'success': False, 'message': "A hospital with given id does not exist!"})
+    else:
+        return redirect("app:app")
+
+def notify_donors(request):
+    context_dict = {}
+    if request.method == 'POST' and request.user.is_hospital:
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        blood_type = request.POST['type']
+        try:
+            hospital = Hospital.objects.get(pk=request.user.id)
+            hospital.notified_types = blood_type
+            hospital.save()
+            return JsonResponse({'success': True, 'message': "The donors have been successfully notified!"})
+        except:
+            return JsonResponse({'success': False, 'message': "A hospital with given id does not exist!"})
     else:
         return redirect("app:app")

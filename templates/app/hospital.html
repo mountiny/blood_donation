@@ -168,11 +168,11 @@
 
                 {% endif %}
                 
+                {% if reviews|length > 4 %}
+                    <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+                {% endif %}
             </div>
 
-            {% if reviews|length > 4 %}
-                <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
-            {% endif %}
 
 
         {% else %}
@@ -292,11 +292,12 @@
 
                 {% endif %}
                 
+                {% if reviews|length > 4 %}
+                    <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+                {% endif %}
+            
             </div>
 
-            {% if reviews|length > 4 %}
-                <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
-            {% endif %}
 
 
         {% endif %}
@@ -334,6 +335,7 @@ $(document).ready(function() {
     var booking_to_cancel = -1;
 
     var hospital_id = "{{ user.id }}";
+    var hospital_name = "{{ hospital.name }}";
 
     // Get only 40 words of the story text
     function ellipsizeTextBox(e) {
@@ -389,14 +391,14 @@ $(document).ready(function() {
         }
 
         // Get well formatted today's date
-        var date = new Date(Date.now()).toISOString().split('T')[0]
+        var date = new Date(Date.now()).toISOString().split('T')[0];
 
         var data = {'review_text': review_text,
                     'time': date,
                     'donor': donor_id,
                     'hospital': hospital_id
-                    }
-                    console.log(data)
+                    };
+
         $.ajax({
             type: "POST",
             headers: {'X-CSRFToken' : csrftoken},
@@ -407,6 +409,8 @@ $(document).ready(function() {
                 console.log("sent")
                 console.log(response)
                 if(response.success) {
+
+                    getNewReviews()
 
                 } else {
 
@@ -420,6 +424,45 @@ $(document).ready(function() {
 
 
     });
+
+    function getNewReviews() {
+
+        var hospital_id = "{{ hospital.pk }}";
+        $.ajax({
+            type: "GET",
+            url: "../../get_new_reviews?hospital_id="+hospital_id,
+            dataType: "json",
+            success: function(response) {
+                console.log(response)
+
+                var new_html = '<h2 class="dashboard-heading h-900">Reviews of this hospital</h2><div class="reviews-wrapper">';
+                var counter = 1;
+
+                $.each(response["data"], function(i, val) {
+
+                    console.log(val)
+
+                    if(counter<5 ) {
+
+                    new_html +='<div class="review-block"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
+                    
+                    } else {
+                        new_html +='<div class="review-block fadeable h-display-none"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
+                    }
+
+                    counter += 1;
+                })
+                new_html += '</div>';
+
+                if (response["data"].length > 4) {
+                    new_html += '<div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>';
+                }
+
+                $(".reviews-container").html(new_html);
+               
+            }
+        })
+    }
 
     // Open confirmation modal for booking cancellation
     $(".booking-delete").click(function () {
@@ -471,7 +514,7 @@ $(document).ready(function() {
     });
 
     // Show more reviews
-    $(".show-more-reviews").click(function () {
+    $("body").on("click", ".show-more-reviews", function () {
         if($(".reviews-wrapper").find(".fadeable").hasClass("h-display-none")) {
             $(this).text("Show less!");
         } else {

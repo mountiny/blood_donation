@@ -649,6 +649,25 @@ textarea.h-empty {
   background-color: #f7d9d4;
 }
 
+.notify-block {
+  position: relative;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[1];
+      grid-template-rows: repeat(1, 1fr);
+  padding: 20px 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.notify-block:nth-of-type(odd) {
+  background-color: #f7d9d4;
+}
+
 .booking-date {
   position: relative;
   padding-left: 20px;
@@ -674,7 +693,7 @@ textarea.h-empty {
   align-content: center;
 }
 
-.booking-delete {
+.booking-delete, .notify-donors {
   position: relative;
   padding: 10px 15px;
   background-color: #e74c3c;
@@ -683,7 +702,7 @@ textarea.h-empty {
   transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.booking-delete:hover {
+.booking-delete:hover, .notify-donors:hover {
   color: black;
 }
 
@@ -801,6 +820,32 @@ textarea.h-empty {
     -ms-grid-rows: (1fr)[1];
         grid-template-rows: repeat(1, 1fr);
     grid-gap: 2em 2em;
+  }
+  .notify-block {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    padding: 20px 0px;
+  }
+  .notify-block:nth-of-type(odd) {
+    background-color: #f7d9d4;
+  }
+  .notify-block > * {
+    padding: 10px 0px;
   }
 }
 
