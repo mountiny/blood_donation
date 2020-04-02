@@ -50,7 +50,7 @@
 
                             <div class="story-block">
                                     {% if story.picture %}
-                                    <img src="{% static '{{ story.picture }}' %}" alt="Story picture" class="story-pic">
+                                    <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                     {% else %}
                                     <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                     {% endif %}
@@ -236,7 +236,7 @@
 
                                     <div class="story-block">
                                         {% if story.picture %}
-                                        <img src="{% static '{{ story.picture }}' %}" alt="Story picture" class="story-pic">
+                                        <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                         {% else %}
                                         <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                         {% endif %}
