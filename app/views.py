@@ -166,7 +166,7 @@ def app(request):
         # Get the logged in donor
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
-
+        
         # Get 4 most liked stories
         stories = Story.objects.order_by('-likes')[:4]
         context_dict["stories"] = stories
@@ -368,7 +368,7 @@ def hospital(request, hospital_slug):
                 return redirect("app:app")
 
         context_dict['hospital'] = hospital
-        
+
         stories = Story.objects.filter(hospital=hospital)
         if len(stories) > 0:
             context_dict["stories"] = stories
