@@ -629,6 +629,30 @@ textarea.h-empty {
   background-color: #f7d9d4;
 }
 
+.notification-block {
+  position: relative;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  -ms-grid-rows: (1fr)[1];
+      grid-template-rows: repeat(1, 1fr);
+  padding: 20px 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.notification-block:nth-of-type(odd) {
+  background-color: #f7d9d4;
+}
+
+.notification-hospital {
+  position: relative;
+  padding-left: 20px;
+}
+
 .nothing-block {
   position: relative;
   width: 100%;
@@ -693,7 +717,7 @@ textarea.h-empty {
   align-content: center;
 }
 
-.booking-delete, .notify-donors {
+.booking-delete, .notify-donors, .visit-detail {
   position: relative;
   padding: 10px 15px;
   background-color: #e74c3c;
@@ -702,7 +726,7 @@ textarea.h-empty {
   transition: color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.booking-delete:hover, .notify-donors:hover {
+.booking-delete:hover, .notify-donors:hover, .visit-detail:hover {
   color: black;
 }
 

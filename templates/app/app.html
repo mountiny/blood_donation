@@ -41,6 +41,33 @@
 
             </div>
 
+            {% if donor.notification %}
+            <div class="bookings-container">
+                <h2 class="dashboard-heading h-900">Who needs you</h2>
+            
+                    {% if notifications %}
+                        <div class="bookings-wrapper">
+                            {% for note in notifications %}
+                                <div class="notification-block">
+            
+                                    <div class="notification-hospital h-700">{{ note.name }}</div>
+                                    <div class="booking-actions">
+                                        <a class="visit-detail h-pointer h-700" href="hospital/{{note.slug_name}}">Hospital detail</a>
+                                    </div>
+
+                                </div>                            
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="bookings-wrapper">
+                            <div class="nothing-block">
+                                <div class="booking-hospital">No hospitals need your blood type at the moment.</div>
+                            </div>
+                        </div>
+                    {% endif %}                
+            </div>
+            {% endif %}  
+
             <div class="stories-container">
                 <h2 class="dashboard-heading h-900">Most popular stories</h2>
                     {% if stories %}
@@ -82,92 +109,88 @@
             </div>
 
             <div class="bookings-container">
-                    <h2 class="dashboard-heading h-900">My bookings</h2>
-                
-                        {% if bookings %}
-                            <div class="bookings-wrapper">
-                                {% for booking in bookings %}
+                <h2 class="dashboard-heading h-900">My bookings</h2>
+            
+                    {% if bookings %}
+                        <div class="bookings-wrapper">
+                            {% for booking in bookings %}
 
-                                    <div class="booking-block">
-                
-                                        <div class="booking-date">{{ booking.appointment }}</div>
-                                        <div class="booking-hospital">{{ booking.hospital }}</div>
-                                        <div class="booking-actions">
-                                            <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
-                                        </div>
-
-                                    </div>
-        
-
-                                
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="bookings-wrapper">
                                 <div class="booking-block">
-                                        
-                                        <div class="booking-date"></div>
-                                        <div class="booking-hospital">You do not have any appointment booked.</div>
-                                        <div class="booking-actions">
-
-                                        </div>
+            
+                                    <div class="booking-date">{{ booking.appointment }}</div>
+                                    <div class="booking-hospital">{{ booking.hospital }}</div>
+                                    <div class="booking-actions">
+                                        <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
+                                    </div>
 
                                 </div>
-                            </div>
-                        {% endif %}                
-                </div>
+    
 
-                <div class="reviews-container">
-                    <h2 class="dashboard-heading h-900">My reviews</h2>
-
-                    {% if reviews %}
-                        <div class="reviews-wrapper">
-                            {% for review in reviews %}
-                                {% if forloop.counter < 5 %}
-                                    <div class="review-block">
-                                        <div class="review-content">
-                                            <span>Review for:</span><br />
-                                            <h4 class="h-700">{{ review.hospital }}</h4>
-                                            <span class="review-date">On: {{ review.date }}</span><br />
-                                            <span class="review-author">By: {{ review.donor }}</span>
-                                            <div class="review-text">{{ review.review }}</div>
-                                            <div class="review-bar">
-                                                <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% else %}
-                                <div class="review-block fadeable h-display-none">
-                                    <div class="review-content">
-                                        <span>Review for:</span><br />
-                                        <h4 class="h-700">{{ review.hospital }}</h4>
-                                        <span class="review-date">On: {{ review.date }}</span><br />
-                                        <span class="review-author">By: {{ review.donor }}</span>                                     <span class="review-author">By: {{ review.donor }}</span>
-                                        <div class="review-text">{{ review.review }}</div>
-                                        <div class="review-bar">
-                                            <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
+                            
                             {% endfor %}
                         </div>
                     {% else %}
                         <div class="bookings-wrapper">
                             <div class="nothing-block">
                                     
-                                <div class="booking-hospital">You have not written any review yet.</div>
+                                <div class="booking-hospital">You do not have any appointment booked.</div>
 
                             </div>
                         </div>
+                    {% endif %}                
+            </div>
 
-                    {% endif %}
-                    
-                </div>
+            <div class="reviews-container">
+                <h2 class="dashboard-heading h-900">My reviews</h2>
 
-                {% if reviews|length > 4 %}
-                    <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+                {% if reviews %}
+                    <div class="reviews-wrapper">
+                        {% for review in reviews %}
+                            {% if forloop.counter < 5 %}
+                                <div class="review-block">
+                                    <div class="review-content">
+                                        <span>Review for:</span><br />
+                                        <h4 class="h-700">{{ review.hospital }}</h4>
+                                        <span class="review-date">On: {{ review.date }}</span><br />
+                                        <span class="review-author">By: {{ review.donor }}</span>
+                                        <div class="review-text">{{ review.review }}</div>
+                                        <div class="review-bar">
+                                            <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                            <div class="review-block fadeable h-display-none">
+                                <div class="review-content">
+                                    <span>Review for:</span><br />
+                                    <h4 class="h-700">{{ review.hospital }}</h4>
+                                    <span class="review-date">On: {{ review.date }}</span><br />
+                                    <span class="review-author">By: {{ review.donor }}</span>                                     <span class="review-author">By: {{ review.donor }}</span>
+                                    <div class="review-text">{{ review.review }}</div>
+                                    <div class="review-bar">
+                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="bookings-wrapper">
+                        <div class="nothing-block">
+                                
+                            <div class="booking-hospital">You have not written any review yet.</div>
+
+                        </div>
+                    </div>
+
                 {% endif %}
+                
+            </div>
+
+            {% if reviews|length > 4 %}
+                <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+            {% endif %}
 
 
         {% else %}

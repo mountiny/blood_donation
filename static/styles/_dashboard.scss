@@ -169,6 +169,23 @@
         background-color: $red-light;
     }
 }
+.notification-block {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    padding: 20px 0px;
+    align-items: center;
+    &:nth-of-type(odd) {
+        background-color: $red-light;
+    }
+}
+.notification-hospital {
+    position: relative;
+    padding-left: 20px;
+  
+}
 .nothing-block {
     position: relative;
     width: 100%;
@@ -195,11 +212,6 @@
     }
 }
 
-// .booking-content {
-//     padding: 20px;
-//     position: relative;
-//     width: calc(100% - 40px);
-// }
 .booking-date {
     position: relative;
     padding-left: 20px;
@@ -216,7 +228,7 @@
     @include align-items(center);
     @include align-content(center);
 }
-.booking-delete, .notify-donors {
+.booking-delete, .notify-donors, .visit-detail {
     position: relative;
     padding: 10px 15px;
     background-color: $primary;

@@ -167,8 +167,9 @@ def app(request):
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
 
+        # Get the hospitals which need the donor's blood type
         if donor.notification:
-            context_dict["notification"] = Hospital.objects.filter(notified_types=donor.blood_type)
+            context_dict["notifications"] = Hospital.objects.filter(notified_types=donor.blood_type)
 
         # Get 4 most liked stories
         stories = Story.objects.order_by('-likes')[:4]
