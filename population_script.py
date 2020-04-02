@@ -244,6 +244,15 @@ def populate():
         "picture": "images/ike.jpg"
     })
 
+    create_story({
+        "hospital": hospitals[1],
+        "date": datetime.date(2018, 11, 13),
+        "heading": "Trey's sickle cell agony",
+        "story": "Trey Blaylark has fought excruciating pain all his life, and only donated blood can end the agony. From the time he was diagnosed with sickle cell disease at two weeks old, the importance of a readily available blood supply has been paramount in his mother’s mind. “There hasn’t been a year that Trey has been in the hospital less than four times,” Rae Blaylark said. “Since sickle cell means that his red blood cells harden into crescent-shaped cells, we depend on transfusions to give him a new supply of healthy cells. I call it a ‘tune-up’ because it’s like getting new parts to keep you going for another 3,000 miles.”\n\nAlthough Rae is the same blood type as Trey, she unfortunately cannot donate her own blood to help him. “Since I have the sickle cell trait—the gene he inherited from both his father and me—my red blood cells would ‘sickle’ in his body more quickly than those provided by a person without the gene,” Rae said. “Also, my blood is not an antibody match. So we depend on donor blood for all of Trey’s transfusion needs.”",
+        "likes": 17,
+        "picture": None
+    })
+
     # add bookings
     for d in donors:
         create_booking(d,hospitals[random.randrange(0, len(hospitals))])
