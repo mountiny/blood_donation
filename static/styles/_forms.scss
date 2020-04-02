@@ -33,17 +33,15 @@
     margin: 30px auto;
 }
 .form-line {
-    @include display_flexbox();
-    @include justify_content(center);
-    @include align-items(center);
-    @include align-content(center);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0em 2em;
     margin: 10px auto;
     label {
-        margin-right: 30px;
         text-align: right;
-        width: 160px;
         line-height: 1.5em;
         display: inline-block;
+        align-self: center;
     }
 }
 .form-note {

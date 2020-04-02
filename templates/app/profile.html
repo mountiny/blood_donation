@@ -95,6 +95,14 @@
             </div>
             <div class="donor-data">
                 <div class="data-label">
+                    Notifications allowed:
+                </div>
+                <div class="data-value">
+                    {{ donor.notification }}
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
                     Blood type:
                 </div>
                 <div class="data-value">
@@ -152,23 +160,25 @@
 
     var loc_raw = "{{ hospital.location }}";
     var hospital_name = "{{ hospital }}";
-    console.log(loc_raw)
+
 
     $(document).ready(function() {
 
-        var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
-        console.log(loc)
-        // Map setup
+        // Check if it is a hospital
+        if (loc_raw != ""){
+            var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
+            console.log(loc)
+            // Map setup
 
-        var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
+            var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-        var results = new L.LayerGroup().addTo(map);
+            var results = new L.LayerGroup().addTo(map);
 
-        var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name)
-        marker.addTo(map);
-                    
+            var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name)
+            marker.addTo(map);
+        }
     });
 </script>
 

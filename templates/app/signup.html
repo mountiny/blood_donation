@@ -65,12 +65,16 @@
             </div>
             <div class="form-line">
                 <label for="weight_field">Weight in kilos</label>
-                <input type="number" name="weight" id="weight_field" required>
+                <input type="number" name="weight" min="50" id="weight_field" required>
             </div>
 
             <div class="form-line">
                 <label for="height_field">Height in centimeters</label>
                 <input type="number" name="height" id="height_field" required>
+            </div>
+            <div class="form-line">
+                <label for="notification_field">I want to be notified if hospitals need my blood type:</label>
+                <input type="checkbox" name="notification" id="notification_field" value="True">
             </div>
 
             <div class="form-line">
@@ -166,6 +170,7 @@
             var city = $("#city_field").val();
             var weight = $("#weight_field").val();
             var height = $("#height_field").val();
+            var notification = $("#notification_field").prop('checked');
             var blood_type = $("#blood_field").val();
             var csrftoken = getCookie('csrftoken');
 
@@ -231,6 +236,7 @@
                     'height': height,
                     'weight': weight,
                     'city': city,
+                    'notification': notification,
                     'blood_type' : blood_type
                 },
                 success: function(response) {

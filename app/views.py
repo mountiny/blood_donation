@@ -166,7 +166,7 @@ def app(request):
         # Get the logged in donor
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
-        
+
         # Get 4 most liked stories
         stories = Story.objects.order_by('-likes')[:4]
         context_dict["stories"] = stories
@@ -296,6 +296,10 @@ def profile_edit(request):
             donor.address = qd['city']
             donor.height = qd['height']
             donor.weight = qd['weight']
+            if qd['notification'] == "true":
+                donor.notification = True
+            else:
+                donor.notification = False
 
             donor.blood_type = qd['blood_type']
             # self.notification = data['notification']
