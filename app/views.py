@@ -173,6 +173,13 @@ def app(request):
     context_dict["stories"] = stories
     context_dict["reviews"] = reviews
 
+    print("test")
+    # donor = Donor.objects.get(donor=request.user.id)
+    # print(User.objects.filter(address=request.user).first())
+
+    print("User id:")
+    print(request.user.id)
+    
     print("Is donor:")
     print(request.user.is_donor)
     print("Is hospital:")
@@ -181,8 +188,14 @@ def app(request):
     print(Donor.objects.all())
     print("All hospitals:")
     print(Hospital.objects.all())
-    print("Has user blood_type attribute:")
-    print(request.user._meta.fields)
+    print("Donor name:")
+    for d in Donor.objects.all():
+        print(d.donor_id)
+    print("Users name:")
+    for d in User.objects.all():
+        print(d.donor)
+    # print("Has user blood_type attribute:")
+    # print(request.user._meta.fields)
     # print (Donor.objects.get(donor_id = request.user.id).nickname)
     if request.user.is_hospital:
         hospital = Hospital.objects.filter(hospital=request.user).first()

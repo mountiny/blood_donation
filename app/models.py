@@ -33,7 +33,7 @@ class Donor(models.Model):
         return int((datetime.date.today() - datetime.datetime.strptime(b, "%Y-%m-%d").date()).days / 365.25)
 
     def __str__(self):
-        return self.donor.username
+        return self.nickname
 
     def new_donor(self, data):
 
