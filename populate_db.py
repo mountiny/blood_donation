@@ -230,6 +230,15 @@ def populate():
         "picture": "images/alicia.png"
     })
 
+    create_story({
+        "hospital": hospitals[4],
+        "date": datetime.date(2019, 1, 17),
+        "heading": "Ike's fight with cancer",
+        "story": "Fever and ear pain. A stubborn rash that wouldn’t go away. Then tests indicating low hemoglobin levels and a declining white blood cell count. For parents Chelsea and Chad, they knew going into the ER with their young son, Ike, that something wasn’t right. What they didn’t expect was to hear the words, “your child has cancer.”\n\nJust three days shy of his fifth birthday, Ike was diagnosed with B-ALL leukemia, a fast-growing cancer of lymphocyte-forming cells typically found in the blood stream and bone marrow. At that moment, Ike and his parents sprang into action. Ike received his first blood transfusion while still in the hospital, and regular transfusions helped sustain him as he endured months of chemotherapy treatments. Despite the rigor of his maintenance routine—a spinal tap every three months, a monthly trip to the clinic for lab tests, a weekly dose of eight chemotherapy pills, plus another nightly dose of pills as well—Ike was back to playing hockey and baseball even during his treatments.\n\n“Ike’s diagnosis was life-changing for all of us,” said Ike's mom Chelsea. “Through it all, he was incredibly strong and resilient—and tough. That’s why we came together almost immediately as a community of friends and family and began blogging, fundraising, and hosting events.\"\n\nIke’s last cancer treatment was in July of 2016—three years after his diagnosis. Today, like clockwork, his family holds an annual “Tough Like Ike” golf and silent auction event to raise funds for children going through similar treatment. Additionally, Ike’s elementary school coordinates a “Tough Like Ike” blood drive each year in his honor to give back to hospitals like Children’s Hospital Los Angeles, where Ike received his numerous blood transfusions.\n\n\"We want to honor Ike’s toughness, to raise awareness of the need for more research into childhood cancers, and to give back in gratitude for all the generous blood donors who were there with the blood Ike needed to survive,” said Chelsea.",
+        "likes": 25,
+        "picture": "images/ike.jpg"
+    })
+
     # add bookings
     for d in donors:
         create_booking(d,hospitals[random.randrange(0, len(hospitals))])
