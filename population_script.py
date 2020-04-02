@@ -62,7 +62,8 @@ def populate():
         "location": json.dumps({
             "lat": 42.362511,
             "lon": -71.069570
-        })
+        }),
+        "notified_types": "A+"
     })
         
     create_hospital({
@@ -72,7 +73,8 @@ def populate():
         "location": json.dumps({
             "lat": 39.949775,
             "lon": -75.158040
-        })
+        }),
+        "notified_types": "B-"
     })
 
     create_hospital({
@@ -82,7 +84,8 @@ def populate():
         "location": json.dumps({
             "lat": 40.639490,
             "lon": -73.998187
-        })
+        }),
+        "notified_types": "AB+"
     })
 
     create_hospital({
@@ -92,7 +95,8 @@ def populate():
         "location": json.dumps({
             "lat": 34.134094,
             "lon": -118.152123
-        })
+        }),
+        "notified_types": "0-"
     })
 
     create_hospital({
@@ -102,7 +106,8 @@ def populate():
         "location": json.dumps({
             "lat": 34.097861,
             "lon": -118.289963
-        })
+        }),
+        "notified_types": "A-"
     })
 
     # create donors
@@ -237,6 +242,15 @@ def populate():
         "story": "Fever and ear pain. A stubborn rash that wouldn’t go away. Then tests indicating low hemoglobin levels and a declining white blood cell count. For parents Chelsea and Chad, they knew going into the ER with their young son, Ike, that something wasn’t right. What they didn’t expect was to hear the words, “your child has cancer.”\n\nJust three days shy of his fifth birthday, Ike was diagnosed with B-ALL leukemia, a fast-growing cancer of lymphocyte-forming cells typically found in the blood stream and bone marrow. At that moment, Ike and his parents sprang into action. Ike received his first blood transfusion while still in the hospital, and regular transfusions helped sustain him as he endured months of chemotherapy treatments. Despite the rigor of his maintenance routine—a spinal tap every three months, a monthly trip to the clinic for lab tests, a weekly dose of eight chemotherapy pills, plus another nightly dose of pills as well—Ike was back to playing hockey and baseball even during his treatments.\n\n“Ike’s diagnosis was life-changing for all of us,” said Ike's mom Chelsea. “Through it all, he was incredibly strong and resilient—and tough. That’s why we came together almost immediately as a community of friends and family and began blogging, fundraising, and hosting events.\"\n\nIke’s last cancer treatment was in July of 2016—three years after his diagnosis. Today, like clockwork, his family holds an annual “Tough Like Ike” golf and silent auction event to raise funds for children going through similar treatment. Additionally, Ike’s elementary school coordinates a “Tough Like Ike” blood drive each year in his honor to give back to hospitals like Children’s Hospital Los Angeles, where Ike received his numerous blood transfusions.\n\n\"We want to honor Ike’s toughness, to raise awareness of the need for more research into childhood cancers, and to give back in gratitude for all the generous blood donors who were there with the blood Ike needed to survive,” said Chelsea.",
         "likes": 25,
         "picture": "images/ike.jpg"
+    })
+
+    create_story({
+        "hospital": hospitals[1],
+        "date": datetime.date(2018, 11, 13),
+        "heading": "Trey's sickle cell agony",
+        "story": "Trey Blaylark has fought excruciating pain all his life, and only donated blood can end the agony. From the time he was diagnosed with sickle cell disease at two weeks old, the importance of a readily available blood supply has been paramount in his mother’s mind. “There hasn’t been a year that Trey has been in the hospital less than four times,” Rae Blaylark said. “Since sickle cell means that his red blood cells harden into crescent-shaped cells, we depend on transfusions to give him a new supply of healthy cells. I call it a ‘tune-up’ because it’s like getting new parts to keep you going for another 3,000 miles.”\n\nAlthough Rae is the same blood type as Trey, she unfortunately cannot donate her own blood to help him. “Since I have the sickle cell trait—the gene he inherited from both his father and me—my red blood cells would ‘sickle’ in his body more quickly than those provided by a person without the gene,” Rae said. “Also, my blood is not an antibody match. So we depend on donor blood for all of Trey’s transfusion needs.”",
+        "likes": 17,
+        "picture": None
     })
 
     # add bookings

@@ -136,7 +136,7 @@ class Hospital(models.Model):
         self.hospital.is_hospital = True
         self.name = data['hospital_name']
         self.location = data['location']
-
+        self.notified_types = data['notified_types']
         try:
             self.hospital.save()
             self.save()
