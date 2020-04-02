@@ -6,7 +6,7 @@
 
 
 <li class="menu-item">
-    <a class="menu-item__link h-link-effect" href="{% url 'app:login' %}">
+    <a class="menu-item__link h-link-effect" href="{% url 'app:profile' %}">
         Profile
     </a> 
 </li>
@@ -22,14 +22,18 @@
 
 <div class="main-container">
     <div class="map-container h-width">
-            <h4 class="back-link"><a href="{% url 'app:app'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to dashboard</a></h4>
+        <h4 class="back-link">
+            <a href="{% url 'app:app'%}">
+                <svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                Back to dashboard
+            </a>
+        </h4>
         <h2 class="map-heading h-900">Donation centres map</h2>
         <div class="map-block__wrapper">
             <div class="map-block">
                 <div id="mapid" style="width: 100%; height: 550px"></div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -40,12 +44,10 @@
     <script type="text/javascript">
         var map = L.map('mapid',{ center: [54.41058, -3.97794], zoom: 5});
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
-    </script>
-
-    <script type="text/javascript">
 
         $(document).ready(function(){
 
+            // Get the locations of the hospitals
             $.ajax({
                 url: "{% url 'app:all_hospitals' %}",
                 dataType: "json",
@@ -54,9 +56,9 @@
                 }
             }).done(function(data){
                 
+                // Add a marker to the map for each donation center
                 $.each(data,function(key, val) {
                     var loc = JSON.parse(val[1]);
-                    console.log(loc)
                     var marker = new L.marker([loc["lat"], loc["lon"]], title = key)
                     marker.addTo(map);
                     marker.bindPopup(key).openPopup(); 

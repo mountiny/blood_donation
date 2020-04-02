@@ -33,7 +33,7 @@ class Donor(models.Model):
         return int((datetime.date.today() - datetime.datetime.strptime(b, "%Y-%m-%d").date()).days / 365.25)
 
     def __str__(self):
-        return self.donor.username
+        return self.nickname
 
     def new_donor(self, data):
 
@@ -62,6 +62,7 @@ class Donor(models.Model):
         # self.notification = data['notification']
     
         try:
+            self.donor.save()
             self.save()
         except IntegrityError:
             return {'error': "nickname already exists"}
@@ -96,6 +97,7 @@ class Hospital(models.Model):
         self.name = data['hospital_name']
         self.location = data['location']
         # self.notified_types = data['notif_types']
+        self.hospital.save()
         self.save()
 
 
@@ -171,7 +173,6 @@ class Story(models.Model):
 class Booking(models.Model):
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
-
     appointment = models.DateTimeField(unique=True)
 
     def new_appointment(self, data):

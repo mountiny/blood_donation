@@ -1,0 +1,171 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block menu_items_block %}
+
+<li class="menu-item">
+    <a class="menu-item__link h-link-effect" href="{% url 'app:logout' %}">
+        Log out
+    </a>
+</li>
+{% endblock %}
+
+{% block body_block %}
+
+<div class="main-container">
+
+    <div class="dasboard-container h-width">
+
+        <h4 class="back-link"><a href="{% url 'app:app'%}"><svg class="arrow-back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>Back to dashboard</a></h4>
+
+        <h2 class="dashboard-heading h-900">My profile</h2>
+
+        {% if user.is_donor %}
+
+        <div class="profile-content profile-content__donor">
+
+            <div class="donor-data">
+                <div class="data-label">
+                    First name:
+                </div>
+                <div class="data-value">
+                    {{ user.first_name }}
+                </div>
+            </div>
+
+            <div class="donor-data">
+                <div class="data-label">
+                    Last name:
+                </div>
+                <div class="data-value">
+                    {{ user.last_name }}
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    Nickname:
+                </div>
+                <div class="data-value">
+                    {{ donor }}
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    Email:
+                </div>
+                <div class="data-value">
+                    {{ user.username }}
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    Birthday:
+                </div>
+                <div class="data-value">
+                    {{ donor.birth }}
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    City:
+                </div>
+                <div class="data-value">
+                    {{ donor.address }}
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    Height:
+                </div>
+                <div class="data-value">
+                    {{ donor.height }} cm
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    Weight:
+                </div>
+                <div class="data-value">
+                    {{ donor.weight }} kg
+                </div>
+            </div>
+            <div class="donor-data">
+                <div class="data-label">
+                    Blood type:
+                </div>
+                <div class="data-value">
+                    {% if donor.blood_type == "IDK" %}
+                        I do not know
+                    {% else %}
+                        {{ donor.blood_type }}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        {% else %}
+
+            <div class="profile-content profile-content__hospital">
+            
+                <div class="donor-data">
+                    <div class="data-label">
+                        Email:
+                    </div>
+                    <div class="data-value">
+                        {{ user.username }}
+                    </div>
+                </div>
+                <div class="donor-data">
+                    <div class="data-label">
+                        Hospital name:
+                    </div>
+                    <div class="data-value">
+                        {{ hospital }}
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mapid" style="margin-top: 30px;width: 100%; height: 375px"></div>
+
+
+        {% endif %}
+
+        <div class="actions-cont">
+            <a href="{% url 'app:profile_edit' %}" class="profile-edit__link h-700 h-uppercase">Edit profile</a>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript_block %}
+
+<script type="text/javascript">
+
+    var loc_raw = "{{ hospital.location }}";
+    var hospital_name = "{{ hospital }}";
+    console.log(loc_raw)
+
+    $(document).ready(function() {
+
+        var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
+        console.log(loc)
+        // Map setup
+
+        var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+
+        var results = new L.LayerGroup().addTo(map);
+
+        var marker = new L.marker([loc["lat"], loc["lon"]], title = hospital_name)
+        marker.addTo(map);
+                    
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+.dasboard-container {
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+
+}
+.dashboard-heading {
+    padding: 4vh 0px;
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+.profile-content {
+    width: 100%;
+    position: relative;
+    input {
+        background-color: $red-light;
+        &.h-empty {
+            border: 2px solid $primary;
+        }
+    }
+}
+.profile-content__donor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2em 2em;
+}
+.profile-content__hospital {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2em 2em;
+}
+.donor-data {
+    position: relative;
+    background-color: $red-light;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+}
+.data-label {
+    position: relative;
+    align-self: center;
+}
+.data-value {
+    position: relative;
+    align-self: center;
+}
+.actions-cont {
+    position: relative;
+    width: 100%;
+    @include display_flexbox();
+    @include justify_content(flex-end);
+    @include align-items(center);
+    @include align-content(center);
+}
+.profile-edit__link {
+    background-color: $primary;
+    padding: 10px;
+    color: white;
+    margin-top: 30px;
+    @include prefix(transition,(color 0.3s $curve));
+
+    &:hover {
+        color: black;
+    }
+}
+
+
+// @media only screen and (max-width: 800px) {
+//     .stories-wrapper {
+//         display: grid;
+//         grid-template-columns: repeat(1, 1fr);
+//         grid-template-rows: repeat(4, 1fr);
+//         grid-gap: 3em 3em;
+    
+//     }
+//     .dashboard-menu__container {
+//         position: relative;
+//         width: 100%;
+//         padding-top: 3vh;
+//         display: grid;
+//         grid-template-columns: repeat(2, 1fr);
+//         grid-template-rows: repeat(1, 1fr);
+//         grid-gap: 2em 2em;
+    
+//     }
+// }
+@media only screen and (max-width: 800px) {
+    .profile-content__donor {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
