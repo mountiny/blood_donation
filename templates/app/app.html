@@ -41,6 +41,33 @@
 
             </div>
 
+            {% if donor.notification %}
+            <div class="bookings-container">
+                <h2 class="dashboard-heading h-900">Who needs you</h2>
+            
+                    {% if notifications %}
+                        <div class="bookings-wrapper">
+                            {% for note in notifications %}
+                                <div class="notification-block">
+            
+                                    <div class="notification-hospital h-700">{{ note.name }}</div>
+                                    <div class="booking-actions">
+                                        <a class="visit-detail h-pointer h-700" href="hospital/{{note.slug_name}}">Hospital detail</a>
+                                    </div>
+
+                                </div>                            
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="bookings-wrapper">
+                            <div class="nothing-block">
+                                <div class="booking-hospital">No hospitals need your blood type at the moment.</div>
+                            </div>
+                        </div>
+                    {% endif %}                
+            </div>
+            {% endif %}  
+
             <div class="stories-container">
                 <h2 class="dashboard-heading h-900">Most popular stories</h2>
                     {% if stories %}
@@ -82,92 +109,88 @@
             </div>
 
             <div class="bookings-container">
-                    <h2 class="dashboard-heading h-900">My bookings</h2>
-                
-                        {% if bookings %}
-                            <div class="bookings-wrapper">
-                                {% for booking in bookings %}
+                <h2 class="dashboard-heading h-900">My bookings</h2>
+            
+                    {% if bookings %}
+                        <div class="bookings-wrapper">
+                            {% for booking in bookings %}
 
-                                    <div class="booking-block">
-                
-                                        <div class="booking-date">{{ booking.appointment }}</div>
-                                        <div class="booking-hospital">{{ booking.hospital }}</div>
-                                        <div class="booking-actions">
-                                            <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
-                                        </div>
-
-                                    </div>
-        
-
-                                
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="bookings-wrapper">
                                 <div class="booking-block">
-                                        
-                                        <div class="booking-date"></div>
-                                        <div class="booking-hospital">You do not have any appointment booked.</div>
-                                        <div class="booking-actions">
-
-                                        </div>
+            
+                                    <div class="booking-date">{{ booking.appointment }}</div>
+                                    <div class="booking-hospital">{{ booking.hospital }}</div>
+                                    <div class="booking-actions">
+                                        <div class="booking-delete h-pointer h-700" data-id="{{ booking.pk }}">CANCEL</div>
+                                    </div>
 
                                 </div>
-                            </div>
-                        {% endif %}                
-                </div>
+    
 
-                <div class="reviews-container">
-                    <h2 class="dashboard-heading h-900">My reviews</h2>
-
-                    {% if reviews %}
-                        <div class="reviews-wrapper">
-                            {% for review in reviews %}
-                                {% if forloop.counter < 5 %}
-                                    <div class="review-block">
-                                        <div class="review-content">
-                                            <span>Review for:</span><br />
-                                            <h4 class="h-700">{{ review.hospital }}</h4>
-                                            <span class="review-date">On: {{ review.date }}</span><br />
-                                            <span class="review-author">By: {{ review.donor }}</span>
-                                            <div class="review-text">{{ review.review }}</div>
-                                            <div class="review-bar">
-                                                <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% else %}
-                                <div class="review-block fadeable h-display-none">
-                                    <div class="review-content">
-                                        <span>Review for:</span><br />
-                                        <h4 class="h-700">{{ review.hospital }}</h4>
-                                        <span class="review-date">On: {{ review.date }}</span><br />
-                                        <span class="review-author">By: {{ review.donor }}</span>                                     <span class="review-author">By: {{ review.donor }}</span>
-                                        <div class="review-text">{{ review.review }}</div>
-                                        <div class="review-bar">
-                                            <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
+                            
                             {% endfor %}
                         </div>
                     {% else %}
                         <div class="bookings-wrapper">
                             <div class="nothing-block">
                                     
-                                <div class="booking-hospital">You have not written any review yet.</div>
+                                <div class="booking-hospital">You do not have any appointment booked.</div>
 
                             </div>
                         </div>
+                    {% endif %}                
+            </div>
 
-                    {% endif %}
-                    
-                </div>
+            <div class="reviews-container">
+                <h2 class="dashboard-heading h-900">My reviews</h2>
 
-                {% if reviews|length > 4 %}
-                    <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+                {% if reviews %}
+                    <div class="reviews-wrapper">
+                        {% for review in reviews %}
+                            {% if forloop.counter < 5 %}
+                                <div class="review-block">
+                                    <div class="review-content">
+                                        <span>Review for:</span><br />
+                                        <h4 class="h-700">{{ review.hospital }}</h4>
+                                        <span class="review-date">On: {{ review.date }}</span><br />
+                                        <span class="review-author">By: {{ review.donor }}</span>
+                                        <div class="review-text">{{ review.review }}</div>
+                                        <div class="review-bar">
+                                            <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                            <div class="review-block fadeable h-display-none">
+                                <div class="review-content">
+                                    <span>Review for:</span><br />
+                                    <h4 class="h-700">{{ review.hospital }}</h4>
+                                    <span class="review-date">On: {{ review.date }}</span><br />
+                                    <span class="review-author">By: {{ review.donor }}</span>                                     <span class="review-author">By: {{ review.donor }}</span>
+                                    <div class="review-text">{{ review.review }}</div>
+                                    <div class="review-bar">
+                                        <a href="review?id={{ review.id }}" class="review-btn h-700">Read more!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="bookings-wrapper">
+                        <div class="nothing-block">
+                                
+                            <div class="booking-hospital">You have not written any review yet.</div>
+
+                        </div>
+                    </div>
+
                 {% endif %}
+                
+            </div>
+
+            {% if reviews|length > 4 %}
+                <div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>
+            {% endif %}
 
 
         {% else %}
@@ -187,6 +210,36 @@
                     </a>
                 </div>
 
+            </div>
+
+            <div class="bookings-container">
+                <h2 class="dashboard-heading h-900">Notify donors</h2>
+            
+                    <div class="bookings-wrapper">
+                        <div class="notify-block">
+                                {% csrf_token %}
+
+                                <div class="booking-date">Select blood type you need</div>
+                                <div class="booking-hospital">
+                                    <select name="notify_type" id="notify_field" required>
+                                        <option value="" disabled>Needed blood type</option>
+                                        <option value="NO">We do not need any right now</option>
+                                        <option value="O+">O positive</option>
+                                        <option value="O-">O negative</option>
+                                        <option value="A+">A positive</option>
+                                        <option value="A-">A negative</option>
+                                        <option value="B+">B positive</option>
+                                        <option value="B-">B negative</option>
+                                        <option value="AB+">AB positive</option>
+                                        <option value="AB-">AB negative</option>
+                                    </select>
+                                </div>
+                                <div class="booking-actions">
+                                    <div class="notify-donors h-pointer h-700"">Notify them</div>
+                                </div>
+
+                        </div>
+                    </div>           
             </div>
 
             <div class="bookings-container">
@@ -212,13 +265,9 @@
                         </div>
                     {% else %}
                         <div class="bookings-wrapper">
-                            <div class="booking-block">
+                                <div class="nothing-block">
                                     
-                                    <div class="booking-date"></div>
                                     <div class="booking-hospital">You do not have any appointment booked.</div>
-                                    <div class="booking-actions">
-
-                                    </div>
 
                             </div>
                         </div>
@@ -363,6 +412,17 @@
         </div>
     </div>
 </div>
+
+<div class="modal-wrapper notify-donors__modal" data-name="modal">
+    <div class="modal-container">
+        <div class="modal-content__msg h-700"></div>
+        <div class="modal-buttons__cont">
+            <div class="modal-button h-pointer h-uppercase notify-donors__close h-link-effect-primary h-700">
+                Close
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 
@@ -371,6 +431,14 @@
 <script>
 
 $(document).ready(function() {
+
+    var notify = "{{ hospital.notified_types }}";
+    console.log(notify)
+    if(notify != "") {
+        $('#notify_field option[value="'+notify+'"]').attr('selected', 'selected')
+    }
+
+    
 
     var booking_to_cancel = -1;
 
@@ -398,6 +466,38 @@ $(document).ready(function() {
     $(".review-text").each(function() {
         ellipsizeTextBox($(this));
     })
+
+    // Notify donors with hte given blood type
+    $(".notify-donors").click(function () {
+
+        var notify_type = $("#notify_field").val();
+        var csrftoken = getCookie('csrftoken');
+
+        $.ajax({
+            type: "POST",
+            headers: {'X-CSRFToken' : csrftoken},
+            url: "notify_donors/",
+            dataType: "json",
+            data: {"type": notify_type},
+            success: function(response) {
+                console.log(response)
+                if (response.success) {
+                    $(".notify-donors__modal .modal-content__msg").html(response.message);
+                    
+                } else {
+                    // Error handling
+                    $(".notify-donors__modal .modal-content__msg").html(response.message);
+
+                }
+                // Show a modal with information about the signup process
+                $(".notify-donors__modal").toggleClass("modal-open");
+                // disable scrolling when modal is on
+                $("html").css("overflow", "hidden");
+
+            }
+        })
+
+        });
 
     // Open confirmation modal for booking cancellation
     $(".booking-delete").click(function () {
@@ -428,15 +528,22 @@ $(document).ready(function() {
         }
         
 
-        $(".modal-wrapper").toggleClass("modal-open");
+        $(".cancel-booking__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
 
     
     });
-     // Close open modal
+     // Close open cancel modal
     $(".cancel-modal__close").click(function () {
         
-        $(".modal-wrapper").toggleClass("modal-open");
+        $(".cancel-booking__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+     // Close open notify modal 
+     $(".notify-donors__close").click(function () {
+        
+        $(".notify-donors__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
     
     });
