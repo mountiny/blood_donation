@@ -1,3 +1,4 @@
+dateutil
 django==2.1.5
 pillow==5.4.1
 certifi==2019.11.28

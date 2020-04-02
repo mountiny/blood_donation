@@ -1,6 +1,9 @@
 import datetime
 import json
+from sqlite3.dbapi2 import Timestamp
 
+import pytz
+from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.db.utils import IntegrityError
 from django.template.defaultfilters import slugify
@@ -26,6 +29,9 @@ class Donor(models.Model):
     height = models.IntegerField()
     birth = models.DateField()
     age = models.IntegerField()
+
+    gender = models.CharField(max_length=1, default="M")
+
     notification = models.BooleanField(default=False)
     likedStories = models.TextField(default=json.dumps([]))
 
@@ -55,16 +61,17 @@ class Donor(models.Model):
         self.address = data['city']
 
         self.height = data['height']
-        if int (data['weight']) < 50:
+        if int(data['weight']) < 50:
             return {'error': "You must weight over 50kg to be able to sign up"}
         self.weight = data['weight']
+        # self.gender = "M" if (data['gender'] == 'male') else "F"
 
         self.blood_type = data['blood_type']
         if data['notification'] == "true":
             self.notification = True
         else:
             self.notification = False
-    
+
         try:
             self.donor.save()
             self.save()
@@ -76,6 +83,27 @@ class Donor(models.Model):
             return {'error': "something went wrong please try again"}
         return {'error': None}
 
+    @staticmethod
+    def donate_again(data):
+        donor_id = data['donor_id']
+        last_donation = Booking.objects.filter(donor_id=donor_id).last()
+        today = datetime.date.today()
+        print (last_donation.appointment)
+        if Donor.objects.get(donor_id=donor_id).gender == 'M':
+            if (last_donation.appointment.date() + relativedelta(months=+3)) <= today:
+                return True
+            else:
+                return False
+        elif Donor.objects.get(donor_id=donor_id).gender == 'F':
+            if (last_donation.appointment.date() + relativedelta(months=+4)) <= today:
+                return True
+            else:
+                return False
+        else:
+            return False
+
+
+
 
 class Hospital(models.Model):
     # email, pword
@@ -84,8 +112,9 @@ class Hospital(models.Model):
     # hospital_id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=300)
-    notified_types = models.CharField(max_length=100,default="NO")
+    notified_types = models.CharField(max_length=100, default="NO")
     slug_name = models.SlugField(unique=True)
+
     # stories = models.ManyToOneRel(Hospital, )
 
     def save(self, *args, **kwargs):
@@ -97,7 +126,8 @@ class Hospital(models.Model):
 
     def new_hospital(self, data):
         try:
-            self.hospital = User.objects.create_user(username=data['hospital_email'], password=data['hospital_password'])
+            self.hospital = User.objects.create_user(username=data['hospital_email'],
+                                                     password=data['hospital_password'])
         except IntegrityError:
             return {'error': "email already exists"}
         except:
@@ -215,18 +245,21 @@ class Booking(models.Model):
         # initialize slots dictionary with all slots free
         slots = dict()
         for d in range(5):
-            slots[(from_date + datetime.timedelta(days=d)).date()] = {}
+            date = (from_date + datetime.timedelta(days=d)).date()
+            # slots[(from_date + datetime.timedelta(days=d)).date()] = {}
             for t in range(0, 6):
-                slots[(from_date + datetime.timedelta(days=d)).date()][datetime.time(9 + (t // 2), half_hour(t))] = True
+                time = datetime.time(9 + (t // 2), half_hour(t))
+                timestamp = Timestamp.combine(date, time).timestamp()
+                slots[timestamp]=True
+                # slots[(from_date + datetime.timedelta(days=d)).date()][datetime.time(9 + (t // 2), half_hour(t))] = True
 
         # booked slots for given hospital for the next 5 days
         booked_slots = Booking.objects.filter(hospital_id=hosp_id, appointment__range=[from_date, to_date])
 
         # enter booked slots to the dictionary
         for bs in booked_slots:
-            slots[bs.appointment.date()][bs.appointment.time()] = False
+            slots[bs.appointment.timestamp()] = False
 
-        # pprint.pprint(slots)
         return slots
 
 
