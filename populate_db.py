@@ -62,7 +62,8 @@ def populate():
         "location": json.dumps({
             "lat": 42.362511,
             "lon": -71.069570
-        })
+        }),
+        "notified_types": "A+"
     })
         
     create_hospital({
@@ -72,7 +73,8 @@ def populate():
         "location": json.dumps({
             "lat": 39.949775,
             "lon": -75.158040
-        })
+        }),
+        "notified_types": "B-"
     })
 
     create_hospital({
@@ -82,7 +84,8 @@ def populate():
         "location": json.dumps({
             "lat": 40.639490,
             "lon": -73.998187
-        })
+        }),
+        "notified_types": "AB+"
     })
 
     create_hospital({
@@ -92,7 +95,8 @@ def populate():
         "location": json.dumps({
             "lat": 34.134094,
             "lon": -118.152123
-        })
+        }),
+        "notified_types": "0-"
     })
 
     create_hospital({
@@ -102,7 +106,8 @@ def populate():
         "location": json.dumps({
             "lat": 34.097861,
             "lon": -118.289963
-        })
+        }),
+        "notified_types": "A-"
     })
 
     # create donors
