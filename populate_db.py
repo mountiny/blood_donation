@@ -31,15 +31,7 @@ def create_review(data):
     return review
 
 
-def create_story(hospital=None):
-    data = {
-        'hospital': hospital,
-        'date': datetime.date(random.randrange(2005, 2019), random.randrange(1, 12), random.randrange(1, 28)),
-        'heading': 'This is heading',
-        'story': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus ac leo pretium faucibus. Maecenas sollicitudin. Pellentesque arcu. Maecenas aliquet accumsan leo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Praesent id justo in neque elementum ultrices. Integer in sapien. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Phasellus rhoncus. Nulla non lectus sed nisl molestie malesuada. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Etiam quis quam. Nunc auctor. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Pellentesque ipsum. Etiam posuere lacus quis dolor. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Pellentesque pretium lectus id turpis.',#''.join(random.choice(string.ascii_lowercase) for _ in range(100, 150)),
-        'likes': random.randrange(0, 20),
-        'picture': None
-    }
+def create_story(data):
     story = Story()
     story.new_story(data)
     return data
@@ -229,10 +221,14 @@ def populate():
         "hospital": hospitals[4]
     })
 
-    # add some stories
-    for i in range(len(hospitals)):
-        for _ in range(3):
-            create_story(hospital=hospitals[i])
+    create_story({
+        "hospital": hospitals[0],
+        "date": datetime.date(2019, 12, 12),
+        "heading": "Alicia's car accident",
+        "story": "42 minutes trapped in a car after a head-on collision, 8 units of donated blood, 12 surgeries, 17 days in a coma, 18 months in a wheelchair, and 5 years of physical therapy and recovery that involved re-learning how to read, write, and talk. Alicia Northenscold has been through more than most.\n\nOne snowy morning in 2009, 27-year-old Alicia was driving to work when her car was struck by an oncoming vehicle. The impact compacted the dash of Alicia’s car, pinning her legs under the dash; she was trapped until help was able to get to the scene.\n\nWhen first responders arrived from the Boston Fire Department, they pulled back the dash of Alicia’s car and freed her. “As a responder, you’re taught to never to use tools together – they’re very expensive and can be dangerous when combined,” said Alicia. “But they said, ‘let’s do it’ and they got my legs out of there.” To this day, Alicia and her family have stayed in touch with the Boston Fire Department.\n\nAlicia was transported to Massachusetts General Hospital in Boston, where she received 8 units of blood and had 12 surgeries over the next few months. The accident broke both of her femurs and her hip. Formerly a kickboxer and a runner, Alicia had to re-learn how to use her legs. She also broke her neck and sustained a traumatic brain injury, putting her in a coma for 17 days. It took her 5 years to learn to read again, and once she could, she went back to school to pursue a degree in neuropsychology. Alicia was told she would be unable to have children, but today she is a mother of two daughters. All thanks to generous blood donors, fast-acting first responders, and excellent care teams – not to mention Alicia’s positivity and bravery.\n\nAlicia knows how vital donated blood was to her survival and recovery. “Donated blood saved my life, so I can help save more people’s lives and pay it forward.” She donates blood with the Massachusetts General Hospital regularly, adding that it’s “completely selfless giving – it doesn’t come out of our pockets, we can give and get it back.”\n\nIn spring 2019, Alicia held her first-ever blood drive to commemorate the 10-year anniversary of her accident and rescue. The drive was held at the Boston Fire Department, and several of Alicia’s firefighters and paramedics that helped during her accident attended and donated. It was a huge success, and Alicia plans to make it an annual tradition in honor of the first responders at the Boston Fire Department. “To be able to give back and get other people to give blood is huge. My goal is that giving blood will become a routine thing for others as well.”",
+        "likes": 20,
+        "picture": None
+    })
 
     # add bookings
     for d in donors:
