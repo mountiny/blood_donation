@@ -33,14 +33,13 @@ def index(request):
 
 
 def login(request):
-
     context_dict = {}
 
     # If the user is logged in redirect to the app dashboard
     if request.user.is_authenticated:
-       return redirect("app:app")
+        return redirect("app:app")
 
-    if request.method == 'POST' :
+    if request.method == 'POST':
         username = request.POST["username"]
         password = request.POST["password"]
 
@@ -50,18 +49,19 @@ def login(request):
                 # Is the account active? It could have been disabled.
                 if user.is_active:
                     usr_login(request, user)
-                    return JsonResponse({'success': True, 'message':"Logged in successfully!"})#redirect(reverse('app:index'))
+                    return JsonResponse(
+                        {'success': True, 'message': "Logged in successfully!"})  # redirect(reverse('app:index'))
                 else:
                     # An inactive account was used - no logging in!
                     # return HttpResponse("Your account is disabled.")
-                    return JsonResponse({'success': False, 'message':"Your account is disabled!"})
+                    return JsonResponse({'success': False, 'message': "Your account is disabled!"})
             else:
                 print(f"Invalid login details: {username}, {password}")
                 # return HttpResponse("Invalid login details supplied.")
-                return JsonResponse({'success': False, 'message':"The provided login details are incorrect!"})
+                return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
         else:
             # return render(request, 'app/login.html')
-            return JsonResponse({'success': False, 'message':"The provided login details are incorrect!"})
+            return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
     else:
         return render(request, 'app/login.html')
 
@@ -74,7 +74,6 @@ def user_logout(request):
 
 
 def signup(request):
-
     context_dict = {}
 
     # If the user is logged in redirect to the app dashboard
@@ -86,20 +85,17 @@ def signup(request):
         if 'username' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
+
+            # print(qd)
             new_donor = Donor()
 
-            try:
-                new_donor.new_donor(data=qd)
+            r = new_donor.new_donor(data=qd)
+            # Try to create a new Donor and handle any errors which may occur
+            if r['error'] == None:
                 return JsonResponse(
                     {'success': True, 'message': "Account was successfully created. You can now log in!"})
-            except IntegrityError as e:
-                return JsonResponse({'success':False, 'message':"This email has already been used!"})
-
-            # # Try to create a new Donor and handle any errors which may occur
-            # if r['error'] == None:
-            #     return JsonResponse({'success':True, 'message':"Account was successfully created. You can now log in!"})
-            # else:
-            #     return JsonResponse({'success':False, 'message':r['error']})
+            else:
+                return JsonResponse({'success': False, 'message': r['error']})
 
         elif 'hospital_name' in qd:
             for k, v in qd.items():
@@ -112,7 +108,7 @@ def signup(request):
                 return JsonResponse(
                     {'success': True, 'message': "Account was successfully created. You can now log in!"})
             except IntegrityError as e:
-                return JsonResponse({'success':False, 'message':"This email has already been used!"})
+                return JsonResponse({'success': False, 'message': "This email has already been used!"})
 
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
@@ -125,7 +121,7 @@ def signup(request):
         return render(request, 'app/signup.html')
 
     response = render(request, 'app/signup.html', context=context_dict)
-    
+
     # Return a rendered response to send to the client.
     return response
 
@@ -161,6 +157,7 @@ def sitemap(request):
     # Return a rendered response to send to the client.
     return response
 
+
 @login_required
 def app(request):
     context_dict = {}
@@ -171,6 +168,7 @@ def app(request):
     reviews = Review.objects.all()
 
     context_dict["stories"] = stories
+<<<<<<< HEAD
     context_dict["reviews"] = reviews
 
     print("test")
@@ -202,13 +200,21 @@ def app(request):
         print(hospital)
         context_dict["hospital"] = hospital
     else:
+=======
+
+    if request.user.is_donor:
+>>>>>>> 888e0710ca1e57a0001997a3e4820ee41632ebc6
         donor = Donor.objects.filter(donor=request.user).first()
         print(donor)
         # context_dict["donor"] = donor
+    else:
+        hospital = Hospital.objects.filter(hospital=request.user).first()
+        context_dict["hospital"] = hospital
 
     response = render(request, 'app/app.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
+
 
 @login_required
 def story(request):
@@ -226,6 +232,7 @@ def story(request):
     else:
         return redirect("app:app")
 
+
 @login_required
 def review(request):
     context_dict = {}
@@ -242,14 +249,15 @@ def review(request):
     else:
         return redirect("app:app")
 
+
 @login_required
 def hospital_map(request):
-
     context_dict = {}
 
     response = render(request, 'app/map.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
+
 
 @login_required
 def profile(request):
@@ -267,6 +275,7 @@ def profile(request):
     # Return a rendered response to send to the client.
     return response
 
+
 @login_required
 def profile_edit(request):
     # category_list = Category.objects.order_by('-likes')[:5]
@@ -282,6 +291,7 @@ def profile_edit(request):
     response = render(request, 'app/edit.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
+
 
 @login_required
 def hospital(request, hospital_slug):
@@ -326,7 +336,7 @@ def visitor_cookie_handler(request):
 def all_hospitals(request):
     hospitals = Hospital.objects.all()
     # print(hospitals)
-    
+
     context_dict = {}
     # context_dict["hospitals"] = hospitals
     for h in hospitals:
@@ -336,8 +346,8 @@ def all_hospitals(request):
     # response = render(request, 'app/map.html', context=context_dict)
     return JsonResponse(context_dict)
 
-def cancel_booking(request):
 
+def cancel_booking(request):
     print(Booking.objects.all())
 
     if request.method == 'GET':
