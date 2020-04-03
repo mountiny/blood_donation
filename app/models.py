@@ -130,8 +130,10 @@ class Story(models.Model):
         self.date = data['date']
         self.story = data['story']
         self.heading = data['heading']
-        self.picture = data['picture']
-        self.likes = data['likes']
+        if data.get("picture") is not None:
+            self.picture = data['picture']
+        if data.get("likes") is not None:
+            self.likes = data['likes']
         self.save()
 
     @staticmethod

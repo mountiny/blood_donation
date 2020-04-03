@@ -62,8 +62,8 @@
                         {% if forloop.counter < 5 %}
 
                             <div class="story-block">
-                                {% if story.picture %}
-                                <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                                {% if story.picture != "" %}
+                                <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                 {% else %}
                                 <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                 {% endif %}
@@ -82,8 +82,8 @@
                             </div>
                         {% else %}
                             <div class="story-block fadeable h-display-none">
-                                {% if story.picture %}
-                                <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                                {% if story.picture != "" %}
+                                <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                 {% else %}
                                 <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                 {% endif %}
@@ -188,8 +188,8 @@
                             {% for story in stories %}
                                 {% if forloop.counter < 5 %}
                                     <div class="story-block">
-                                        {% if story.picture %}
-                                        <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                                        {% if story.picture != "" %}
+                                        <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                         {% else %}
                                         <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                         {% endif %}
@@ -208,8 +208,8 @@
                                     </div>
                                 {% else %}
                                     <div class="story-block fadeable h-display-none">
-                                        {% if story.picture %}
-                                        <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                                        {% if story.picture != "" %}
+                                        <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                         {% else %}
                                         <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                         {% endif %}
@@ -380,7 +380,6 @@ $(document).ready(function() {
         var hospital_id = "{{ hospital.pk }}";
         var review_text = $("#review_field").val();
 
-        console.log(review_text)
         // Reset the error
         $("#review_field").removeClass("h-empty");
         
@@ -404,10 +403,9 @@ $(document).ready(function() {
             headers: {'X-CSRFToken' : csrftoken},
             url: "{% url 'app:write_review' %}",
             data: data,
-            // dataType: "json",
+
             success: function(response) {
-                console.log("sent")
-                console.log(response)
+
                 if(response.success) {
 
                     getNewReviews()

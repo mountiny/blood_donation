@@ -316,6 +316,13 @@
         color: black
     }
 }
+.story-form__content {
+    @include display_flexbox();
+    @include flex_direction(column);
+    @include justify_content(flex-start);
+    @include align-items(flex-start);
+    @include align-content(center);
+}
 
 // map styles
 

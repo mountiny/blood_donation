@@ -75,8 +75,8 @@
                             {% for story in stories %}
 
                             <div class="story-block">
-                                    {% if story.picture %}
-                                    <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                                    {% if story.picture != "" %}
+                                    <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                     {% else %}
                                     <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                     {% endif %}
@@ -195,9 +195,9 @@
 
         {% else %}
 
-        <div class="dashboard-menu__container">
+            <div class="dashboard-menu__container">
                 <div class="dashboard-block h-border-radius h-shadow h-pointer show-map">
-                    <a href="{% url 'app:map'%}" class="dashboard-block__text">
+                    <a href="#" class="dashboard-block__text write-story__open">
                         
                         <span class="block-text__title h-900">Story</span><br />
                         Write a story to engage with donors!
@@ -283,8 +283,8 @@
                                 {% if forloop.counter < 5 %}
 
                                     <div class="story-block">
-                                        {% if story.picture %}
-                                        <img src="{{ STATIC_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
+                                        {% if story.picture != "" %}
+                                        <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                         {% else %}
                                         <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                         {% endif %}
@@ -303,8 +303,8 @@
                                     </div>
                                 {% else %}
                                     <div class="story-block fadeable h-display-none">
-                                        {% if story.picture %}
-                                        <img src="{% static '{{ story.picture }}' %}" alt="Story picture" class="story-pic">
+                                        {% if story.picture != "" %}
+                                        <img src="{{ MEDIA_URL }}{{ story.picture }}" alt="Story picture" class="story-pic">
                                         {% else %}
                                         <img src="{% static 'images/story_placeholder.jpg' %}" alt="Story picture" class="story-pic">
                                         {% endif %}
@@ -413,11 +413,45 @@
     </div>
 </div>
 
+<div class="modal-wrapper write-story__modal" data-name="modal">
+    <div class="modal-container">
+        <form class="story-form" action="" method="post" enctype="multipart/form-data">
+            <div class="modal-content__msg story-form__content">
+                <label for="heading_field">Your story heading:</label>
+                <input type="text" name="heading_field" id="heading_field"><br/>
+                <label for="story_field">Your story:</label>
+                <textarea name="story_field" id="story_field" cols="30" rows="10"></textarea>
+                <label for="image_field">Select a picture: (not required)</label>
+                <input type="file" name="image_field" id="image_field">
+            </div>
+            <div class="modal-buttons__cont">
+                <div class="modal-button h-pointer h-uppercase write-story__close h-link-effect-primary h-700">
+                    Close
+                </div>
+                <div class="modal-button h-pointer h-uppercase write-story__btn h-link-effect-primary h-700">
+                    Publish it
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="modal-wrapper notify-donors__modal" data-name="modal">
     <div class="modal-container">
         <div class="modal-content__msg h-700"></div>
         <div class="modal-buttons__cont">
             <div class="modal-button h-pointer h-uppercase notify-donors__close h-link-effect-primary h-700">
+                Close
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-wrapper information__modal" data-name="modal">
+    <div class="modal-container">
+        <div class="modal-content__msg h-700"></div>
+        <div class="modal-buttons__cont">
+            <div class="modal-button h-pointer h-uppercase information-modal__close h-link-effect-primary h-700">
                 Close
             </div>
         </div>
@@ -433,7 +467,6 @@
 $(document).ready(function() {
 
     var notify = "{{ hospital.notified_types }}";
-    console.log(notify)
     if(notify != "") {
         $('#notify_field option[value="'+notify+'"]').attr('selected', 'selected')
     }
@@ -495,9 +528,9 @@ $(document).ready(function() {
                 $("html").css("overflow", "hidden");
 
             }
-        })
-
         });
+
+    });
 
     // Open confirmation modal for booking cancellation
     $(".booking-delete").click(function () {
@@ -508,6 +541,8 @@ $(document).ready(function() {
         $("html").css("overflow", "hidden");
 
     });
+
+
 
     // Cancel the given booking
     $(".cancel-booking__btn").click(function () {
@@ -533,17 +568,155 @@ $(document).ready(function() {
 
     
     });
-     // Close open cancel modal
+
+    // Open write story modal
+    $(".write-story__open").click(function (e) {
+
+        e.preventDefault();
+
+        $(".write-story__modal").toggleClass("modal-open");
+        $("html").css("overflow", "hidden");
+
+    });
+
+    // Publish the story
+    $(".write-story__btn").click(function () {
+
+        // Get the data from form
+        var story_heading = $("#heading_field").val();
+        var story_text = $("#story_field").val();
+        var file = $("#image_field").get(0).files[0];
+
+        var csrftoken = getCookie('csrftoken');
+
+        $("#heading_field").removeClass("h-empty");
+        $("#story_field").removeClass("h-empty");
+
+        if(story_heading == "" || story_text == "") {
+
+            if(story_heading == "") {
+                $("#heading_field").addClass("h-empty");
+            }
+            if(story_text == "") {
+                $("#story_field").addClass("h-empty");
+            }
+            return;
+        }
+
+         // Get well formatted today's date
+        var date = new Date(Date.now()).toISOString().split('T')[0];
+
+        var formData = new FormData()
+
+        if (file) {
+            formData.append("time", date);
+            formData.append("heading", story_heading);
+            formData.append("story", story_text);
+            formData.append("file", file);
+        } else {
+            formData.append("time", date);
+            formData.append("heading", story_heading);
+            formData.append("story", story_text);
+
+        }
+
+        $.ajax({
+            type: "POST",
+            headers: {'X-CSRFToken' : csrftoken},
+            url: "{% url 'app:write_story' %}",
+            enctype: 'multipart/form-data',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+
+                if (response.success) {
+
+                    $(".information__modal .modal-content__msg").html(response.message);
+                    // Show a modal with information about the signup process
+                    $(".information__modal").toggleClass("modal-open");
+                    // Close the write story modal
+                    $(".write-story__modal").toggleClass("modal-open");
+
+                } else {
+                    // Error handling
+                    $(".information__modal .modal-content__msg").html(response.message);
+
+                }
+                
+                // disable scrolling when modal is on
+                $("html").css("overflow", "hidden");
+
+            }
+        });
+
+
+    });
+
+    function getNewStories() {
+
+        var hospital_id = "{{ hospital.pk }}";
+        $.ajax({
+            type: "GET",
+            url: "../../get_new_reviews?hospital_id="+hospital_id,
+            dataType: "json",
+            success: function(response) {
+                console.log(response)
+
+                var new_html = '<h2 class="dashboard-heading h-900">Reviews of this hospital</h2><div class="reviews-wrapper">';
+                var counter = 1;
+
+                $.each(response["data"], function(i, val) {
+
+                    console.log(val)
+
+                    if(counter<5 ) {
+
+                    new_html +='<div class="review-block"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
+                    
+                    } else {
+                        new_html +='<div class="review-block fadeable h-display-none"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
+                    }
+
+                    counter += 1;
+                })
+                new_html += '</div>';
+
+                if (response["data"].length > 4) {
+                    new_html += '<div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>';
+                }
+
+                $(".reviews-container").html(new_html);
+            
+            }
+        })
+    }
+
+     // Close cancel modal
     $(".cancel-modal__close").click(function () {
         
         $(".cancel-booking__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
     
     });
-     // Close open notify modal 
+      // Close information modal
+      $(".information-modal__close").click(function () {
+        
+        $(".information__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+     // Close notify modal 
      $(".notify-donors__close").click(function () {
         
         $(".notify-donors__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+    // Close story modal 
+    $(".write-story__close").click(function () {
+        
+        $(".write-story__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
     
     });

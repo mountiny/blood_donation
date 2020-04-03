@@ -344,6 +344,10 @@ input.h-empty {
   background-color: #f7d9d4;
 }
 
+input[type="file"] {
+  border: none;
+}
+
 input::-webkit-input-placeholder {
   /* Edge */
   color: #000000;
@@ -819,6 +823,24 @@ textarea.h-empty {
 
 .review-btn:hover {
   color: black;
+}
+
+.story-form__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-line-pack: center;
+  align-content: center;
 }
 
 .leaflet-popup-content-wrapper {

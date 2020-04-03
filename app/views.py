@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as usr_login
 from django.contrib.auth.decorators import login_required
 
+from django.core.files.storage import FileSystemStorage
+
 from django.db.utils import IntegrityError
 from datetime import datetime
 
@@ -442,7 +444,7 @@ def cancel_booking(request):
     else:
         return redirect("app:app")
 
-
+# Save the review from donor
 def write_review(request):
     context_dict = {}
 
@@ -457,6 +459,39 @@ def write_review(request):
 
         review = Review()
         review.new_review(data)
+        try:
+            # review.new_review(data)
+            return JsonResponse({'success': True, 'message': "The review has been succesfully published!"})
+        except:
+            return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
+
+    else:
+        return redirect("app:app")
+
+# Save the story by hospital
+def write_story(request):
+    context_dict = {}
+
+    if request.method == 'POST':
+        data = {'hospital': Hospital.objects.get(pk=request.user.id),
+                    'date': request.POST.get("time"),
+                    'story': request.POST.get("story"),
+                    'heading': request.POST.get("heading"),
+                    'likes': 0}
+
+        if request.FILES.get("file") is not None:
+            image = request.FILES["file"]
+            fs = FileSystemStorage()
+            filename = fs.save(image.name, image)
+            uploaded_file_url = filename
+            data = {'hospital': Hospital.objects.get(pk=request.user.id),
+                    'date': request.POST.get("time"),
+                    'story': request.POST.get("story"),
+                    'heading': request.POST.get("heading"),
+                    'picture': uploaded_file_url,
+                    'likes': 0}
+        story = Story()
+        story.new_story(data)
         try:
             # review.new_review(data)
             return JsonResponse({'success': True, 'message': "The review has been succesfully published!"})
