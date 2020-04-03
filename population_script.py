@@ -62,7 +62,8 @@ def populate():
         "location": json.dumps({
             "lat": 42.362511,
             "lon": -71.069570
-        })
+        }),
+        "notified_types": "A+"
     })
         
     create_hospital({
@@ -72,7 +73,8 @@ def populate():
         "location": json.dumps({
             "lat": 39.949775,
             "lon": -75.158040
-        })
+        }),
+        "notified_types": "B-"
     })
 
     create_hospital({
@@ -82,7 +84,8 @@ def populate():
         "location": json.dumps({
             "lat": 40.639490,
             "lon": -73.998187
-        })
+        }),
+        "notified_types": "AB+"
     })
 
     create_hospital({
@@ -92,7 +95,8 @@ def populate():
         "location": json.dumps({
             "lat": 34.134094,
             "lon": -118.152123
-        })
+        }),
+        "notified_types": "0-"
     })
 
     create_hospital({
@@ -102,7 +106,8 @@ def populate():
         "location": json.dumps({
             "lat": 34.097861,
             "lon": -118.289963
-        })
+        }),
+        "notified_types": "A-"
     })
 
     # create donors
@@ -227,7 +232,7 @@ def populate():
         "heading": "Alicia's car accident",
         "story": "42 minutes trapped in a car after a head-on collision, 8 units of donated blood, 12 surgeries, 17 days in a coma, 18 months in a wheelchair, and 5 years of physical therapy and recovery that involved re-learning how to read, write, and talk. Alicia Northenscold has been through more than most.\n\nOne snowy morning in 2009, 27-year-old Alicia was driving to work when her car was struck by an oncoming vehicle. The impact compacted the dash of Alicia’s car, pinning her legs under the dash; she was trapped until help was able to get to the scene.\n\nWhen first responders arrived from the Boston Fire Department, they pulled back the dash of Alicia’s car and freed her. “As a responder, you’re taught to never to use tools together – they’re very expensive and can be dangerous when combined,” said Alicia. “But they said, ‘let’s do it’ and they got my legs out of there.” To this day, Alicia and her family have stayed in touch with the Boston Fire Department.\n\nAlicia was transported to Massachusetts General Hospital in Boston, where she received 8 units of blood and had 12 surgeries over the next few months. The accident broke both of her femurs and her hip. Formerly a kickboxer and a runner, Alicia had to re-learn how to use her legs. She also broke her neck and sustained a traumatic brain injury, putting her in a coma for 17 days. It took her 5 years to learn to read again, and once she could, she went back to school to pursue a degree in neuropsychology. Alicia was told she would be unable to have children, but today she is a mother of two daughters. All thanks to generous blood donors, fast-acting first responders, and excellent care teams – not to mention Alicia’s positivity and bravery.\n\nAlicia knows how vital donated blood was to her survival and recovery. “Donated blood saved my life, so I can help save more people’s lives and pay it forward.” She donates blood with the Massachusetts General Hospital regularly, adding that it’s “completely selfless giving – it doesn’t come out of our pockets, we can give and get it back.”\n\nIn spring 2019, Alicia held her first-ever blood drive to commemorate the 10-year anniversary of her accident and rescue. The drive was held at the Boston Fire Department, and several of Alicia’s firefighters and paramedics that helped during her accident attended and donated. It was a huge success, and Alicia plans to make it an annual tradition in honor of the first responders at the Boston Fire Department. “To be able to give back and get other people to give blood is huge. My goal is that giving blood will become a routine thing for others as well.”",
         "likes": 20,
-        "picture": "alicia.png"
+        "picture": "images/alicia.png"
     })
 
     create_story({
@@ -236,7 +241,16 @@ def populate():
         "heading": "Ike's fight with cancer",
         "story": "Fever and ear pain. A stubborn rash that wouldn’t go away. Then tests indicating low hemoglobin levels and a declining white blood cell count. For parents Chelsea and Chad, they knew going into the ER with their young son, Ike, that something wasn’t right. What they didn’t expect was to hear the words, “your child has cancer.”\n\nJust three days shy of his fifth birthday, Ike was diagnosed with B-ALL leukemia, a fast-growing cancer of lymphocyte-forming cells typically found in the blood stream and bone marrow. At that moment, Ike and his parents sprang into action. Ike received his first blood transfusion while still in the hospital, and regular transfusions helped sustain him as he endured months of chemotherapy treatments. Despite the rigor of his maintenance routine—a spinal tap every three months, a monthly trip to the clinic for lab tests, a weekly dose of eight chemotherapy pills, plus another nightly dose of pills as well—Ike was back to playing hockey and baseball even during his treatments.\n\n“Ike’s diagnosis was life-changing for all of us,” said Ike's mom Chelsea. “Through it all, he was incredibly strong and resilient—and tough. That’s why we came together almost immediately as a community of friends and family and began blogging, fundraising, and hosting events.\"\n\nIke’s last cancer treatment was in July of 2016—three years after his diagnosis. Today, like clockwork, his family holds an annual “Tough Like Ike” golf and silent auction event to raise funds for children going through similar treatment. Additionally, Ike’s elementary school coordinates a “Tough Like Ike” blood drive each year in his honor to give back to hospitals like Children’s Hospital Los Angeles, where Ike received his numerous blood transfusions.\n\n\"We want to honor Ike’s toughness, to raise awareness of the need for more research into childhood cancers, and to give back in gratitude for all the generous blood donors who were there with the blood Ike needed to survive,” said Chelsea.",
         "likes": 25,
-        "picture": "ike.jpg"
+        "picture": "images/ike.jpg"
+    })
+
+    create_story({
+        "hospital": hospitals[1],
+        "date": datetime.date(2018, 11, 13),
+        "heading": "Trey's sickle cell agony",
+        "story": "Trey Blaylark has fought excruciating pain all his life, and only donated blood can end the agony. From the time he was diagnosed with sickle cell disease at two weeks old, the importance of a readily available blood supply has been paramount in his mother’s mind. “There hasn’t been a year that Trey has been in the hospital less than four times,” Rae Blaylark said. “Since sickle cell means that his red blood cells harden into crescent-shaped cells, we depend on transfusions to give him a new supply of healthy cells. I call it a ‘tune-up’ because it’s like getting new parts to keep you going for another 3,000 miles.”\n\nAlthough Rae is the same blood type as Trey, she unfortunately cannot donate her own blood to help him. “Since I have the sickle cell trait—the gene he inherited from both his father and me—my red blood cells would ‘sickle’ in his body more quickly than those provided by a person without the gene,” Rae said. “Also, my blood is not an antibody match. So we depend on donor blood for all of Trey’s transfusion needs.”",
+        "likes": 17,
+        "picture": None
     })
 
     # add bookings
