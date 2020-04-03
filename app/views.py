@@ -58,7 +58,6 @@ def login(request):
                     # return HttpResponse("Your account is disabled.")
                     return JsonResponse({'success': False, 'message': "Your account is disabled!"})
             else:
-                print(f"Invalid login details: {username}, {password}")
                 # return HttpResponse("Invalid login details supplied.")
                 return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
         else:
