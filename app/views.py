@@ -16,24 +16,16 @@ from datetime import datetime
 import json
 
 
-# Create your views here.
-
+# Show Landing page
 def index(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
-
-    # visitor_cookie_handler(request)
 
     response = render(request, 'app/index.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
 
-
+# Show Login page
 def login(request):
     context_dict = {}
 
@@ -41,11 +33,15 @@ def login(request):
     if request.user.is_authenticated:
         return redirect("app:app")
 
+    # Check if the request given is post otherwise just render the page
     if request.method == 'POST':
+        # Get the post data from the login form
         username = request.POST["username"]
         password = request.POST["password"]
 
+        # authenticate the user with given data
         user = authenticate(username=username, password=password)
+        # If the user exists, continue with the authentication
         if username is not None:
             if user:
                 # Is the account active? It could have been disabled.
@@ -55,10 +51,8 @@ def login(request):
                         {'success': True, 'message': "Logged in successfully!"})
                 else:
                     # An inactive account was used - no logging in!
-                    # return HttpResponse("Your account is disabled.")
                     return JsonResponse({'success': False, 'message': "Your account is disabled!"})
             else:
-                # return HttpResponse("Invalid login details supplied.")
                 return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
         else:
             # return render(request, 'app/login.html')
@@ -66,14 +60,14 @@ def login(request):
     else:
         return render(request, 'app/login.html')
 
-
+# Log out the user
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
     # Take the user back to the homepage.
     return redirect(reverse('app:index'))
 
-
+# Show sign up view
 def signup(request):
     context_dict = {}
 
@@ -81,16 +75,20 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect("app:app")
 
+    # Check if the request is Post, new user is being registered
     if request.method == 'POST':
         qd = dict(request.POST)
+
+        # Check if it is Donor or Hospital
         if 'username' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
 
             new_donor = Donor()
 
+            # Create a new donor instance
             r = new_donor.new_donor(data=qd)
-            # Try to create a new Donor and handle any errors which may occur
+            # Handle any errors which may occur
             if r['error'] is None:
                 return JsonResponse(
                     {'success': True, 'message': "Account was successfully created. You can now log in!"})
@@ -100,9 +98,10 @@ def signup(request):
         elif 'hospital_name' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
-
+            
+            # Create a new hospital instance
             new_hosp = Hospital()
-            # Try to create a new Hospital and handle any errors which may occur
+            # Handle any errors which may occur
             r = new_hosp.new_hospital(data=qd)
             if r['error'] is None:
                 return JsonResponse(
@@ -110,6 +109,7 @@ def signup(request):
             else:
                 return JsonResponse({'success': False, 'message': r['error']})
 
+    # Use this to have a link choosing the Hospital form directly
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         hospital = request.GET.get('hospital', '')
@@ -125,39 +125,25 @@ def signup(request):
     # Return a rendered response to send to the client.
     return response
 
-
+# Show Contact page
 def contact(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
-
-    # visitor_cookie_handler(request)
 
     response = render(request, 'app/contact.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
 
-
+# Show Sitemap page
 def sitemap(request):
-    # category_list = Category.objects.order_by('-likes')[:5]
-    # pages_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = pages_list
-
-    # visitor_cookie_handler(request)
 
     response = render(request, 'app/site-map.html', context=context_dict)
     # Return a rendered response to send to the client.
     return response
 
-
+# Show Dashboard page
 @login_required
 def app(request):
     context_dict = {}
@@ -180,8 +166,10 @@ def app(request):
         stories = Story.objects.order_by('-likes')[:4]
         context_dict["stories"] = stories
 
+        # get list of stories this donor liked
         context_dict["liked"] = donor.likedStories
 
+        # Get if the donor can donate blood again
         donate = Donor.donate_again(request.user.id)
         if donate:
             context_dict["donate"] = {"donate": "yes"}
@@ -218,6 +206,7 @@ def app(request):
     return response
 
 
+# Show story detail
 @login_required
 def story(request):
     context_dict = {}
@@ -226,8 +215,10 @@ def story(request):
         # Check if valid story id has been provided in the url
         story_id = request.GET.get('id', '')
         story = Story.objects.get(pk=story_id)
+        # Check if the user opening the story is donor or hospital
         if request.user.is_donor:
             donor = Donor.objects.get(pk=request.user.id)
+            # get ist of storis this donor liked
             context_dict["liked"] = donor.likedStories
         if story:
             context_dict["story"] = story
@@ -238,6 +229,7 @@ def story(request):
         return redirect("app:app")
 
 
+# Show review detail
 @login_required
 def review(request):
     context_dict = {}
@@ -254,7 +246,7 @@ def review(request):
     else:
         return redirect("app:app")
 
-
+# Show the map page
 @login_required
 def hospital_map(request):
     context_dict = {}
@@ -263,15 +255,15 @@ def hospital_map(request):
     # Return a rendered response to send to the client.
     return response
 
-
+# Show the profile page
 @login_required
 def profile(request):
     context_dict = {}
 
+    # Check if the user is donor or hospital
     if request.user.is_donor:
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
-
     else:
         hospital = Hospital.objects.get(pk=request.user.id)
         context_dict["hospital"] = hospital
@@ -281,15 +273,19 @@ def profile(request):
     return response
 
 
+# Show profile editaion and handle the edit of the user details
 @login_required
 def profile_edit(request):
     context_dict = {}
 
+    # Check if the form has been submitted
     if request.method == 'POST':
         qd = dict(request.POST)
+        # check if it s donor or hospital
         if 'username' in qd:
             for k, v in qd.items():
                 qd[k] = v[0]
+            # get the instance of the donor and update all the data given at the form
             user = User.objects.get(pk=request.user.id)
             donor = Donor.objects.get(pk=request.user.id)
 
@@ -330,10 +326,11 @@ def profile_edit(request):
 
 
         elif 'hospital_name' in qd:
-            print("hejhola")
+
             for k, v in qd.items():
                 qd[k] = v[0]
 
+            # Get the instance of the hospital by its id and update all its fields using the data given by the form
             user = User.objects.get(pk=request.user.id)
             hospital = Hospital.objects.get(pk=request.user.id)
 
@@ -344,12 +341,10 @@ def profile_edit(request):
                 user.save()
             except IntegrityError:
                 return JsonResponse({'success': False, 'message': "This email is already used"})
-            print(qd['location'])
+
             hospital.name = qd['hospital_name']
             hospital.location = qd['location']
-            # self.notified_types = data['notif_types']
-
-            # Try to create a save the changes
+            # Try save the changes
             try:
                 user.save()
                 hospital.save()
@@ -373,12 +368,15 @@ def profile_edit(request):
     return response
 
 
+# Show the hospital detail page
 @login_required
 def hospital(request, hospital_slug):
     context_dict = {}
+    # Try if there is a hospital with the provided slug
     try:
         hospital = Hospital.objects.get(slug_name=hospital_slug)
 
+        # is the user is a hospital, redirect to the dashboard because hospitals cannot see pages of other hospitals
         if request.user.is_hospital:
             user_hospital = Hospital.objects.get(pk=request.user.id)
             if user_hospital.slug_name == hospital.slug_name:
@@ -387,17 +385,20 @@ def hospital(request, hospital_slug):
         context_dict['hospital'] = hospital
 
         donor = Donor.objects.get(pk=request.user.id)
-
+        # Get the stories liked by this donor
         context_dict["liked"] = donor.likedStories
 
+        # Get the stories written by this hospital
         stories = Story.objects.order_by('-pk').filter(hospital=hospital)
         if len(stories) > 0:
             context_dict["stories"] = stories
+
         # Get all reviews about this hospital
         reviews = Review.objects.order_by('-pk').filter(hospital=hospital)
         if len(reviews) > 0:
             context_dict["reviews"] = reviews
 
+        # Get all the slots provided by this hospital
         booking_slots = Booking.get_slot(hospital.hospital_id)
 
         if len(booking_slots) > 0:
@@ -435,26 +436,26 @@ def visitor_cookie_handler(request):
     request.session['visits'] = visits
 
 
+# Get information about all the hospitals in giver format of JSON
 def all_hospitals(request):
     hospitals = Hospital.objects.all()
-    # print(hospitals)
 
     context_dict = {}
-    # context_dict["hospitals"] = hospitals
+
     for h in hospitals:
-        # print(h.hospital_id)
         context_dict[h.name] = [h.hospital_id, h.location, h.slug_name]
-    # print()
-    # response = render(request, 'app/map.html', context=context_dict)
+
     return JsonResponse(context_dict)
 
-
+# Cancel booking with given id
 def cancel_booking(request):
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         booking_id = request.GET.get('id', '')
+        # Try if there is a booking with provided id
         try:
             booking = Booking.objects.get(pk=booking_id)
+            # If there is such a booking, delete it
             if booking:
                 booking.delete()
                 return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
@@ -464,15 +465,18 @@ def cancel_booking(request):
     else:
         return redirect("app:app")
 
-
+# Like a story with a given id
 def like_story(request):
+    # Check if there is get parameter provided
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         story_id = request.GET.get('id', '')
         data = {"story_id": story_id, "donor_id": request.user.id}
+        # try to get donor and story of given ids
         try:
             donor = Donor.objects.get(pk=request.user.id)
             story = Story.objects.get(pk=story_id)
+            # Decide whether the donor ahs already like this story and perfom like or dislike process accordingly
             if story_id in json.loads(donor.likedStories):
                 story.dislike_story(data)
                 return JsonResponse({'success': True, 'message': "The story has been successfully disliked!"})
@@ -489,19 +493,19 @@ def like_story(request):
 def write_review(request):
     context_dict = {}
 
+    # Check if the request is of post type
     if request.method == 'POST':
-        print(request.POST)
+        # Get the informationg from the form in required format
         donor_id = request.POST["donor"]
         hospital_id = request.POST["hospital"]
         data = {'donor': Donor.objects.get(pk=donor_id),
                 'hospital': Hospital.objects.get(pk=hospital_id),
                 'date': request.POST["time"],
                 'review': request.POST["review_text"]}
-
-        review = Review()
-        review.new_review(data)
+        # Try to create a new review with given data
         try:
-            # review.new_review(data)
+            review = Review()
+            review.new_review(data)
             return JsonResponse({'success': True, 'message': "The review has been succesfully published!"})
         except:
             return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
@@ -509,17 +513,21 @@ def write_review(request):
     else:
         return redirect("app:app")
 
-# Save the story by hospital
+# Save the story
 def write_story(request):
     context_dict = {}
 
+    # Check if the request is of type post
     if request.method == 'POST':
+
+        # Get the data in required format
         data = {'hospital': Hospital.objects.get(pk=request.user.id),
                     'date': request.POST.get("time"),
                     'story': request.POST.get("story"),
                     'heading': request.POST.get("heading"),
                     'likes': 0}
 
+        # Handle image import
         if request.FILES.get("file") is not None:
             image = request.FILES["file"]
             fs = FileSystemStorage()
@@ -531,10 +539,10 @@ def write_story(request):
                     'heading': request.POST.get("heading"),
                     'picture': uploaded_file_url,
                     'likes': 0}
-        story = Story()
-        story.new_story(data)
+        # Try to create a new story
         try:
-            # review.new_review(data)
+            story = Story()
+            story.new_story(data)
             return JsonResponse({'success': True, 'message': "The review has been succesfully published!"})
         except:
             return JsonResponse({'success': False, 'message': "The provided login details are incorrect!"})
@@ -542,11 +550,14 @@ def write_story(request):
     else:
         return redirect("app:app")
 
+# Get all reviews - used to load new data to the page without 
+# a need of refreshing the webpage after new review has been written
 def get_new_reviews(request):
     context_dict = {}
     if request.method == 'GET':
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         hospital_id = request.GET.get('hospital_id', '')
+        # Get the data in formatted json
         try:
             hospital = Hospital.objects.get(pk=hospital_id)
             reviews = Review.objects.order_by('-pk').filter(hospital=hospital).values()
@@ -557,7 +568,8 @@ def get_new_reviews(request):
     else:
         return redirect("app:app")
 
-
+# Get all stories - used to load new data to the page without 
+# a need of refreshing the webpage after new story has been written
 def get_new_stories(request):
     context_dict = {}
     if request.method == 'GET':
@@ -573,10 +585,12 @@ def get_new_stories(request):
     else:
         return redirect("app:app")
 
+# Set up a blood type which the hospital needs
 def notify_donors(request):
     if request.method == 'POST' and request.user.is_hospital:
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         blood_type = request.POST['type']
+        # Try to save the required blood type 
         try:
             hospital = Hospital.objects.get(pk=request.user.id)
             hospital.notified_types = blood_type
@@ -587,15 +601,19 @@ def notify_donors(request):
     else:
         return redirect("app:app")
 
+# Create a new appointment
 def book_appointment(request):
+    # check if the request is of type post and if the user is Donor
     if request.method == 'POST' and request.user.is_donor:
         
+        # get the required format of the data
         appointment = request.POST['time']
         donor_id = request.POST['donor']
         hospital_id = request.POST['hospital']
         data = {'hospital': Hospital.objects.get(pk=hospital_id),
                 'donor': Donor.objects.get(pk=donor_id),
                 'appointment': request.POST.get("time")}
+        # Try to create a new Booking with provided data
         try:
             booking = Booking()
             booking.new_appointment(data)

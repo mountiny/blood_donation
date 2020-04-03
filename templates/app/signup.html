@@ -123,6 +123,7 @@
                 </div>
 
             <!-- Map settings -->
+            
             <h4 style="font-size: 1rem; padding: 20px 0px;" id="map_text">Please select the hospital address on the map: </h4>
             <div id="mapid" style="width: 705px; height: 375px"></div>
 
@@ -324,7 +325,7 @@
                         'hospital_name' : hospital_name},
                 // dataType: "json",
                 success: function(response) {
-                    console.log(response);
+
                     if (response.success) {
                         $(".modal-content__msg").html(response.message);
 

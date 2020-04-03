@@ -166,10 +166,7 @@
     <div class="modal-container">
         <div class="modal-content__msg h-700"></div>
         <div class="modal-buttons__cont">
-                <div class="modal-button h-pointer h-uppercase modal-close h-link-effect-primary h-700">Close</div>
-            <!-- <div class="modal-button h-pointer h-uppercase modal-btn-profile h-link-effect-primary h-700"><a href="{% url 'app:profile' %}">
-                Back to profile
-            </a></div> -->
+            <div class="modal-button h-pointer h-uppercase modal-close h-link-effect-primary h-700">Close</div>
         </div>
     </div>
 </div>
@@ -335,7 +332,7 @@
                         'location': JSON.stringify(loc),
                         'hospital_name' : hospital_name},
                 success: function(response) {
-                    console.log(response);
+
                     if (response.success) {
 
                         window.location.href = ("../");

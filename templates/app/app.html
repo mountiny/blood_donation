@@ -543,7 +543,6 @@ $(document).ready(function() {
 
             $.each($(".likes-cont"),function(){
 
-                console.log($(this).data("id"))
                 if($(this).data("id") == like) {
                     $(this).addClass("h-liked")
                 }
@@ -596,7 +595,6 @@ $(document).ready(function() {
             dataType: "json",
             data: {"type": notify_type},
             success: function(response) {
-                console.log(response)
                 if (response.success) {
                     $(".notify-donors__modal .modal-content__msg").html(response.message);
                     
@@ -753,7 +751,7 @@ $(document).ready(function() {
                 }
 
                 
-                
+    
                 // disable scrolling when modal is on
                 $("html").css("overflow", "hidden");
 
@@ -777,7 +775,6 @@ $(document).ready(function() {
             url: "get_new_stories?hospital_id="+hospital_id,
             dataType: "json",
             success: function(response) {
-                console.log(response)
 
                 var new_html = '<h2 class="dashboard-heading h-900">Most popular stories</h2><div class="stories-wrapper">';
                 var counter = 1;
@@ -785,8 +782,6 @@ $(document).ready(function() {
                 var media_url = "{{MEDIA_URL}}"
 
                 $.each(response["data"], function(i, val) {
-
-                    console.log(val["picture"])
 
                     if(counter<5 ) {
                         new_html += '<div class="story-block">'
@@ -867,7 +862,6 @@ $(document).ready(function() {
             url: "like_story?id="+story_id,
             dataType: "json",
             success: function(response) {
-                console.log(response)
             }
         })
         

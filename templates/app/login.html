@@ -34,18 +34,6 @@
             <input class="h-btn h-text-center h-700 h-submit-btn" type="submit" value="Log in">
 
         </form>
-<!-- 
-        <div class="form-element h-btn h-text-center" id="forgotten_password">Forgotten password</div>
-
-        <script type="text/javascript">
-
-            $(document).ready(function(){
-                $("#forgotten_password").click( function(){
-                    console.log('Forgotten Password');
-                })
-            })
-
-        </script> -->
 
         <div class="form-element form-note h-text-center">You do not have an account yet?</div>
         <div class="form-element h-btn h-text-center">
@@ -100,7 +88,6 @@
                 $("#password_field").addClass("h-empty");
                 return;
             }
-            console.log('Username: ' + username + " Password: " + password);
 
              $.ajax({
                 type: "POST",

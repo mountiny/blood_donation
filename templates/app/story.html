@@ -69,7 +69,7 @@ $(document).ready(function() {
     // Show full hearts for all the stories the donor liked
     var liked = "{{liked}}"
     var story_id = "{{story.id}}"
-    
+
     if (liked != ""){
         liked = JSON.parse(liked.replace(/&quot;/g,'"'))
 
@@ -77,7 +77,6 @@ $(document).ready(function() {
 
             $.each($(".story-detail__likes"),function(){
 
-                console.log($(this).data("id"))
                 if($(this).data("id") == like) {
                     $(this).addClass("h-liked")
                 }
@@ -111,7 +110,7 @@ $(document).ready(function() {
             url: "../like_story?id="+story_id,
             dataType: "json",
             success: function(response) {
-                console.log(response)
+
             }
         })
 

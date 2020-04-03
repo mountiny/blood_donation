@@ -171,7 +171,7 @@
         // Check if it is a hospital
         if (loc_raw != ""){
             var loc = JSON.parse(loc_raw.replace(/&quot;/g,'"'))
-            console.log(loc)
+
             // Map setup
 
             var map = L.map('mapid',{ center: [loc["lat"], loc["lon"]], zoom: 8});

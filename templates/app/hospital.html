@@ -450,7 +450,6 @@ $(document).ready(function() {
 
             $.each($(".likes-cont"),function(){
 
-                console.log($(this).data("id"))
                 if($(this).data("id") == like) {
                     $(this).addClass("h-liked")
                 }
@@ -585,7 +584,6 @@ $(document).ready(function() {
             url: "{% url 'app:book_appointment' %}",
             data: data,
             success: function(response) {
-                console.log(response)
                 if (response.success) {
 
                     $(".information__modal .modal-content__msg").html(response.message);
@@ -690,8 +688,6 @@ $(document).ready(function() {
 
                 $.each(response["data"], function(i, val) {
 
-                    console.log(val)
-
                     if(counter<5 ) {
 
                     new_html +='<div class="review-block"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
@@ -736,7 +732,7 @@ $(document).ready(function() {
                 dataType: "json",
                 async: false,
                 success: function(response) {
-                    console.log(response)
+
                 }
             })
         }
