@@ -726,6 +726,8 @@ $(document).ready(function() {
 
                 if (response.success) {
 
+                    getNewStories();
+
                     $(".information__modal .modal-content__msg").html(response.message);
                     // Show a modal with information about the signup process
                     $(".information__modal").toggleClass("modal-open");
@@ -753,24 +755,59 @@ $(document).ready(function() {
         var hospital_id = "{{ hospital.pk }}";
         $.ajax({
             type: "GET",
-            url: "../../get_new_reviews?hospital_id="+hospital_id,
+            url: "get_new_stories?hospital_id="+hospital_id,
             dataType: "json",
             success: function(response) {
                 console.log(response)
 
-                var new_html = '<h2 class="dashboard-heading h-900">Reviews of this hospital</h2><div class="reviews-wrapper">';
+                var new_html = '<h2 class="dashboard-heading h-900">Most popular stories</h2><div class="stories-wrapper">';
                 var counter = 1;
+
+                var media_url = "{{MEDIA_URL}}"
 
                 $.each(response["data"], function(i, val) {
 
-                    console.log(val)
+                    console.log(val["picture"])
 
                     if(counter<5 ) {
+                        new_html += '<div class="story-block">'
+                        if(val["picture"] != "") {
+                            new_html += '<img src="'+media_url+val["picture"] +'" alt="Story picture" class="story-pic">';
+                        } else {
+                            new_html += '<img src="/static/images/story_placeholder.jpg" alt="Story picture" class="story-pic">';
+                        }
+                        new_html += '<div class="story-content">'  ;
+                        new_html += '<h4 class="h-700">'+ val["heading"]+'</h4>'   ;
+                        new_html += '<div class="story-text">'+ val["story"]+'</div>'  ;
+                        new_html += '<div class="story-block__bar"><a href="story?id='+val["id"]+'" class="story-link h-700">Read the story</a>';
+                        new_html += '<div class="likes-cont h-hospital" data-id="'+val["id"]+'">';
+                        new_html += '<svg height="0" width="0" style="position:relative;"><path stroke="black" stroke-width="2" id="heart-icon" d="M16,28.261c0,0-14-7.926-14-17.046c0-9.356,13.159-10.399,14-0.454c1.011-9.938,14-8.903,14,0.454 C30,20.335,16,28.261,16,28.261z"/></svg><svg class="icon-like" viewBox="0 0 32 32"><use xlink:href="#heart-icon"></use></svg>';
+                        new_html += '<span class="likes-count">'+val["likes"]+'</span>';
+                        new_html += '</div>';
+                        new_html += '</div>';
+                        new_html += '</div>';
+                        new_html += '</div>';
 
-                    new_html +='<div class="review-block"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
+                        
                     
                     } else {
-                        new_html +='<div class="review-block fadeable h-display-none"><div class="review-content"><span>Review for:</span><br /><h4 class="h-700">'+hospital_name+'</h4><span class="review-date">On: '+val["date"]+'</span><div class="review-text">'+val["review"]+'</div><div class="review-bar"><a href="../../review?id='+val["id"]+'" class="review-btn h-700">Read more!</a></div></div></div>'
+                        new_html += '<div class="story-block fadeable h-display-none">'
+                        if(val["picture"] != "") {
+                            new_html += '<img src=""'+media_url+val["picture"] +'" alt="Story picture" class="story-pic">';
+                        } else {
+                            new_html += '<img src="/static/images/story_placeholder.jpg" alt="Story picture" class="story-pic">';
+                        }
+                        new_html += '<div class="story-content">'  ;
+                        new_html += '<h4 class="h-700">'+ val["heading"]+'</h4>'   ;
+                        new_html += '<div class="story-text">'+ val["story"]+'</div>'  ;
+                        new_html += '<div class="story-block__bar"><a href="story?id='+val["id"]+'" class="story-link h-700">Read the story</a>';
+                        new_html += '<div class="likes-cont h-hospital" data-id="'+val["id"]+'">';
+                        new_html += '<svg height="0" width="0" style="position:relative;"><path stroke="black" stroke-width="2" id="heart-icon" d="M16,28.261c0,0-14-7.926-14-17.046c0-9.356,13.159-10.399,14-0.454c1.011-9.938,14-8.903,14,0.454 C30,20.335,16,28.261,16,28.261z"/></svg><svg class="icon-like" viewBox="0 0 32 32"><use xlink:href="#heart-icon"></use></svg>';
+                        new_html += '<span class="likes-count">'+val["likes"]+'</span>';
+                        new_html += '</div>';
+                        new_html += '</div>';
+                        new_html += '</div>';
+                        new_html += '</div>';
                     }
 
                     counter += 1;
@@ -778,10 +815,10 @@ $(document).ready(function() {
                 new_html += '</div>';
 
                 if (response["data"].length > 4) {
-                    new_html += '<div class="show-more show-more-reviews h-700" data-section="reviews-section">Show more!</div>';
+                    new_html += '<div class="show-more show-more-stories h-700" data-section="stories-section">Show more!</div>';
                 }
 
-                $(".reviews-container").html(new_html);
+                $(".stories-container").html(new_html);
             
             }
         })

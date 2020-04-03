@@ -17,6 +17,7 @@ urlpatterns = [
     path('app/write_story/', views.write_story, name='write_story'),
     path('app/book_appointment/', views.book_appointment, name='book_appointment'),
     re_path(r'^app/get_new_reviews/$', views.get_new_reviews, name='get_new_reviews'),
+    re_path(r'^app/get_new_stories/$', views.get_new_stories, name='get_new_stories'),
     path('app/map/', views.hospital_map, name='map'),
     path('app/map/all_hospitals/', views.all_hospitals, name='all_hospitals'),
     path('app/profile/', views.profile, name='profile'),

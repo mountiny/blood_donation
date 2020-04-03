@@ -206,7 +206,7 @@ def app(request):
         if len(bookings) > 0:
             context_dict["bookings"] = bookings
         # Get stories written by this hospital
-        stories = Story.objects.order_by('pk').filter(hospital=hospital)
+        stories = Story.objects.order_by('-pk').filter(hospital=hospital)
         if len(stories) > 0:
             context_dict["stories"] = stories
         # Get all reviews about this hospital
@@ -552,6 +552,22 @@ def get_new_reviews(request):
             hospital = Hospital.objects.get(pk=hospital_id)
             reviews = Review.objects.order_by('-pk').filter(hospital=hospital).values()
             data = list(reviews)
+            return JsonResponse({'success': True, 'data':data, 'message': "The reviews have been retrieved successfully!"})
+        except:
+            return JsonResponse({'success': False, 'message': "A hospital with given id does not exist!"})
+    else:
+        return redirect("app:app")
+
+
+def get_new_stories(request):
+    context_dict = {}
+    if request.method == 'GET':
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        hospital_id = request.GET.get('hospital_id', '')
+        try:
+            hospital = Hospital.objects.get(pk=hospital_id)
+            stories = Story.objects.order_by('-pk').filter(hospital=hospital).values()
+            data = list(stories)
             return JsonResponse({'success': True, 'data':data, 'message': "The reviews have been retrieved successfully!"})
         except:
             return JsonResponse({'success': False, 'message': "A hospital with given id does not exist!"})
