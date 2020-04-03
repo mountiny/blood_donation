@@ -1,6 +1,6 @@
 python-dateutil==2.8.1
 certifi==2019.11.28
-Django==2.2.7
+Django==2.2.3
 Pillow==7.0.0
 pytz==2019.3
 sqlparse==0.3.0
