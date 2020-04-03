@@ -123,7 +123,8 @@ def populate():
         "height": 185,
         "weight": 103,
         "blood_type": "A+",
-        "notification": True
+        "notification": True,
+        "sex": "M"
     })
 
     create_donor({
@@ -138,7 +139,8 @@ def populate():
         "height": 193,
         "weight": 93,
         "blood_type": "B-",
-        "notification": False
+        "notification": False,
+        "sex": "M"
     })
 
     create_donor({
@@ -153,7 +155,8 @@ def populate():
         "height": 173,
         "weight": 61,
         "blood_type": "AB+",
-        "notification": True
+        "notification": True,
+        "sex": "M"
     })
 
     create_donor({
@@ -168,7 +171,8 @@ def populate():
         "height": 193,
         "weight": 105,
         "blood_type": "0-",
-        "notification": True
+        "notification": True,
+        "sex": "M"
     })
 
     create_donor({
@@ -183,7 +187,8 @@ def populate():
         "height": 180,
         "weight": 70,
         "blood_type": "A-",
-        "notification": False
+        "notification": False,
+        "sex": "M"
     })
 
     # get donors and hospital from database
