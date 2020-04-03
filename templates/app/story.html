@@ -69,22 +69,23 @@ $(document).ready(function() {
     // Show full hearts for all the stories the donor liked
     var liked = "{{liked}}"
     var story_id = "{{story.id}}"
-    liked = JSON.parse(liked.replace(/&quot;/g,'"'))
-    console.log(liked)
-    console.log("id:" + story_id)
+    
+    if (liked != ""){
+        liked = JSON.parse(liked.replace(/&quot;/g,'"'))
 
-    $.each(liked,function(i, like){
+        $.each(liked,function(i, like){
 
-        $.each($(".story-detail__likes"),function(){
+            $.each($(".story-detail__likes"),function(){
 
-            console.log($(this).data("id"))
-            if($(this).data("id") == like) {
-                $(this).addClass("h-liked")
-            }
-            
+                console.log($(this).data("id"))
+                if($(this).data("id") == like) {
+                    $(this).addClass("h-liked")
+                }
+                
+            })
+
         })
-
-    })
+    }
 
     // give like to the story
     $(".story-detail__likes").click(function () {

@@ -318,7 +318,6 @@ def profile_edit(request):
                 donor.notification = False
 
             donor.blood_type = qd['blood_type']
-            # self.notification = data['notification']
 
             # Try to create a save the changes
             try:

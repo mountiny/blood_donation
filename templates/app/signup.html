@@ -73,8 +73,7 @@
             </div>
             <div class="form-line">
                 <label for="sex_field">Sex:</label>
-                <div>
-
+                <div class="form-radio">
                     <input type="radio" name="sex" id="sex_field" value="M" checked>
                     <label for="sex_field">M</label>
                     <input type="radio" name="sex" id="sex_field" value="F">
@@ -181,6 +180,7 @@
             var height = $("#height_field").val();
             var notification = $("#notification_field").prop('checked');
             var blood_type = $("#blood_field").val();
+            var sex_field = $("#sex_field").prop('checked') ? "M": "F";
             var csrftoken = getCookie('csrftoken');
 
             // Reset the error
@@ -230,6 +230,7 @@
                 return;
 
             }
+            
 
             $.ajax({
                 type: "POST",
@@ -246,6 +247,7 @@
                     'weight': weight,
                     'city': city,
                     'notification': notification,
+                    'sex': sex_field,
                     'blood_type' : blood_type
                 },
                 success: function(response) {

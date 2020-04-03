@@ -89,6 +89,9 @@ input {
     &[type="file"] {
         border: none;
     }
+    &[type="radio"] {
+        margin-right: 10px;
+    }
 
     &::-webkit-input-placeholder {
         /* Edge */
@@ -137,5 +140,14 @@ textarea {
     }
     &.h-empty {
         border: 2px solid $primary;
+    }
+}
+.form-radio {
+    @include display_flexbox();
+    @include justify_content(flex-start);
+    @include align-items(center);
+    @include align-content(center);
+    label {
+        margin-right: 10px;
     }
 }

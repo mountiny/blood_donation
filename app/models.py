@@ -64,7 +64,7 @@ class Donor(models.Model):
         if int(data['weight']) < 50:
             return {'error': "You must weight over 50kg to be able to sign up"}
         self.weight = data['weight']
-        # self.gender = "M" if (data['gender'] == 'male') else "F"
+        self.gender = data['sex']
 
         self.blood_type = data['blood_type']
         if data['notification'] == "true":
@@ -87,18 +87,21 @@ class Donor(models.Model):
     def donate_again(donor_id):
         last_donation = Booking.objects.filter(donor_id=donor_id).last()
         today = datetime.date.today()
-        if Donor.objects.get(donor_id=donor_id).gender == 'M':
-            if (last_donation.appointment.date() + relativedelta(months=+3)) <= today:
-                return True
-            else:
-                return False
-        elif Donor.objects.get(donor_id=donor_id).gender == 'F':
-            if (last_donation.appointment.date() + relativedelta(months=+4)) <= today:
-                return True
+        if last_donation:
+            if Donor.objects.get(donor_id=donor_id).gender == 'M':
+                if (last_donation.appointment.date() + relativedelta(months=+3)) <= today:
+                    return True
+                else:
+                    return False
+            elif Donor.objects.get(donor_id=donor_id).gender == 'F':
+                if (last_donation.appointment.date() + relativedelta(months=+4)) <= today:
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
-            return False
+            return True
 
 
 

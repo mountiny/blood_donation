@@ -98,7 +98,11 @@
                     Notifications allowed:
                 </div>
                 <div class="data-value">
-                    {{ donor.notification }}
+                    {% if donor.notification %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
                 </div>
             </div>
             <div class="donor-data">

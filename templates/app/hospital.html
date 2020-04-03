@@ -443,21 +443,23 @@ $(document).ready(function() {
 
     // Show full hearts for all the stories the donor liked
     var liked = "{{liked}}"
-    liked = JSON.parse(liked.replace(/&quot;/g,'"'))
+    if (liked != ""){
+        liked = JSON.parse(liked.replace(/&quot;/g,'"'))
 
-    $.each(liked,function(i, like){
+        $.each(liked,function(i, like){
 
-        $.each($(".likes-cont"),function(){
+            $.each($(".likes-cont"),function(){
 
-            console.log($(this).data("id"))
-            if($(this).data("id") == like) {
-                $(this).addClass("h-liked")
-            }
-                
+                console.log($(this).data("id"))
+                if($(this).data("id") == like) {
+                    $(this).addClass("h-liked")
+                }
+                    
+
+            })
 
         })
-
-    })
+    }
 
     // give like to the story
     $(".likes-cont").click(function () {

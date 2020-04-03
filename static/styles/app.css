@@ -348,6 +348,10 @@ input[type="file"] {
   border: none;
 }
 
+input[type="radio"] {
+  margin-right: 10px;
+}
+
 input::-webkit-input-placeholder {
   /* Edge */
   color: #000000;
@@ -402,6 +406,24 @@ textarea.h-btn {
 
 textarea.h-empty {
   border: 2px solid #e74c3c;
+}
+
+.form-radio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.form-radio label {
+  margin-right: 10px;
 }
 
 .dasboard-container {
