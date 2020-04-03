@@ -39,6 +39,23 @@
                     </div>
                 </div>
 
+                {% if donate %}
+                    <div class="dashboard-block h-border-radius h-shadow h-pointer h-green">
+                        <div class="dashboard-block__text">
+                            <span class="block-text__title h-900">Can I?</span><br />
+                            You can donate again!
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="dashboard-block h-border-radius h-shadow h-pointer">
+                        <div class="dashboard-block__text">
+                            <span class="block-text__title h-900">Can I?</span><br />
+                            No, you must wait {% if donor.gender == "M" %}3{% else %}4{% endif %} months after your last appointment!
+                        </div>
+                    </div>
+                {% endif %}
+                
+
             </div>
 
             {% if donor.notification %}

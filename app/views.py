@@ -181,6 +181,10 @@ def app(request):
         stories = Story.objects.order_by('-likes')[:4]
         context_dict["stories"] = stories
 
+        donate = Donor.donate_again(request.user.id)
+        if donate:
+            context_dict["donate"] = {"donate": "yes"}
+
         # Get all reviews of by the donor
         reviews = Review.objects.order_by('pk').filter(donor=donor)
         if len(reviews) > 0:

@@ -460,6 +460,12 @@ textarea.h-empty {
           box-shadow: 0 8px 50px 4px rgba(25, 25, 25, 0.32);
 }
 
+.dashboard-block.h-green {
+  background: #c23616;
+  /* fallback for old browsers */
+  background-image: linear-gradient(109.6deg, rgba(98, 210, 141, 0.88) 11.2%, rgba(234, 245, 45, 0.79) 88%);
+}
+
 .dashboard-block .block-text__title {
   font-size: 2.5em;
   line-height: 1em;

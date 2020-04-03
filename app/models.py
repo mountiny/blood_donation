@@ -84,11 +84,9 @@ class Donor(models.Model):
         return {'error': None}
 
     @staticmethod
-    def donate_again(data):
-        donor_id = data['donor_id']
+    def donate_again(donor_id):
         last_donation = Booking.objects.filter(donor_id=donor_id).last()
         today = datetime.date.today()
-        print (last_donation.appointment)
         if Donor.objects.get(donor_id=donor_id).gender == 'M':
             if (last_donation.appointment.date() + relativedelta(months=+3)) <= today:
                 return True
