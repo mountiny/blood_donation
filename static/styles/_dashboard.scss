@@ -88,11 +88,17 @@
         background-color: $red-light;
     }
 
-    .icon_like {
-        width: 16px;
-        height: 16px;
+    .icon-like {
+        width: 20px;
+        height: 20px;
         vertical-align: top;
         padding-right: 10px;
+        fill: white;
+        @include prefix(transition,(fill 0.3s $curve));
+        &:hover {
+            background-color: $red-light;
+        }
+    
     }
     h4 {
         padding-bottom: 20px;
@@ -138,10 +144,23 @@
 }
 .likes-cont {
     position: relative;
+    padding: 10px;
     @include display_flexbox();
     @include justify_content(flex-end);
     @include align-items(center);
     @include align-content(center);
+    &.h-liked {
+        .icon-like {
+
+            fill: black;
+        }
+    }
+    &:hover {
+        .icon-like {
+
+            fill: black;
+        }
+    }
 }
 
 // Bookings block styles

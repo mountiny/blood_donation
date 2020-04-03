@@ -181,6 +181,8 @@ def app(request):
         stories = Story.objects.order_by('-likes')[:4]
         context_dict["stories"] = stories
 
+        context_dict["liked"] = donor.likedStories
+
         donate = Donor.donate_again(request.user.id)
         if donate:
             context_dict["donate"] = {"donate": "yes"}
@@ -225,6 +227,9 @@ def story(request):
         # Check if valid story id has been provided in the url
         story_id = request.GET.get('id', '')
         story = Story.objects.get(pk=story_id)
+        if request.user.is_donor:
+            donor = Donor.objects.get(pk=request.user.id)
+            context_dict["liked"] = donor.likedStories
         if story:
             context_dict["story"] = story
             return render(request, 'app/story.html', context=context_dict)
@@ -383,6 +388,10 @@ def hospital(request, hospital_slug):
 
         context_dict['hospital'] = hospital
 
+        donor = Donor.objects.get(pk=request.user.id)
+
+        context_dict["liked"] = donor.likedStories
+
         stories = Story.objects.order_by('-pk').filter(hospital=hospital)
         if len(stories) > 0:
             context_dict["stories"] = stories
@@ -453,6 +462,27 @@ def cancel_booking(request):
                 return JsonResponse({'success': True, 'message': "The booking has been cancelled successfully!"})
         except:
             return JsonResponse({'success': False, 'message': "Booking with given id does not exist!"})
+
+    else:
+        return redirect("app:app")
+
+
+def like_story(request):
+    if request.method == 'GET':
+        # Check if GET parameter has been used in the url to show hospital sign up form directly
+        story_id = request.GET.get('id', '')
+        data = {"story_id": story_id, "donor_id": request.user.id}
+        try:
+            donor = Donor.objects.get(pk=request.user.id)
+            story = Story.objects.get(pk=story_id)
+            if story_id in json.loads(donor.likedStories):
+                story.dislike_story(data)
+                return JsonResponse({'success': True, 'message': "The story has been successfully disliked!"})
+            else:
+                story.like_story(data)
+                return JsonResponse({'success': True, 'message': "The story has been successfully liked!"})
+        except:
+            return JsonResponse({'success': False, 'message': "Story with given id does not exist!"})
 
     else:
         return redirect("app:app")

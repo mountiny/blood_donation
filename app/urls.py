@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('app/', views.app, name='app'),
     re_path(r'^app/cancel_booking/$', views.cancel_booking, name='cancel_booking'),
+    re_path(r'^app/like_story/$', views.like_story, name='like_story'),
     path('app/notify_donors/', views.notify_donors, name='notify_donors'),
     re_path(r'^app/story/$', views.story, name='story'),
     re_path(r'^app/review/$', views.review, name='review'),

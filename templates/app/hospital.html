@@ -74,7 +74,13 @@
                                     <div class="story-block__bar">
                                         <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
                                         <div class="likes-cont h-pointer" data-id="{{ story.id }}">
-                                            <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
+                                                <svg height="0" width="0" style="position:relative;">
+                                                        <path stroke="black" stroke-width="2" id="heart-icon" d="M16,28.261c0,0-14-7.926-14-17.046c0-9.356,13.159-10.399,14-0.454c1.011-9.938,14-8.903,14,0.454
+                                                            C30,20.335,16,28.261,16,28.261z"/>                   
+                                                    </svg>
+                                                    <svg class="icon-like" viewBox="0 0 32 32">
+                                                        <use xlink:href="#heart-icon"></use>
+                                                    </svg>
                                             <span class="likes-count">{{ story.likes }}</span>
                                         </div>
                                     </div>
@@ -93,7 +99,13 @@
                                     <div class="story-block__bar">
                                         <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
                                         <div class="likes-cont h-pointer" data-id="{{ story.id }}">
-                                            <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
+                                                <svg height="0" width="0" style="position:relative;">
+                                                        <path stroke="black" stroke-width="2" id="heart-icon" d="M16,28.261c0,0-14-7.926-14-17.046c0-9.356,13.159-10.399,14-0.454c1.011-9.938,14-8.903,14,0.454
+                                                            C30,20.335,16,28.261,16,28.261z"/>                   
+                                                    </svg>
+                                                    <svg class="icon-like" viewBox="0 0 32 32">
+                                                        <use xlink:href="#heart-icon"></use>
+                                                    </svg>
                                             <span class="likes-count">{{ story.likes }}</span>
                                         </div>
                                     </div>
@@ -199,8 +211,14 @@
                                             <div class="story-text">{{ story.story }}</div>
                                             <div class="story-block__bar">
                                                 <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
-                                                <div class="likes-cont h-pointer" data-id="{{ story.id }}">
-                                                    <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
+                                                <div class="likes-cont h-hospital" data-id="{{ story.id }}">
+                                                        <svg height="0" width="0" style="position:relative;">
+                                                                <path stroke="black" stroke-width="2" id="heart-icon" d="M16,28.261c0,0-14-7.926-14-17.046c0-9.356,13.159-10.399,14-0.454c1.011-9.938,14-8.903,14,0.454
+                                                                    C30,20.335,16,28.261,16,28.261z"/>                   
+                                                            </svg>
+                                                            <svg class="icon-like" viewBox="0 0 32 32">
+                                                                <use xlink:href="#heart-icon"></use>
+                                                            </svg>
                                                     <span class="likes-count">{{ story.likes }}</span>
                                                 </div>
                                             </div>
@@ -218,8 +236,14 @@
                                             <div class="story-text">{{ story.story }}</div>
                                             <div class="story-block__bar">
                                                 <a href="../../story?id={{ story.id }}" class="story-link h-700">Read the story</a>
-                                                <div class="likes-cont h-pointer" data-id="{{ story.id }}">
-                                                    <svg class="icon_like" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><path id="heart" d="M64 127.5C17.1 79.9 3.9 62.3 1 44.4c-3.5-22 12.2-43.9 36.7-43.9 10.5 0 20 4.2 26.4 11.2 6.3-7 15.9-11.2 26.4-11.2 24.3 0 40.2 21.8 36.7 43.9C124.2 62 111.9 78.9 64 127.5zM37.6 13.4c-9.9 0-18.2 5.2-22.3 13.8C5 49.5 28.4 72 64 109.2c35.7-37.3 59-59.8 48.6-82 -4.1-8.7-12.4-13.8-22.3-13.8 -15.9 0-22.7 13-26.4 19.2C60.6 26.8 54.4 13.4 37.6 13.4z"></path>♥</svg>
+                                                <div class="likes-cont h-hospital" data-id="{{ story.id }}">
+                                                        <svg height="0" width="0" style="position:relative;">
+                                                                <path stroke="black" stroke-width="2" id="heart-icon" d="M16,28.261c0,0-14-7.926-14-17.046c0-9.356,13.159-10.399,14-0.454c1.011-9.938,14-8.903,14,0.454
+                                                                    C30,20.335,16,28.261,16,28.261z"/>                   
+                                                            </svg>
+                                                            <svg class="icon-like" viewBox="0 0 32 32">
+                                                                <use xlink:href="#heart-icon"></use>
+                                                            </svg>
                                                     <span class="likes-count">{{ story.likes }}</span>
                                                 </div>
                                             </div>
@@ -417,6 +441,53 @@ $(document).ready(function() {
         }
     })
 
+    // Show full hearts for all the stories the donor liked
+    var liked = "{{liked}}"
+    liked = JSON.parse(liked.replace(/&quot;/g,'"'))
+
+    $.each(liked,function(i, like){
+
+        $.each($(".likes-cont"),function(){
+
+            console.log($(this).data("id"))
+            if($(this).data("id") == like) {
+                $(this).addClass("h-liked")
+            }
+                
+
+        })
+
+    })
+
+    // give like to the story
+    $(".likes-cont").click(function () {
+
+        if ($(this).hasClass("h-hospital")) {
+            return;
+        }
+        var story_id = $(this).data("id");
+
+        var count = parseInt($(this).find("span.likes-count").html())
+        
+        if($(this).hasClass("h-liked")) {
+            $(this).find("span.likes-count").html(count-1);
+        } else {
+            $(this).find("span.likes-count").html(count+1);
+        }
+
+        $(this).toggleClass("h-liked");
+
+
+        $.ajax({
+            type: "GET",
+            url: "../../like_story?id="+story_id,
+            dataType: "json",
+            success: function(response) {
+            }
+        })
+
+    });
+
     var booking_to_cancel = -1;
 
     var hospital_id = "{{ user.id }}";
@@ -611,7 +682,6 @@ $(document).ready(function() {
             url: "../../get_new_reviews?hospital_id="+hospital_id,
             dataType: "json",
             success: function(response) {
-                console.log(response)
 
                 var new_html = '<h2 class="dashboard-heading h-900">Reviews of this hospital</h2><div class="reviews-wrapper">';
                 var counter = 1;

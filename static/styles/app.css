@@ -518,11 +518,18 @@ textarea.h-empty {
   background-color: #f7d9d4;
 }
 
-.story-block .icon_like {
-  width: 16px;
-  height: 16px;
+.story-block .icon-like {
+  width: 20px;
+  height: 20px;
   vertical-align: top;
   padding-right: 10px;
+  fill: white;
+  -webkit-transition: fill 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: fill 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.story-block .icon-like:hover {
+  background-color: #f7d9d4;
 }
 
 .story-block h4 {
@@ -582,6 +589,7 @@ textarea.h-empty {
 
 .likes-cont {
   position: relative;
+  padding: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -593,6 +601,14 @@ textarea.h-empty {
   align-items: center;
   -ms-flex-line-pack: center;
   align-content: center;
+}
+
+.likes-cont.h-liked .icon-like {
+  fill: black;
+}
+
+.likes-cont:hover .icon-like {
+  fill: black;
 }
 
 .bookings-container {
@@ -987,11 +1003,18 @@ textarea.h-empty {
   align-content: center;
 }
 
-.story-detail .icon_like {
-  width: 16px;
-  height: 16px;
+.story-detail .icon-like {
+  width: 20px;
+  height: 20px;
   vertical-align: top;
   padding-right: 10px;
+  fill: white;
+  -webkit-transition: fill 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: fill 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.story-detail .icon-like.h-liked {
+  fill: black;
 }
 
 .story-detail h4 {
@@ -1042,17 +1065,17 @@ textarea.h-empty {
 
 .story-detail__likes {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
+  padding: 10px;
+  display: inline-block;
+  float: right;
+}
+
+.story-detail__likes.h-liked .icon-like {
+  fill: black;
+}
+
+.story-detail__likes:hover .icon-like {
+  fill: black;
 }
 
 .dasboard-container {

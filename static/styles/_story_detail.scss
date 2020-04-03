@@ -24,11 +24,18 @@
     @include align-items(center);
     @include align-content(center);
 
-    .icon_like {
-        width: 16px;
-        height: 16px;
+    .icon-like {
+        width: 20px;
+        height: 20px;
         vertical-align: top;
         padding-right: 10px;
+        fill: white;
+        @include prefix(transition,(fill 0.3s $curve));
+
+        &.h-liked {
+            fill: black
+        }
+    
     }
     h4 {
         padding-bottom: 20px;
@@ -67,8 +74,22 @@
 }
 .story-detail__likes {
     position: relative;
-    @include display_flexbox();
-    @include justify_content(flex-end);
-    @include align-items(center);
-    @include align-content(center);
+    padding: 10px;
+    display: inline-block;
+    float: right;
+    // @include display_flexbox();
+    // @include justify_content(flex-end);
+    // @include align-items(center);
+    // @include align-content(center);
+    &.h-liked {
+        .icon-like {
+
+            fill: black;
+        }
+    }
+    &:hover {
+        .icon-like {
+            fill: black;
+        }
+    }
 }
