@@ -136,7 +136,7 @@ class Hospital(models.Model):
         self.hospital.is_hospital = True
         self.name = data['hospital_name']
         self.location = data['location']
-        self.notified_types = data['notified_types']
+        self.notified_types = "NO"
         try:
             self.hospital.save()
             self.save()
@@ -236,8 +236,8 @@ class Booking(models.Model):
         return l
 
     @staticmethod
-    def get_slot(data):
-        hosp_id = data['hospital_id']
+    def get_slot(hospital_id):
+        hosp_id = hospital_id
         from_date = (datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=1)).replace(hour=8, minute=0)
         to_date = (from_date + datetime.timedelta(days=6)).replace(hour=12, minute=0)
 

@@ -32,12 +32,12 @@
         {% if user.is_donor %}
 
             <div class="dashboard-menu__container">
-                <div class="dashboard-block h-border-radius h-shadow h-pointer show-map">
-                    <a href="{% url 'app:map'%}" class="dashboard-block__text">
+                <div class="dashboard-block h-border-radius h-shadow h-pointer book-it__btn">
+                    <div class="dashboard-block__text">
                         
                         <span class="block-text__title h-900">Book it!</span><br />
                         Book an appointment for next days!
-                    </a>
+                    </div>
                 </div>
                 <div class="dashboard-block h-border-radius h-shadow h-pointer write-review_btn">
                     <div class="dashboard-block__text">
@@ -323,6 +323,57 @@
     </div>
 </div>
 
+<div class="modal-wrapper book-it__modal" data-name="modal">
+    <div class="modal-container booking-modal_cont">
+        {% csrf_token %}
+        <div class="modal-booking__msg">
+            
+            
+            <div class="booking-grid">
+                {% if booking_slots %}
+                    {% for time, availability in booking_slots.items %}
+                        {% if forloop.counter == 25 or forloop.counter == 19 or forloop.counter == 13 or forloop.counter == 7 or forloop.counter == 1%}
+                        <div data-day="{{time}}" class="booking-slot day-slot">
+                           Day
+                        </div>
+                            <div data-time="{{time}}" class="booking-slot {% if availability %} h-free h-pointer {% else %} h-full {% endif %}">
+                                {{ forloop.counter }}
+                             </div>
+                        {% else %}
+                            <div data-time="{{time}}" class="booking-slot {% if availability %} h-free h-pointer {% else %} h-full {% endif %}">
+                                {{ forloop.counter }}
+                             </div>
+                        {% endif %}
+
+                    {% endfor %}
+                {% else %}
+                   We are sorry, something went wrong. Please, try ot book an appointment later!
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="modal-buttons__cont">
+            <div class="modal-button h-pointer h-uppercase book-modal__close h-link-effect-primary h-700">
+                Close
+            </div>
+            <div class="modal-button h-pointer h-uppercase book-it__now h-link-effect-primary h-700">
+                Book it
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-wrapper information__modal" data-name="modal">
+        <div class="modal-container">
+            <div class="modal-content__msg h-700"></div>
+            <div class="modal-buttons__cont">
+                <div class="modal-button h-pointer h-uppercase information-modal__close h-link-effect-primary h-700">
+                    Close
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 
@@ -331,6 +382,40 @@
 <script>
 
 $(document).ready(function() {
+
+    $(".booking-slot").each(function() {
+        if($(this).data("time")){
+            var timestamp = $(this).data("time");
+            var date = new Date(timestamp*1000)
+
+            var day = (date.getDate() < 10 ? '0' : '') + date.getDate(); //adding leading 0 if date less than 10 for the required dd format
+            var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1); //adding leading 0 if month less than 10 for mm format. Used less than 9 because javascriptmonths are 0 based.
+            var year = date.getFullYear(); //full year in yyyy format
+
+            var hours = ((date.getHours() % 12 || 12) < 10 ? '0' : '') + (date.getHours() % 12 || 12) - 1; //converting 24h to 12h and using 12 instead of 0. also appending 0 if hour less than 10 for the required hh format
+            var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes(); //adding 0 if minute less than 10 for the required mm format
+
+            var formattedDate = hours + ':' + minutes;
+            $(this).html(formattedDate);
+        }
+    })
+
+    $(".day-slot").each(function() {
+        if($(this).data("day")){
+            var timestamp = $(this).data("day");
+            var date = new Date(timestamp*1000)
+
+            var day = (date.getDate() < 10 ? '0' : '') + date.getDate(); //adding leading 0 if date less than 10 for the required dd format
+            var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1); //adding leading 0 if month less than 10 for mm format. Used less than 9 because javascriptmonths are 0 based.
+            var year = date.getFullYear(); //full year in yyyy format
+
+            var hours = ((date.getHours() % 12 || 12) < 10 ? '0' : '') + (date.getHours() % 12 || 12); //converting 24h to 12h and using 12 instead of 0. also appending 0 if hour less than 10 for the required hh format
+            var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes(); //adding 0 if minute less than 10 for the required mm format
+
+            var formattedDate = day + '-' + month + '-' + year;
+            $(this).html(formattedDate);
+        }
+    })
 
     var booking_to_cancel = -1;
 
@@ -361,6 +446,101 @@ $(document).ready(function() {
     $(".review-text").each(function() {
         ellipsizeTextBox($(this));
     })
+
+     // Open modal for booking
+     $(".book-it__btn").click(function () {
+
+        $(".book-it__modal").toggleClass("modal-open");
+        $("html").css("overflow", "hidden");
+
+    });
+
+    // Select a booking slot
+    $(".booking-slot").click(function () {
+
+        if($(this).hasClass("h-full")) {
+            alert("This slot is already taken!");
+            return;
+        }
+        if($(this).hasClass("day-slot")) {
+            return;
+        }
+
+        $(".h-selected").toggleClass("h-selected");
+        $(this).toggleClass("h-selected");
+
+
+    });
+
+    // Book an appointment
+    $(".book-it__now").click(function () {
+
+        if($(".h-selected").length == 0) {
+            $(".information__modal .modal-content__msg").html("You have not selected any slot.");
+            $(".information__modal").toggleClass("modal-open");
+            return;
+        }
+
+        // Get the required information
+        var csrftoken = getCookie('csrftoken');
+        var donor_id = "{{ user.id }}";
+        var hospital_id = "{{ hospital.pk }}";
+
+        // // Get well formatted date
+        var timestamp = $(".h-selected").data("time");
+        var date = new Date(timestamp*1000-3600000);
+
+        var day = (date.getDate() < 10 ? '0' : '') + date.getDate(); //adding leading 0 if date less than 10 for the required dd format
+        var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1); //adding leading 0 if month less than 10 for mm format. Used less than 9 because javascriptmonths are 0 based.
+        var year = date.getFullYear(); //full year in yyyy format
+
+        var hours = ((date.getHours() % 12 || 12) < 10 ? '0' : '') + (date.getHours() % 12 || 12); //converting 24h to 12h and using 12 instead of 0. also appending 0 if hour less than 10 for the required hh format
+        var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes(); //adding 0 if minute less than 10 for the required mm format
+
+        var formattedDate = year + "-" + month + "-" + day + " " + hours + ':' + minutes;
+
+        // format the data for request
+        var data = {
+            'time': formattedDate,
+            'donor': donor_id,
+            'hospital': hospital_id
+        };
+
+        $.ajax({
+            type: "POST",
+            headers: {'X-CSRFToken' : csrftoken},
+            url: "{% url 'app:book_appointment' %}",
+            data: data,
+            success: function(response) {
+                console.log(response)
+                if (response.success) {
+
+                    $(".information__modal .modal-content__msg").html(response.message);
+                    // Show a modal with information about the signup process
+                    $(".information__modal").toggleClass("modal-open");
+                    // Close the write story modal
+                    $(".write-story__modal").toggleClass("modal-open");
+
+                    } else {
+                    // Error handling
+                    $(".information__modal .modal-content__msg").html(response.message);
+                    $(".information__modal").toggleClass("modal-open");
+
+                    }
+
+                    // disable scrolling when modal is on
+                    $("html").css("overflow", "hidden");
+            
+                }
+        })
+
+
+        // $(".write-review__modal").toggleClass("modal-open");
+        // $("html").css("overflow", "auto");
+
+
+    });
+
 
     // Open modal for review creation
     $(".write-review_btn").click(function () {
@@ -498,6 +678,20 @@ $(document).ready(function() {
     $(".review-modal__close").click(function () {
         
         $(".write-review__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+     // Close open modal
+     $(".book-modal__close").click(function () {
+        
+        $(".book-it__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+    // Close information modal
+    $(".information-modal__close").click(function () {
+        
+        $(".information__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
     
     });

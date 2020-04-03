@@ -156,6 +156,20 @@
     @include align-content(center);
 
 }
+.bookings-wrapper__modal {
+        position: relative;
+        width: 100%;
+        @include display_flexbox();
+        @include flex_direction(column);
+        @include justify_content(flex-start);
+        @include align-items(center);
+        @include align-content(center);
+
+        max-height: 350px;
+        overflow: scroll;
+    
+    
+}
 
 .booking-block {
     position: relative;

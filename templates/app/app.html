@@ -32,7 +32,7 @@
                         Discover hospitals nearby!
                     </a>
                 </div>
-                <div class="dashboard-block h-border-radius h-shadow h-pointer create-booking">
+                <div class="dashboard-block h-border-radius h-shadow h-pointer book-it__btn">
                     <div class="dashboard-block__text">
                         <span class="block-text__title h-900">Book it</span><br />
                         Create an appointment at hospital you fancy!
@@ -447,6 +447,34 @@
     </div>
 </div>
 
+<div class="modal-wrapper book-it__modal" data-name="modal">
+        <div class="modal-container booking-modal_cont">
+            <div class="modal-content__booking">
+                {% if hospitals %}
+                <div class="bookings-wrapper__modal">
+                    {% for hos in hospitals %}
+                        <div class="notification-block">
+
+                            <div class="notification-hospital h-700">{{ hos.name }}</div>
+                            <div class="booking-actions">
+                                <a class="visit-detail h-pointer h-700" href="hospital/{{hos.slug_name}}">Hospital detail</a>
+                            </div>
+
+                        </div>                            
+                    {% endfor %}
+                </div>
+                {% else %}
+                    There are no hospitals in system right now.
+                {% endif %}
+            </div>
+            <div class="modal-buttons__cont">
+                <div class="modal-button h-pointer h-uppercase book-it__close h-link-effect-primary h-700">
+                    Close
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="modal-wrapper information__modal" data-name="modal">
     <div class="modal-container">
         <div class="modal-content__msg h-700"></div>
@@ -547,24 +575,35 @@ $(document).ready(function() {
     // Cancel the given booking
     $(".cancel-booking__btn").click(function () {
 
-        // TODO Cancel booking
 
         if(booking_to_cancel != -1) {
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "cancel_booking?id="+booking_to_cancel,
                 dataType: "json",
                 async: false,
                 success: function(response) {
-                    console.log(response)
+
+                    if (response.success) {
+
+                        $(".cancel-booking__modal").toggleClass("modal-open");
+                        $("html").css("overflow", "auto");
+
+                    } else {
+                        // Error handling
+                        $(".cancel-booking__modal").toggleClass("modal-open");
+                        $(".information__modal .modal-content__msg").html(response.message);
+                        $(".information__modal").toggleClass("modal-open");
+                        // disable scrolling when modal is on
+                        $("html").css("overflow", "hidden");
+                    }
                 }
             })
         }
         
 
-        $(".cancel-booking__modal").toggleClass("modal-open");
-        $("html").css("overflow", "auto");
+        
 
     
     });
@@ -641,6 +680,7 @@ $(document).ready(function() {
                 } else {
                     // Error handling
                     $(".information__modal .modal-content__msg").html(response.message);
+                    $(".information__modal").toggleClass("modal-open");
 
                 }
                 
@@ -692,6 +732,14 @@ $(document).ready(function() {
         })
     }
 
+    // Open modal for booking
+    $(".book-it__btn").click(function () {
+
+        $(".book-it__modal").toggleClass("modal-open");
+        $("html").css("overflow", "hidden");
+
+    });
+
      // Close cancel modal
     $(".cancel-modal__close").click(function () {
         
@@ -710,6 +758,13 @@ $(document).ready(function() {
      $(".notify-donors__close").click(function () {
         
         $(".notify-donors__modal").toggleClass("modal-open");
+        $("html").css("overflow", "auto");
+    
+    });
+    // Close booking modal 
+    $(".book-it__close").click(function () {
+        
+        $(".book-it__modal").toggleClass("modal-open");
         $("html").css("overflow", "auto");
     
     });

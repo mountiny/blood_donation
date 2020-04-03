@@ -585,6 +585,10 @@ footer {
     @include justify_content(center);
     @include align-items(center);
     @include align-content(center);
+
+    &.booking-modal_cont {
+        width: 700px;
+    }
 }
 .write-review__modal .modal-container {
     width: 500px;
@@ -597,6 +601,15 @@ footer {
     width: 100%;
     position: relative;
 }
+.modal-content__booking {
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.1rem;
+    margin-bottom: 50px;
+    width: 100%;
+    position: relative;
+}
+
 .modal-buttons__cont {
     width: 100%;
     position: relative;
@@ -614,6 +627,55 @@ footer {
     &.btn-hidden {
         display: none;
     }
+}
+.modal-booking__msg {
+    text-align: center;
+    font-size: $h4;
+    line-height: $h4*1.1;
+    margin-bottom: 30px;
+    width: 100%;
+    position: relative;
+}
+.booking-grid {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 0px 0px;
+}
+.booking-calendar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 0px 0px;
+}
+.booking-slot {
+    border: 2px solid $red-light;
+    position: relative;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    // align-self: center;
+    &.h-free {
+        background-color: $red-light;
+        @include prefix(transition,(background-color 0.3s $curve));
+        &:hover {
+            background-color: $primary;
+        }
+    }
+    &.h-full {
+        background-color: $primary;
+        color: white;
+    }
+    &.h-selected {
+        background-color: black;
+        color: white;
+    }
+    &.day-slot {
+        font-size: 14px;
+    }
+  
 }
 
 
@@ -770,6 +832,36 @@ footer {
         width: 100%;
         padding-bottom: 20px;
     }
+
+    .booking-slot {
+        border: 2px solid $red-light;
+        position: relative;
+        text-align: center;
+        color: black;
+        font-size: 12px;
+        padding: 10px;
+        // align-self: center;
+        &.h-free {
+            background-color: $red-light;
+            @include prefix(transition,(background-color 0.3s $curve));
+            &:hover {
+                background-color: $primary;
+            }
+        }
+        &.h-full {
+            background-color: $primary;
+            color: white;
+        }
+        &.h-selected {
+            background-color: black;
+            color: white;
+        }
+        &.day-slot {
+            font-size: 14px;
+        }
+      
+    }
+
 }
 @media only screen and (max-width: 600px) {
 
@@ -777,9 +869,9 @@ footer {
 
 
         .menu-item {
-
             font-size: 1em;
             padding: 0px 10px;
+            font-size: 14px;
         }
 
     }

@@ -85,7 +85,7 @@
                     Height (in cms):
                 </div>
                 <div class="data-value">
-                    <input type="number" value="{{ donor.height }}" name="height" id="height_field" required>
+                    <input type="number" value="{{ donor.height }}" min="70" max="250" name="height" id="height_field" required>
                 </div>
             </div>
             <div class="donor-data">
@@ -93,7 +93,7 @@
                     Weight (in kgs):
                 </div>
                 <div class="data-value">
-                    <input type="number" value="{{ donor.weight }}" name="weight" id="weight_field" required>
+                    <input type="number" value="{{ donor.weight }}" min="50" max="158" name="weight" id="weight_field" required>
                 </div>
             </div>
             <div class="donor-data">

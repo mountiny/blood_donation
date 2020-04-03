@@ -169,6 +169,10 @@ def app(request):
         donor = Donor.objects.get(pk=request.user.id)
         context_dict["donor"] = donor
 
+        # Get all hospitals
+        hospitals = Hospital.objects.all()
+        context_dict["hospitals"] = hospitals
+
         # Get the hospitals which need the donor's blood type
         if donor.notification:
             context_dict["notifications"] = Hospital.objects.filter(notified_types=donor.blood_type)
@@ -178,12 +182,12 @@ def app(request):
         context_dict["stories"] = stories
 
         # Get all reviews of by the donor
-        reviews = Review.objects.filter(donor=donor)
+        reviews = Review.objects.order_by('pk').filter(donor=donor)
         if len(reviews) > 0:
             context_dict["reviews"] = reviews
 
         # Get bookings of this donor
-        bookings = Booking.objects.filter(donor=donor)
+        bookings = Booking.objects.order_by('appointment').filter(donor=donor)
         if len(bookings) > 0:
             context_dict["bookings"] = bookings
 
@@ -192,11 +196,11 @@ def app(request):
         hospital = Hospital.objects.get(pk=request.user.id)
         context_dict["hospital"] = hospital
         # Get bookings at this hospital
-        bookings = Booking.objects.filter(hospital=hospital)
+        bookings = Booking.objects.order_by('appointment').filter(hospital=hospital)
         if len(bookings) > 0:
             context_dict["bookings"] = bookings
         # Get stories written by this hospital
-        stories = Story.objects.filter(hospital=hospital)
+        stories = Story.objects.order_by('pk').filter(hospital=hospital)
         if len(stories) > 0:
             context_dict["stories"] = stories
         # Get all reviews about this hospital
@@ -383,6 +387,11 @@ def hospital(request, hospital_slug):
         if len(reviews) > 0:
             context_dict["reviews"] = reviews
 
+        booking_slots = Booking.get_slot(hospital.hospital_id)
+
+        if len(booking_slots) > 0:
+            context_dict["booking_slots"] = booking_slots
+
         return render(request, 'app/hospital.html', context=context_dict)
 
     except Hospital.DoesNotExist:
@@ -517,7 +526,6 @@ def get_new_reviews(request):
         return redirect("app:app")
 
 def notify_donors(request):
-    context_dict = {}
     if request.method == 'POST' and request.user.is_hospital:
         # Check if GET parameter has been used in the url to show hospital sign up form directly
         blood_type = request.POST['type']
@@ -528,5 +536,23 @@ def notify_donors(request):
             return JsonResponse({'success': True, 'message': "The donors have been successfully notified!"})
         except:
             return JsonResponse({'success': False, 'message': "A hospital with given id does not exist!"})
+    else:
+        return redirect("app:app")
+
+def book_appointment(request):
+    if request.method == 'POST' and request.user.is_donor:
+        
+        appointment = request.POST['time']
+        donor_id = request.POST['donor']
+        hospital_id = request.POST['hospital']
+        data = {'hospital': Hospital.objects.get(pk=hospital_id),
+                'donor': Donor.objects.get(pk=donor_id),
+                'appointment': request.POST.get("time")}
+        try:
+            booking = Booking()
+            booking.new_appointment(data)
+            return JsonResponse({'success': True, 'message': "The appointment has been created successfully"})
+        except:
+            return JsonResponse({'success': False, 'message': "You might have booking at this time at different hospital. Please, try different slot."})
     else:
         return redirect("app:app")
