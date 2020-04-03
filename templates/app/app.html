@@ -681,6 +681,12 @@ $(document).ready(function() {
     // Publish the story
     $(".write-story__btn").click(function () {
 
+        if($(this).hasClass("h-submitted")) {
+            return;
+        }
+
+        $(this).toggleClass("h-submitted")
+
         // Get the data from form
         var story_heading = $("#heading_field").val();
         var story_text = $("#story_field").val();
@@ -718,8 +724,7 @@ $(document).ready(function() {
             formData.append("story", story_text);
 
         }
-
-        $.ajax({
+        $.when($.ajax({
             type: "POST",
             headers: {'X-CSRFToken' : csrftoken},
             url: "{% url 'app:write_story' %}",
@@ -744,13 +749,22 @@ $(document).ready(function() {
                     $(".information__modal .modal-content__msg").html(response.message);
                     $(".information__modal").toggleClass("modal-open");
 
+
                 }
+
+                
                 
                 // disable scrolling when modal is on
                 $("html").css("overflow", "hidden");
 
             }
-        });
+        }).done(function(){
+
+            if($(".write-story__btn").hasClass("h-submitted")) {
+                $(".write-story__btn").removeClass("h-submitted");
+            }
+
+        }));
 
 
     });
