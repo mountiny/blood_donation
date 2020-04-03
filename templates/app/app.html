@@ -619,6 +619,7 @@ $(document).ready(function() {
     $(".booking-delete").click(function () {
 
         booking_to_cancel =  $(this).data("id");
+        $(this).toggleClass("h-indicator")
 
         $(".cancel-booking__modal").toggleClass("modal-open");
         $("html").css("overflow", "hidden");
@@ -642,8 +643,11 @@ $(document).ready(function() {
 
                     if (response.success) {
 
+                        $(".h-indicator").closest(".booking-block").toggleClass("h-display-none");
+
                         $(".cancel-booking__modal").toggleClass("modal-open");
                         $("html").css("overflow", "auto");
+                        $(".h-indicator").toggleClass("h-indicator");
 
                     } else {
                         // Error handling
@@ -652,6 +656,7 @@ $(document).ready(function() {
                         $(".information__modal").toggleClass("modal-open");
                         // disable scrolling when modal is on
                         $("html").css("overflow", "hidden");
+                        $(".h-indicator").toggleClass("h-indicator");
                     }
                 }
             })
