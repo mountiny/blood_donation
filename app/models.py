@@ -19,8 +19,6 @@ class Donor(models.Model):
     # username, pword, first+last name, email
     donor = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
-    # donor_id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
-
     nickname = models.CharField(max_length=40, unique=True)
     phone = models.CharField(max_length=10)
     address = models.CharField(max_length=100)
@@ -110,13 +108,10 @@ class Hospital(models.Model):
     # email, pword
     hospital = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
-    # hospital_id = models.IntegerField(auto_created=True, unique=True, null=False, primary_key=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=300)
     notified_types = models.CharField(max_length=100, default="NO")
     slug_name = models.SlugField(unique=True)
-
-    # stories = models.ManyToOneRel(Hospital, )
 
     def save(self, *args, **kwargs):
         self.slug_name = slugify(self.name)
@@ -249,12 +244,10 @@ class Booking(models.Model):
         slots = dict()
         for d in range(5):
             date = (from_date + datetime.timedelta(days=d)).date()
-            # slots[(from_date + datetime.timedelta(days=d)).date()] = {}
             for t in range(0, 6):
                 time = datetime.time(9 + (t // 2), half_hour(t))
                 timestamp = Timestamp.combine(date, time).timestamp()
                 slots[timestamp]=True
-                # slots[(from_date + datetime.timedelta(days=d)).date()][datetime.time(9 + (t // 2), half_hour(t))] = True
 
         # booked slots for given hospital for the next 5 days
         booked_slots = Booking.objects.filter(hospital_id=hosp_id, appointment__range=[from_date, to_date])
@@ -267,7 +260,6 @@ class Booking(models.Model):
 
 
 class Review(models.Model):
-    # review_id = models.IntegerField(unique=True, primary_key=True)
 
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
